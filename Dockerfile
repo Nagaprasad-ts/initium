@@ -32,7 +32,7 @@ RUN npm run build
 RUN chmod -R 775 storage bootstrap/cache
 
 # Optimize Laravel
-RUN php artisan migrate:fresh --seed --force && \
+RUN php artisan migrate:fresh --force && \
     php artisan config:clear && \
     php artisan route:clear && \
     php artisan view:clear
