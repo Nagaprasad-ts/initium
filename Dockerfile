@@ -12,19 +12,26 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-# Copy app files
+# Copy everything
 COPY . .
 
-# Install PHP dependencies
+# Create SQLite database file
+RUN mkdir -p database \
+    && touch database/database.sqlite
+
+# Install PHP dependencies (no dev)
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Install Node dependencies
 RUN npm install
 
-# Build Vite (NOW php exists, so wayfinder works)
+# Build Vite assets
 RUN npm run build
 
-# Laravel optimizations
+# Set correct permissions
+RUN chmod -R 775 storage bootstrap/cache
+
+# Optimize Laravel
 RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
