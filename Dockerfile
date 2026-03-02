@@ -1,26 +1,10 @@
-# -------------------------
-# Stage 1 — Build frontend
-# -------------------------
-FROM node:20 AS node_builder
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-RUN npm run build
-
-
-# -------------------------
-# Stage 2 — Build backend
-# -------------------------
 FROM php:8.4-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git unzip curl libzip-dev zip \
     libicu-dev \
+    nodejs npm \
     && docker-php-ext-install intl zip pdo pdo_mysql
 
 # Install Composer
@@ -28,14 +12,17 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-# Copy application
+# Copy app files
 COPY . .
-
-# Copy built frontend from node stage
-COPY --from=node_builder /app/public/build ./public/build
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Install Node dependencies
+RUN npm install
+
+# Build Vite (NOW php exists, so wayfinder works)
+RUN npm run build
 
 # Laravel optimizations
 RUN php artisan config:cache && \
