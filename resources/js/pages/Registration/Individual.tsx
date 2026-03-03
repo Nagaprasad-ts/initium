@@ -1,7 +1,7 @@
-import Layout from '@/components/Layout';
 import { Head, useForm, Link, router } from '@inertiajs/react';
-import React, { useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect } from 'react';
+import Layout from '@/components/Layout';
 
 declare global {
     interface Window {
@@ -22,7 +22,7 @@ interface IndividualProps {
 }
 
 export default function Individual({ event }: IndividualProps) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, setError } = useForm({
         event_id: event.id,
         registration_type: 'individual',
         name: '',

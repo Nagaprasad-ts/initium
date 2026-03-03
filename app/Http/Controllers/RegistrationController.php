@@ -69,13 +69,16 @@ class RegistrationController extends Controller
             'registration_type' => ['required', 'in:individual,group'],
             'college_name' => ['required', 'string', 'max:255'],
             'contact_email' => ['required', 'email', 'max:255'],
-            'contact_phone' => ['required', 'string', 'max:20'],
+            'contact_phone' => ['required', 'digits:10'],
             'team_name' => ['nullable', 'required_if:registration_type,group', 'string', 'max:255'],
             // Individual fields
             'name' => ['nullable', 'required_if:registration_type,individual', 'string', 'max:255'],
             'student_id' => ['nullable', 'required_if:registration_type,individual', 'string', 'max:255'],
             // Group fields
             'participants' => ['nullable', 'required_if:registration_type,group', 'array'],
+        ], [
+            'contact_phone.required' => 'Phone number is required.',
+            'contact_phone.digits' => 'Phone number must be exactly 10 digits.',
         ]);
 
         $event = Event::findOrFail($validated['event_id']);
@@ -88,7 +91,7 @@ class RegistrationController extends Controller
                 'participants' => ['required', 'array', "min:$min", "max:$max"],
                 'participants.*.name' => ['required', 'string', 'max:255'],
                 'participants.*.email' => ['required', 'email', 'max:255'],
-                'participants.*.phone' => ['required', 'string', 'max:20'],
+                'contact_phone' => ['required', 'digits:10'],
                 'participants.*.student_id' => ['required', 'string', 'max:255'],
             ]);
             

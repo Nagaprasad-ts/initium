@@ -89,6 +89,7 @@ export default function Group({ event }: GroupProps) {
 
             if (response.data.mock_payment) {
                 if (response.data.debug_error) {
+                    console.log(response.data.debug_error, response.data.mock_payment);
                     alert(
                         `Razorpay Error: ${response.data.debug_error}\n\nFalling back to mock payment for development.`,
                     );
@@ -129,6 +130,7 @@ export default function Group({ event }: GroupProps) {
             if (error.response && error.response.status === 422) {
                 if (error.response.data.errors) {
                     setError(error.response.data.errors);
+                    // console.log(error.response.data.errors, error.response.status);
                 }
                 alert('Please check the form for errors.');
             } else if (error.response && error.response.data.error) {
@@ -209,7 +211,7 @@ export default function Group({ event }: GroupProps) {
                                     <input
                                         type="text"
                                         className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="Awesome Coders"
+                                        placeholder="Enter your team name"
                                         value={data.team_name}
                                         onChange={(e) =>
                                             setData('team_name', e.target.value)
@@ -252,7 +254,7 @@ export default function Group({ event }: GroupProps) {
                                     <input
                                         type="email"
                                         className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="leader@example.com"
+                                        placeholder="Enter your email"
                                         value={data.contact_email}
                                         onChange={(e) =>
                                             setData(
@@ -274,8 +276,11 @@ export default function Group({ event }: GroupProps) {
                                     </label>
                                     <input
                                         type="tel"
+                                        inputMode="numeric"
+                                        pattern="[0-9]{10}"
+                                        maxLength={10}
                                         className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="+91 98765 43210"
+                                        placeholder="Enter your phone number"
                                         value={data.contact_phone}
                                         onChange={(e) =>
                                             setData(
@@ -432,6 +437,9 @@ export default function Group({ event }: GroupProps) {
                                                         </label>
                                                         <input
                                                             type="tel"
+                                                            inputMode="numeric"
+                                                            pattern="[0-9]{10}"
+                                                            maxLength={10}
                                                             className="w-full rounded-xl bg-white px-4 py-3 text-sm font-medium border-2 border-gray-300 transition-all focus:ring-4 focus:ring-purple-500/10"
                                                             value={
                                                                 participant.phone
