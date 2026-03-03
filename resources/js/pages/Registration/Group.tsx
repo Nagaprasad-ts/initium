@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Head, useForm, Link, router } from '@inertiajs/react';
 import axios from 'axios';
 import { Trash2 } from 'lucide-react';
