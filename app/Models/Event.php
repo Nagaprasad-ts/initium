@@ -85,6 +85,7 @@ class Event extends Model
     {
         return [
             'price' => 'decimal:2',
+            'first_price' => 'decimal:2',
             'event_start_date' => 'date',
             'event_end_date' => 'date',
             'start_time' => 'datetime:H:i',

@@ -16,8 +16,39 @@ class EventController extends Controller
      */
     public function home(): Response
     {
-        return Inertia::render('Home');
+        $events = Event::query()
+            ->where('is_active', true)
+            ->with('category')
+            ->latest()
+            ->get();
+
+        $categories = Category::all();
+
+        return Inertia::render('Home', [
+            'events' => $events,
+            'categories' => $categories,
+        ]);
     }
+
+    /**
+     * Display the brochure page.
+     */
+    public function brochure(): Response
+    {
+        $events = Event::query()
+            ->where('is_active', true)
+            ->with('category')
+            ->latest()
+            ->get();
+
+        $categories = Category::all();
+
+        return Inertia::render('Brochure', [
+            'events' => $events,
+            'categories' => $categories,
+        ]);
+    }
+
 
     /**
      * Display a listing of the events.

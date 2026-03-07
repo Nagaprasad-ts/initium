@@ -24,6 +24,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->decimal('price', 10, 2);
+            $table->decimal('first_price', 10, 2);
             $table->integer('min')->nullable();
             $table->integer('max')->nullable();
             $table->integer('max_participants')->nullable();

@@ -38,6 +38,7 @@ export default function Group({ event }: GroupProps) {
         })),
     });
 
+    // ── Razorpay SDK load (unchanged) ─────────────────────────
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://checkout.razorpay.com/v1/checkout.js';
@@ -54,6 +55,7 @@ export default function Group({ event }: GroupProps) {
         };
     }, []);
 
+    // ── Participant helpers (unchanged) ───────────────────────
     const addParticipant = () => {
         if (maxParticipants && data.participants.length >= maxParticipants) {
             alert(`Maximum ${maxParticipants} participants allowed.`);
@@ -82,6 +84,7 @@ export default function Group({ event }: GroupProps) {
         setData('participants', newParticipants);
     };
 
+    // ── Submit handler (unchanged) ────────────────────────────
     const submit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -153,47 +156,43 @@ export default function Group({ event }: GroupProps) {
 
     return (
         <Layout>
-            <Head
-                title={`Group Registration for ${event.name} | Initium 2026`}
-            />
+            <Head title={`Group Registration for ${event.name} | Initium 2026`} />
 
-            <section className="min-h-screen bg-gray-50 py-12">
-                <div className="mx-auto max-w-4xl px-4 sm:px-6">
-                    <div className="mb-8">
-                        <Link
-                            href={`/events/${event.slug}`}
-                            className="inline-flex items-center gap-2 text-sm font-bold tracking-widest text-gray-500 uppercase transition-colors hover:text-purple-600"
-                        >
-                            <svg
-                                className="h-4 w-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2.5"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                                ></path>
-                            </svg>
-                            Back to Event
-                        </Link>
-                    </div>
+            <section className="min-h-screen px-5 py-14">
+                <div className="mx-auto max-w-3xl">
 
+                    {/* ── Back link ─────────────────────────── */}
+                    <Link
+                        href={`/events/${event.slug}`}
+                        className="font-orbitron mb-8 inline-flex items-center gap-2 text-[9px] uppercase tracking-widest text-white/35 transition-colors hover:text-white/70"
+                    >
+                        <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Event
+                    </Link>
+
+                    {/* ── Header ───────────────────────────── */}
                     <div className="mb-10 text-center">
-                        <div className="mb-4 inline-block rounded-lg bg-purple-100 px-4 py-2 text-xs font-black tracking-widest text-purple-700 uppercase">
+                        <span
+                            className="font-orbitron mb-4 inline-block rounded px-4 py-2 text-[9px] uppercase tracking-widest"
+                            style={{ background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.3)', color: '#7C3AED' }}
+                        >
                             Group Registration
-                        </div>
-                        <h1 className="mb-2 text-4xl font-black text-gray-900">
+                        </span>
+                        <h1
+                            className="font-bebas mt-3 leading-none tracking-widest text-white"
+                            style={{ fontSize: 'clamp(32px,7vw,56px)' }}
+                        >
                             {event.name}
                         </h1>
                         {event.type === 'both' && (
-                            <p className="mt-4 text-sm font-medium text-gray-500">
+                            <p className="mt-3 text-sm text-white/40">
                                 Need to register individually?{' '}
                                 <Link
                                     href={`/registration/individual/${event.slug}`}
-                                    className="font-bold text-purple-600 hover:underline"
+                                    className="font-bold transition-colors hover:text-white/70"
+                                    style={{ color: '#FF0080' }}
                                 >
                                     Switch to Individual Registration
                                 </Link>
@@ -201,315 +200,273 @@ export default function Group({ event }: GroupProps) {
                         )}
                     </div>
 
-                    <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-xl shadow-purple-600/5 md:p-12">
-                        <form onSubmit={submit} className="space-y-12">
-                            {/* Team Basic Info */}
-                            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                                <div className="space-y-2">
-                                    <label className="text-sm font-black tracking-widest text-gray-900 uppercase">
-                                        Team Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="Enter your team name"
-                                        value={data.team_name}
-                                        onChange={(e) =>
-                                            setData('team_name', e.target.value)
-                                        }
-                                        required
-                                    />
-                                    {errors.team_name && (
-                                        <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                            {errors.team_name}
-                                        </p>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-black tracking-widest text-gray-900 uppercase">
-                                        College Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="Your College Name"
-                                        value={data.college_name}
-                                        onChange={(e) =>
-                                            setData(
-                                                'college_name',
-                                                e.target.value,
-                                            )
-                                        }
-                                        required
-                                    />
-                                    {errors.college_name && (
-                                        <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                            {errors.college_name}
-                                        </p>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-black tracking-widest text-gray-900 uppercase">
-                                        Contact Email
-                                    </label>
-                                    <input
-                                        type="email"
-                                        className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="Enter your email"
-                                        value={data.contact_email}
-                                        onChange={(e) =>
-                                            setData(
-                                                'contact_email',
-                                                e.target.value,
-                                            )
-                                        }
-                                        required
-                                    />
-                                    {errors.contact_email && (
-                                        <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                            {errors.contact_email}
-                                        </p>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-black tracking-widest text-gray-900 uppercase">
-                                        Contact Phone
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        inputMode="numeric"
-                                        pattern="[0-9]{10}"
-                                        title="Phone number must be exactly 10 digits"
-                                        className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
-                                        placeholder="Enter your phone number"
-                                        value={data.contact_phone}
-                                        onChange={(e) =>
-                                            setData(
-                                                'contact_phone',
-                                                e.target.value,
-                                            )
-                                        }
-                                        required
-                                    />
-                                    {errors.contact_phone && (
-                                        <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                            {errors.contact_phone}
-                                        </p>
-                                    )}
+                    {/* ── Form card ────────────────────────── */}
+                    <div
+                        className="neon-card rounded-2xl p-8 md:p-10"
+                        style={{ borderColor: 'rgba(124,58,237,0.25)' }}
+                    >
+                        {/* Top accent line */}
+                        <div
+                            className="mb-8 h-px w-full"
+                            style={{ background: 'linear-gradient(to right, #7C3AED, transparent)' }}
+                        />
+
+                        <form onSubmit={submit} className="space-y-10">
+
+                            {/* ── Team Basic Info ───────────── */}
+                            <div>
+                                <p className="font-orbitron mb-5 text-[9px] uppercase tracking-[4px]" style={{ color: '#7C3AED' }}>
+                                    Team Details
+                                </p>
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+                                    {/* Team Name */}
+                                    <div className="space-y-2">
+                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                            Team Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="neon-input"
+                                            placeholder="Enter your team name"
+                                            value={data.team_name}
+                                            onChange={(e) => setData('team_name', e.target.value)}
+                                            required
+                                        />
+                                        {errors.team_name && (
+                                            <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                {errors.team_name}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* College Name */}
+                                    <div className="space-y-2">
+                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                            College Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="neon-input"
+                                            placeholder="Your College Name"
+                                            value={data.college_name}
+                                            onChange={(e) => setData('college_name', e.target.value)}
+                                            required
+                                        />
+                                        {errors.college_name && (
+                                            <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                {errors.college_name}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Contact Email */}
+                                    <div className="space-y-2">
+                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                            Contact Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            className="neon-input"
+                                            placeholder="Enter your email"
+                                            value={data.contact_email}
+                                            onChange={(e) => setData('contact_email', e.target.value)}
+                                            required
+                                        />
+                                        {errors.contact_email && (
+                                            <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                {errors.contact_email}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Contact Phone */}
+                                    <div className="space-y-2">
+                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                            Contact Phone
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            inputMode="numeric"
+                                            pattern="[0-9]{10}"
+                                            title="Phone number must be exactly 10 digits"
+                                            className="neon-input"
+                                            placeholder="Enter your phone number"
+                                            value={data.contact_phone}
+                                            onChange={(e) => setData('contact_phone', e.target.value)}
+                                            required
+                                        />
+                                        {errors.contact_phone && (
+                                            <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                {errors.contact_phone}
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Participant List */}
-                            <div className="space-y-6">
-                                <div className="flex items-center justify-between">
-                                    <h2 className="text-2xl font-black text-gray-900">
-                                        Team Participants
-                                    </h2>
+                            {/* ── Participant List ──────────── */}
+                            <div className="border-t pt-8" style={{ borderColor: 'rgba(124,58,237,0.15)' }}>
+                                <div className="mb-6 flex items-center justify-between">
+                                    <p className="font-orbitron text-[9px] uppercase tracking-[4px]" style={{ color: '#7C3AED' }}>
+                                        Team Members ({data.participants.length}/{maxParticipants || '∞'})
+                                    </p>
                                     <button
                                         type="button"
                                         onClick={addParticipant}
-                                        disabled={
-                                            !!(
-                                                event.max &&
-                                                data.participants.length >=
-                                                    event.max
-                                            )
-                                        }
-                                        className="rounded-lg bg-purple-100 px-4 py-2 text-sm font-bold text-purple-700 transition-colors hover:bg-purple-200 disabled:cursor-not-allowed disabled:opacity-50"
+                                        disabled={!!(event.max && data.participants.length >= event.max)}
+                                        className="btn-neon btn-neon-purple disabled:cursor-not-allowed disabled:opacity-40"
+                                        style={{ padding: '6px 14px', fontSize: 10 }}
                                     >
-                                        + Add Member
+                                        + ADD MEMBER
                                     </button>
                                 </div>
 
-                                <div className="space-y-4">
-                                    {data.participants.map(
-                                        (participant, index) => (
-                                            <div
-                                                key={index}
-                                                className="group/p relative rounded-2xl border border-gray-100 bg-gray-50 p-6"
+                                <div className="space-y-5">
+                                    {data.participants.map((participant, index) => (
+                                        <div
+                                            key={index}
+                                            className="relative rounded-xl p-5"
+                                            style={{
+                                                background: 'rgba(124,58,237,0.05)',
+                                                border: '1px solid rgba(124,58,237,0.15)',
+                                            }}
+                                        >
+                                            <p
+                                                className="font-orbitron mb-4 text-[9px] uppercase tracking-widest"
+                                                style={{ color: '#7C3AED' }}
                                             >
-                                                <p className='font-bold text-gray-800 text-md pb-3'>Member {index + 1}</p>
-                                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                                                    <div className="space-y-2">
-                                                        <label className="text-xs font-black tracking-widest text-gray-500 uppercase">
-                                                            Name
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="w-full rounded-xl bg-white px-4 py-3 text-sm font-medium border-2 border-gray-300 transition-all focus:ring-4 focus:ring-purple-500/10"
-                                                            value={
-                                                                participant.name
-                                                            }
-                                                            onChange={(e) =>
-                                                                updateParticipant(
-                                                                    index,
-                                                                    'name',
-                                                                    e.target
-                                                                        .value,
-                                                                )
-                                                            }
-                                                            required
-                                                        />
-                                                        {(errors as any)[
-                                                            `participants.${index}.name`
-                                                        ] && (
-                                                            <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                                                {
-                                                                    (
-                                                                        errors as any
-                                                                    )[
-                                                                        `participants.${index}.name`
-                                                                    ]
-                                                                }
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-xs font-black tracking-widest text-gray-500 uppercase">
-                                                            ID/USN
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="w-full rounded-xl bg-white px-4 py-3 text-sm font-medium border-2 border-gray-300 transition-all focus:ring-4 focus:ring-purple-500/10"
-                                                            value={
-                                                                participant.student_id
-                                                            }
-                                                            onChange={(e) =>
-                                                                updateParticipant(
-                                                                    index,
-                                                                    'student_id',
-                                                                    e.target
-                                                                        .value,
-                                                                )
-                                                            }
-                                                            required
-                                                        />
-                                                        {(errors as any)[
-                                                            `participants.${index}.student_id`
-                                                        ] && (
-                                                            <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                                                {
-                                                                    (
-                                                                        errors as any
-                                                                    )[
-                                                                        `participants.${index}.student_id`
-                                                                    ]
-                                                                }
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-xs font-black tracking-widest text-gray-500 uppercase">
-                                                            Email
-                                                        </label>
-                                                        <input
-                                                            type="email"
-                                                            className="w-full rounded-xl bg-white px-4 py-3 text-sm font-medium border-2 border-gray-300 transition-all focus:ring-4 focus:ring-purple-500/10"
-                                                            value={
-                                                                participant.email
-                                                            }
-                                                            onChange={(e) =>
-                                                                updateParticipant(
-                                                                    index,
-                                                                    'email',
-                                                                    e.target
-                                                                        .value,
-                                                                )
-                                                            }
-                                                            required
-                                                        />
-                                                        {(errors as any)[
-                                                            `participants.${index}.email`
-                                                        ] && (
-                                                            <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                                                {
-                                                                    (
-                                                                        errors as any
-                                                                    )[
-                                                                        `participants.${index}.email`
-                                                                    ]
-                                                                }
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-xs font-black tracking-widest text-gray-500 uppercase">
-                                                            Phone
-                                                        </label>
-                                                        <input
-                                                            type="tel"
-                                                            inputMode="numeric"
-                                                            pattern="[0-9]{10}"
-                                                            title="Phone number must be exactly 10 digits"
-                                                            className="w-full rounded-xl bg-white px-4 py-3 text-sm font-medium border-2 border-gray-300 transition-all focus:ring-4 focus:ring-purple-500/10"
-                                                            value={
-                                                                participant.phone
-                                                            }
-                                                            onChange={(e) =>
-                                                                updateParticipant(
-                                                                    index,
-                                                                    'phone',
-                                                                    e.target
-                                                                        .value,
-                                                                )
-                                                            }
-                                                            required
-                                                        />
-                                                        {(errors as any)[
-                                                            `participants.${index}.phone`
-                                                        ] && (
-                                                            <p className="mt-1 text-xs font-bold tracking-wider text-red-500 uppercase">
-                                                                {
-                                                                    (
-                                                                        errors as any
-                                                                    )[
-                                                                        `participants.${index}.phone`
-                                                                    ]
-                                                                }
-                                                            </p>
-                                                        )}
-                                                    </div>
+                                                Member {index + 1}
+                                            </p>
+
+                                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                                                {/* Name */}
+                                                <div className="space-y-2">
+                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">Name</label>
+                                                    <input
+                                                        type="text"
+                                                        className="neon-input"
+                                                        placeholder="Full Name"
+                                                        value={participant.name}
+                                                        onChange={(e) => updateParticipant(index, 'name', e.target.value)}
+                                                        required
+                                                    />
+                                                    {(errors as any)[`participants.${index}.name`] && (
+                                                        <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                            {(errors as any)[`participants.${index}.name`]}
+                                                        </p>
+                                                    )}
                                                 </div>
-                                                {data.participants.length >
-                                                    event.min && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() =>
-                                                            removeParticipant(
-                                                                index,
-                                                            )
-                                                        }
-                                                        className="absolute -top-2 -right-2 flex items-center justify-center rounded-full border-2 border-gray-200 bg-white p-3 text-red-500 shadow-lg transition-all duration-300 hover:cursor-pointer hover:bg-red-500 hover:text-white"
-                                                    >
-                                                        <Trash2 />
-                                                    </button>
-                                                )}
+
+                                                {/* ID/USN */}
+                                                <div className="space-y-2">
+                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">ID / USN</label>
+                                                    <input
+                                                        type="text"
+                                                        className="neon-input"
+                                                        placeholder="1BM22CS001"
+                                                        value={participant.student_id}
+                                                        onChange={(e) => updateParticipant(index, 'student_id', e.target.value)}
+                                                        required
+                                                    />
+                                                    {(errors as any)[`participants.${index}.student_id`] && (
+                                                        <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                            {(errors as any)[`participants.${index}.student_id`]}
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                {/* Email */}
+                                                <div className="space-y-2">
+                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">Email</label>
+                                                    <input
+                                                        type="email"
+                                                        className="neon-input"
+                                                        placeholder="member@example.com"
+                                                        value={participant.email}
+                                                        onChange={(e) => updateParticipant(index, 'email', e.target.value)}
+                                                        required
+                                                    />
+                                                    {(errors as any)[`participants.${index}.email`] && (
+                                                        <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                            {(errors as any)[`participants.${index}.email`]}
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                {/* Phone */}
+                                                <div className="space-y-2">
+                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">Phone</label>
+                                                    <input
+                                                        type="tel"
+                                                        inputMode="numeric"
+                                                        pattern="[0-9]{10}"
+                                                        title="Phone number must be exactly 10 digits"
+                                                        className="neon-input"
+                                                        placeholder="9876543210"
+                                                        value={participant.phone}
+                                                        onChange={(e) => updateParticipant(index, 'phone', e.target.value)}
+                                                        required
+                                                    />
+                                                    {(errors as any)[`participants.${index}.phone`] && (
+                                                        <p className="font-orbitron text-[9px] uppercase tracking-wider" style={{ color: '#ff6b6b' }}>
+                                                            {(errors as any)[`participants.${index}.phone`]}
+                                                        </p>
+                                                    )}
+                                                </div>
                                             </div>
-                                        ),
-                                    )}
+
+                                            {/* Remove button */}
+                                            {data.participants.length > event.min && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeParticipant(index)}
+                                                    className="absolute -right-2.5 -top-2.5 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 hover:cursor-pointer"
+                                                    style={{
+                                                        background: '#0B0B0F',
+                                                        borderColor: 'rgba(255,0,0,0.3)',
+                                                        color: '#ff6b6b',
+                                                    }}
+                                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,0,0,0.15)'; (e.currentTarget as HTMLElement).style.color = '#fff'; }}
+                                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#0B0B0F'; (e.currentTarget as HTMLElement).style.color = '#ff6b6b'; }}
+                                                >
+                                                    <Trash2 size={13} />
+                                                </button>
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
-                            <div className="flex flex-col items-center justify-between gap-8 border-t border-gray-100 pt-8 md:flex-row">
+                            {/* ── Pay row ──────────────────────── */}
+                            <div
+                                className="flex flex-col items-center justify-between gap-6 border-t pt-8 md:flex-row"
+                                style={{ borderColor: 'rgba(124,58,237,0.15)' }}
+                            >
                                 <div>
-                                    <p className="mb-1 text-sm font-black tracking-widest text-gray-400 uppercase">
+                                    <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/35">
                                         Payable Amount
                                     </p>
-                                    <div className="text-3xl font-black text-gray-900">
-                                        ₹
-                                        {parseFloat(
-                                            event.price,
-                                        ).toLocaleString()}
+                                    <div
+                                        className="font-bebas text-4xl"
+                                        style={{ color: '#7C3AED', textShadow: '0 0 15px #7C3AED' }}
+                                    >
+                                        ₹{parseFloat(event.price).toLocaleString()}
                                     </div>
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="w-full rounded-2xl bg-gray-900 px-12 py-5 font-black text-white shadow-xl shadow-black/10 transition-all hover:bg-black disabled:bg-gray-400 md:w-auto"
+                                    className="btn-neon btn-neon-purple w-full md:w-auto"
+                                    style={{
+                                        padding: '14px 36px',
+                                        fontSize: 13,
+                                        opacity: processing ? 0.5 : 1,
+                                        cursor: processing ? 'not-allowed' : 'pointer',
+                                    }}
                                 >
-                                    {processing
-                                        ? 'PROCESSING...'
-                                        : 'PROCEED TO PAY'}
+                                    {processing ? 'PROCESSING...' : 'PROCEED TO PAY →'}
                                 </button>
                             </div>
                         </form>

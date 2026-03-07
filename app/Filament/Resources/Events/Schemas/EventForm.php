@@ -103,6 +103,11 @@ class EventForm
                                     ->numeric()
                                     ->prefix('₹')
                                     ->required(),
+                                
+                                TextInput::make('first_price')
+                                    ->numeric()
+                                    ->prefix('₹')
+                                    ->required(),
 
                                 TextInput::make('min')
                                     ->numeric()
@@ -113,7 +118,7 @@ class EventForm
                                 TextInput::make('max')
                                     ->numeric()
                                     ->nullable()
-                                    ->rule('gte:min')
+                                    ->gte('min')
                                     ->required(fn ($get) => $get('type') === 'group')
                                     ->disabled(fn ($get) => in_array($get('type'), ['duo', 'individual'])),
                             ]),
