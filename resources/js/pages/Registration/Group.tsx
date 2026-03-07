@@ -279,7 +279,7 @@ export default function Group({ event }: GroupProps) {
                                         type="tel"
                                         inputMode="numeric"
                                         pattern="[0-9]{10}"
-                                        maxLength={10}
+                                        title="Phone number must be exactly 10 digits"
                                         className="w-full rounded-2xl border-none bg-gray-50 px-6 py-4 font-medium transition-all focus:bg-white focus:ring-4 focus:ring-purple-500/10"
                                         placeholder="Enter your phone number"
                                         value={data.contact_phone}
@@ -440,7 +440,7 @@ export default function Group({ event }: GroupProps) {
                                                             type="tel"
                                                             inputMode="numeric"
                                                             pattern="[0-9]{10}"
-                                                            maxLength={10}
+                                                            title="Phone number must be exactly 10 digits"
                                                             className="w-full rounded-xl bg-white px-4 py-3 text-sm font-medium border-2 border-gray-300 transition-all focus:ring-4 focus:ring-purple-500/10"
                                                             value={
                                                                 participant.phone

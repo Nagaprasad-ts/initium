@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Category;
 use Illuminate\Support\Str;
 
 /**
@@ -25,6 +25,7 @@ class EventFactory extends Factory
             'slug' => Str::slug($name),
             'description' => $this->faker->paragraph(),
             'type' => $this->faker->randomElement(['individual', 'group', 'both']),
+            'category_id' => Category::inRandomOrder()->first()->id,
             'venue' => $this->faker->company(),
             'event_start_date' => $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
             'event_end_date' => $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),

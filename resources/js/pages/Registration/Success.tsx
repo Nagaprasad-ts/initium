@@ -1,6 +1,6 @@
-import Layout from '@/components/Layout';
 import { Head, Link } from '@inertiajs/react';
 import React from 'react';
+import Layout from '@/components/Layout';
 
 interface Registration {
     id: number;
@@ -20,7 +20,7 @@ interface SuccessProps {
 export default function Success({ registration }: SuccessProps) {
     return (
         <Layout>
-            <Head title="Registration Successful | Initium 2026" />
+            <Head title="Registration Successful" />
 
             <section className="py-24 bg-gray-50 min-h-screen flex items-center justify-center">
                 <div className="max-w-2xl w-full px-4 text-center">

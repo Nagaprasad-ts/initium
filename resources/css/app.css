@@ -1,13 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 @import 'tailwindcss';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-@theme {
+
+/* @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
-}
+} */
 
 @plugin "@tailwindcss/typography";
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+    --pink: #ff0080;
+    --cyan: #00f5ff;
+    --gold: #ffd700;
+    --purple: #7c3aed;
+    --bg: #0b0b0f;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0b0f;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    color: #fff;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0b0b0f; }
+::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 2px; }
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px var(--pink), 0 0 30px var(--pink), 0 0 80px var(--pink);
+    }
+    20%, 24%, 55% { opacity: 0.4; text-shadow: none; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+}
+
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes particle-drift {
+    0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-100vh) translateX(20px) scale(0); opacity: 0; }
+}
+
+@keyframes letter-in {
+    from { opacity: 0; transform: translateY(30px) rotateX(-90deg); }
+    to   { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@keyframes glow-pulse-text {
+    0%, 100% { text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan); }
+    50%       { text-shadow: 0 0 20px var(--cyan), 0 0 50px var(--cyan), 0 0 80px var(--cyan); }
+}
+
+@keyframes section-reveal-in {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Utility classes ───────────────────────────────────────── */
+.font-bebas   { font-family: 'Bebas Neue', cursive; }
+.font-orbitron { font-family: 'Orbitron', sans-serif; }
+.font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+
+.animate-float      { animation: float 3s ease-in-out infinite; }
+.animate-flicker    { animation: flicker 4s infinite; }
+.animate-slide-up   { animation: slide-up 0.7s ease forwards; }
+.animate-marquee    { animation: marquee 18s linear infinite; }
+.animate-particle   { animation: particle-drift linear infinite; }
+.animate-glow-cyan  { animation: glow-pulse-text 2s ease-in-out infinite; }
+
+/* ── Neon Card ─────────────────────────────────────────────── */
+.neon-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 0, 128, 0.2);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+.neon-card:hover {
+    border-color: var(--pink);
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.4), 0 0 60px rgba(255, 0, 128, 0.1),
+        inset 0 0 30px rgba(255, 0, 128, 0.05);
+    transform: translateY(-4px);
+}
+.neon-card-cyan:hover {
+    border-color: var(--cyan) !important;
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 60px rgba(0, 245, 255, 0.1),
+        inset 0 0 30px rgba(0, 245, 255, 0.05) !important;
+}
+.neon-card-gold:hover {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.1) !important;
+}
+.neon-card-purple:hover {
+    border-color: var(--purple) !important;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4), 0 0 60px rgba(124, 58, 237, 0.1) !important;
+}
+
+/* ── Neon Button ───────────────────────────────────────────── */
+.btn-neon {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid var(--pink);
+    color: var(--pink);
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    cursor: pointer;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.btn-neon::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 128, 0.2), transparent);
+    transition: left 0.4s;
+}
+.btn-neon:hover::before { left: 100%; }
+.btn-neon:hover {
+    background: rgba(255, 0, 128, 0.1);
+    box-shadow: 0 0 20px var(--pink), 0 0 40px rgba(255, 0, 128, 0.3);
+    color: #fff;
+}
+.btn-neon-cyan  { border-color: var(--cyan);   color: var(--cyan); }
+.btn-neon-cyan:hover  { background: rgba(0,245,255,0.1)  !important; box-shadow: 0 0 20px var(--cyan),  0 0 40px rgba(0,245,255,0.3)  !important; }
+.btn-neon-gold  { border-color: var(--gold);   color: var(--gold); }
+.btn-neon-gold:hover  { background: rgba(255,215,0,0.1)  !important; box-shadow: 0 0 20px var(--gold),  0 0 40px rgba(255,215,0,0.3)  !important; }
+.btn-neon-purple{ border-color: var(--purple); color: var(--purple); }
+.btn-neon-purple:hover{ background: rgba(124,58,237,0.1) !important; box-shadow: 0 0 20px var(--purple),0 0 40px rgba(124,58,237,0.3) !important; }
+
+/* ── Nav Item ──────────────────────────────────────────────── */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.4);
+    background: none;
+    border: none;
+}
+.nav-item.active {
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+}
+.nav-item.active svg { filter: drop-shadow(0 0 6px var(--cyan)); }
+.nav-item:hover { color: rgba(255, 255, 255, 0.8); }
+
+/* ── Section Reveal ────────────────────────────────────────── */
+.section-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Grid Background ───────────────────────────────────────── */
+.grid-bg {
+    background-image: linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* ── Letter animation ──────────────────────────────────────── */
+.letter-animate {
+    display: inline-block;
+    animation: letter-in 0.6s ease both;
+}
+
+/* ── Marquee ───────────────────────────────────────────────── */
+.marquee-wrap  { overflow: hidden; white-space: nowrap; }
+.marquee-track { display: inline-block; animation: marquee 18s linear infinite; }
+
+/* ── Particle ──────────────────────────────────────────────── */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-drift linear infinite;
+}
+
+/* ── Timeline ──────────────────────────────────────────────── */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--pink), var(--cyan), var(--gold), transparent);
+    transform: translateX(-50%);
+}
+@media (max-width: 768px) {
+    .timeline-line { left: 20px; }
+}
+
+/* ── Inputs ────────────────────────────────────────────────── */
+.neon-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Rajdhani', sans-serif;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    color: #fff;
+    outline: none;
+    transition: all 0.3s;
+}
+.neon-input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
+.neon-input::placeholder { color: rgba(255, 255, 255, 0.3); }

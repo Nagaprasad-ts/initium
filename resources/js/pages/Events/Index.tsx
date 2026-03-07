@@ -1,4 +1,5 @@
 import { Link, Head } from '@inertiajs/react';
+import { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
 
 interface Event {
@@ -6,6 +7,8 @@ interface Event {
     name: string;
     slug: string;
     description: string;
+    category_id: number;
+    category: Category;
     type: 'individual' | 'group' | 'both';
     venue: string;
     event_start_date: string;
@@ -15,100 +18,216 @@ interface Event {
     banner_image: string;
 }
 
-interface IndexProps {
-    events: Event[];
+interface Category {
+    id: number;
+    name: string;
 }
 
 const formatDate = (date: string) => {
-  const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const year = d.getFullYear();
-  return `${day}-${month}-${year}`;
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
 };
 
-export default function Index({ events }: IndexProps) {
+// Cycle through neon colours per category
+const CATEGORY_COLORS = ['#FF0080', '#00F5FF', '#FFD700', '#7C3AED'];
+
+function useReveal() {
+    const ref = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([e]) => { if (e.isIntersecting) el.classList.add('visible'); },
+            { threshold: 0.05 },
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
+    return ref;
+}
+
+function EventCard({ event, color }: { event: Event; color: string }) {
+    return (
+        <div
+            className="neon-card flex flex-col overflow-hidden rounded-2xl"
+            style={{ borderColor: color + '33' }}
+        >
+            {/* Image */}
+            <div className="relative h-52 overflow-hidden">
+                <img
+                    src={event.banner_image}
+                    alt={event.name}
+                    className="h-full w-full object-cover transition-transform duration-700"
+                    style={{ filter: 'brightness(0.75) saturate(1.2)' }}
+                    onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
+                    onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                />
+                {/* colour tint overlay */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: `linear-gradient(to top, ${color}33, transparent 60%)` }}
+                />
+                {/* Type badge */}
+                <div className="absolute left-3 top-3">
+                    <span
+                        className="font-orbitron rounded px-3 py-1 text-[9px] uppercase tracking-widest"
+                        style={{
+                            background: 'rgba(11,11,15,0.8)',
+                            border: `1px solid ${color}55`,
+                            color,
+                            backdropFilter: 'blur(8px)',
+                        }}
+                    >
+                        {event.type === 'both' ? 'Individual & Group' : event.type}
+                    </span>
+                </div>
+                {/* Price badge */}
+                <div className="absolute bottom-3 right-3">
+                    <span
+                        className="font-bebas rounded px-3 py-1 text-sm tracking-widest"
+                        style={{
+                            background: color,
+                            color: '#000',
+                            boxShadow: `0 0 12px ${color}`,
+                        }}
+                    >
+                        ₹{parseFloat(event.price).toLocaleString()}
+                    </span>
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-1 flex-col p-6">
+                <h3
+                    className="font-bebas mb-2 text-2xl tracking-widest text-white transition-colors"
+                    style={{ letterSpacing: 2 }}
+                >
+                    {event.name}
+                </h3>
+
+                <div className="mb-5 space-y-1.5">
+                    <div className="flex items-center gap-2 text-sm text-white/45">
+                        <span style={{ color }}>📅</span>
+                        <span>{formatDate(event.event_start_date)}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-white/45">
+                        <span style={{ color }}>📍</span>
+                        <span className="truncate">{event.venue}</span>
+                    </div>
+                </div>
+
+                <div className="mt-auto">
+                    <Link
+                        href={`/events/${event.slug}`}
+                        className="btn-neon block w-full text-center"
+                        style={{ borderColor: color, color }}
+                    >
+                        REGISTER NOW →
+                    </Link>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function CategorySection({ category, events, colorIndex }: { category: Category; events: Event[]; colorIndex: number }) {
+    const ref = useReveal();
+    const color = CATEGORY_COLORS[colorIndex % CATEGORY_COLORS.length];
+
+    return (
+        <div ref={ref} className="section-reveal mb-20">
+            {/* Category heading */}
+            <div className="mb-8 flex items-center gap-4">
+                <div className="h-px flex-1" style={{ background: `linear-gradient(to right, ${color}, transparent)` }} />
+                <h2
+                    className="font-bebas text-3xl tracking-[6px] md:text-4xl"
+                    style={{ color, textShadow: `0 0 15px ${color}` }}
+                >
+                    {category.name}
+                </h2>
+                <div className="h-px flex-1" style={{ background: `linear-gradient(to left, ${color}, transparent)` }} />
+            </div>
+
+            {/* Events grid */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {events.map(ev => (
+                    <EventCard key={ev.id} event={ev} color={color} />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default function Index({ events, categories }: { events: Event[]; categories: Category[] }) {
     return (
         <Layout>
             <Head title="Explore Events | Initium 2026" />
 
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6">
-                            Events at <span className="text-blue-600 underline decoration-blue-200 underline-offset-8">Initium</span>
-                        </h1>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                            From high-stakes hackathons to creative competitions, browse our diverse range of events and find your perfect match.
-                        </p>
+            {/* Page header */}
+            <div
+                className="border-b px-5 pb-14 pt-16"
+                style={{
+                    background: 'radial-gradient(ellipse at 30% 0%, rgba(255,0,128,0.15) 0%, transparent 60%)',
+                    borderColor: 'rgba(255,0,128,0.12)',
+                }}
+            >
+                <div className="mx-auto max-w-3xl text-center">
+                    <p
+                        className="font-orbitron mb-3 text-[11px] uppercase tracking-[6px]"
+                        style={{ color: '#FF0080', opacity: 0.7 }}
+                    >
+                        PLACE YOUR BET
+                    </p>
+                    <h1
+                        className="font-bebas mb-4 text-[clamp(42px,9vw,90px)] leading-none tracking-widest text-white"
+                    >
+                        ALL{' '}
+                        <span style={{ color: '#FF0080', textShadow: '0 0 30px #FF0080' }}>
+                            EVENTS
+                        </span>
+                    </h1>
+                    {/* divider */}
+                    <div className="mx-auto mb-4 flex items-center justify-center gap-3">
+                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to left, #FF0080, transparent)' }} />
+                        <div className="h-2 w-2 rounded-full" style={{ background: '#FF0080', boxShadow: '0 0 12px #FF0080' }} />
+                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to right, #FF0080, transparent)' }} />
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {events.map((event) => (
-                            <div 
-                                key={event.id} 
-                                className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col"
-                            >
-                                <div className="relative h-56 overflow-hidden">
-                                    <img 
-                                        src={event.banner_image} 
-                                        alt={event.name} 
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                    <div className="absolute top-4 left-4">
-                                        <span className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-xl text-xs font-black uppercase tracking-widest text-blue-600 shadow-sm">
-                                            {event.type}
-                                        </span>
-                                    </div>
-                                    <div className="absolute bottom-4 right-4">
-                                        <span className="px-4 py-2 bg-blue-600 rounded-xl text-sm font-bold text-white shadow-lg">
-                                            ₹{parseFloat(event.price).toLocaleString()}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="p-8 flex-1 flex flex-col">
-                                    <h2 className="text-2xl font-black text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                                        {event.name}
-                                    </h2>
-                                    
-                                    <div className="space-y-3 mb-8">
-                                        <div className="flex items-center gap-3 text-gray-500">
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                            </svg>
-                                            <span className="text-sm font-medium">{formatDate(event.event_start_date)}</span>
-                                        </div>
-                                        <div className="flex items-center gap-3 text-gray-500">
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            <span className="text-sm font-medium truncate">{event.venue}</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-auto">
-                                        <Link 
-                                            href={`/events/${event.slug}`} 
-                                            className="block w-full text-center py-4 bg-gray-900 group-hover:bg-blue-600 text-white font-black rounded-2xl transition-colors shadow-lg shadow-gray-900/10 group-hover:shadow-blue-600/20"
-                                        >
-                                            REGISTER NOW
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {events.length === 0 && (
-                        <div className="text-center py-24 bg-white rounded-3xl border-2 border-dashed border-gray-200">
-                            <h3 className="text-2xl font-bold text-gray-400 mb-2">No events found</h3>
-                            <p className="text-gray-400">Stay tuned, we're adding more soon!</p>
-                        </div>
-                    )}
+                    <p className="text-base text-white/50">
+                        Compete, perform, and shine — browse all events and find your arena.
+                    </p>
                 </div>
-            </section>
+            </div>
+
+            {/* Events by category */}
+            <div className="mx-auto max-w-7xl px-5 py-14">
+                {categories.map((category, idx) => {
+                    const categoryEvents = events.filter(e => e.category_id === category.id);
+                    if (categoryEvents.length === 0) return null;
+                    return (
+                        <CategorySection
+                            key={category.id}
+                            category={category}
+                            events={categoryEvents}
+                            colorIndex={idx}
+                        />
+                    );
+                })}
+
+                {events.length === 0 && (
+                    <div
+                        className="neon-card rounded-2xl py-24 text-center"
+                        style={{ borderColor: 'rgba(255,0,128,0.2)' }}
+                    >
+                        <p className="font-bebas text-3xl tracking-widest text-white/30">
+                            NO EVENTS FOUND
+                        </p>
+                        <p className="mt-2 text-sm text-white/20">Stay tuned — we're adding more soon!</p>
+                    </div>
+                )}
+            </div>
         </Layout>
     );
 }

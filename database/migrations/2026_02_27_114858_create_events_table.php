@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('type'); // individual | group | both
             $table->string('venue');
             $table->date('event_start_date');

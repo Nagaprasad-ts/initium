@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Participants;
 use App\Filament\Resources\Participants\Pages\CreateParticipant;
 use App\Filament\Resources\Participants\Pages\EditParticipant;
 use App\Filament\Resources\Participants\Pages\ListParticipants;
+use App\Filament\Resources\Participants\Pages\ViewParticipant;
 use App\Filament\Resources\Participants\Schemas\ParticipantForm;
 use App\Filament\Resources\Participants\Tables\ParticipantsTable;
 use App\Models\Participant;
@@ -19,6 +20,11 @@ class ParticipantResource extends Resource
     protected static ?string $model = Participant::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 
     public static function form(FilamentSchema $schema): FilamentSchema
     {
@@ -42,6 +48,7 @@ class ParticipantResource extends Resource
         return [
             'index' => ListParticipants::route('/'),
             'create' => CreateParticipant::route('/create'),
+            'view' => ViewParticipant::route('/{record}'),
             'edit' => EditParticipant::route('/{record}/edit'),
         ];
     }

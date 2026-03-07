@@ -1,35 +1,151 @@
-import Layout from '@/components/Layout';
 import { Link, Head } from '@inertiajs/react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Layout from '@/components/Layout';
+
+function useReveal() {
+    const ref = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([e]) => { if (e.isIntersecting) el.classList.add('visible'); },
+            { threshold: 0.1 },
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
+    return ref;
+}
+
+function NeonTitle() {
+    return (
+        <div className="flex justify-center gap-[clamp(4px,1vw,14px)]">
+            {'INITIUM'.split('').map((letter, i) => (
+                <span
+                    key={i}
+                    className="letter-animate font-bebas inline-block"
+                    style={{
+                        fontSize: 'clamp(56px,14vw,140px)',
+                        color: '#FF0080',
+                        animationDelay: `${i * 0.1}s`,
+                        textShadow: '0 0 20px #FF0080, 0 0 60px #FF0080, 0 0 120px rgba(255,0,128,0.5)',
+                        letterSpacing: 4,
+                    }}
+                >
+                    {letter}
+                </span>
+            ))}
+        </div>
+    );
+}
+
+const MARQUEE_ITEMS = [
+    'VIVA LA VOICE','IPL AUCTION','SKYFALL','OPEN MIC','BGMI',
+    'CLASH ROYALE','GROUP GROOVE','REEL DEAL','SOLO DANCE','RAMP WALK','PAPER TOWER','INSTRUMENTAL',
+];
+
+const STATS = [
+    { n: '70+',     l: 'Events Hosted', color: '#FF0080' },
+    { n: '11,753+', l: 'Total Footfall', color: '#00F5FF' },
+    { n: '2,058+',  l: 'Participants',   color: '#FFD700' },
+    { n: '2022',    l: 'Est. Year',      color: '#7C3AED' },
+];
+
+// Static featured events for home page display
+const FEATURED_EVENTS = [
+    {
+        club: 'LIT CLUB', name: 'Viva La Voice', subtitle: 'Declamation',
+        desc: 'A solo declamation event where you recreate powerful speeches by famous historic...',
+        fee: '₹200', color: '#FF0080', icon: '🎤',
+    },
+    {
+        club: 'LIT CLUB', name: 'IPL Auction', subtitle: 'Strategy & Bidding',
+        desc: 'Experience the excitement of an IPL Mega Auction where teams strategize, bid, an...',
+        fee: '₹1,000', color: '#00F5FF', icon: '🏏',
+    },
+    {
+        club: 'LIT CLUB', name: 'Skyfall', subtitle: 'Aircrash',
+        desc: "You're on a plane going down with one parachute — convince everyone in the room ...",
+        fee: '₹200', color: '#7C3AED', icon: '✈️',
+    },
+    {
+        club: 'LIT CLUB', name: 'The Late Night Special', subtitle: 'Open Mic',
+        desc: 'Walk up, grab the mic, and do whatever it takes to make the room feel something ...',
+        fee: '₹200', color: '#FFD700', icon: '🎭',
+    },
+    {
+        club: 'MUSIC CLUB', name: 'Group Groove', subtitle: 'Group Singing',
+        desc: 'Powerful group vocals dazzle like the Strip. From soulful ballads to chartbusters...',
+        fee: '₹1,000', color: '#00F5FF', icon: '🎵',
+    },
+    {
+        club: 'DANCE CLUB', name: 'All-in Showdown', subtitle: 'Solo Dance Battle',
+        desc: 'Two dancers face off in a high-stakes 1v1 battle of skill and style. Every move...',
+        fee: '₹200', color: '#FF0080', icon: '🕺',
+    },
+];
+
+function FeaturedEventCard({ ev }: { ev: typeof FEATURED_EVENTS[0] }) {
+    return (
+        <div
+            className="neon-card cursor-pointer overflow-hidden rounded-xl p-6"
+            style={{ borderColor: ev.color + '33', position: 'relative' }}
+        >
+            {/* Corner glow */}
+            <div
+                className="absolute right-0 top-0"
+                style={{
+                    width: 60, height: 60,
+                    background: `radial-gradient(circle at top right, ${ev.color}22, transparent)`,
+                    borderRadius: '0 0 0 60px',
+                }}
+            />
+            <div className="mb-3 flex items-start justify-between">
+                <span className="text-3xl">{ev.icon}</span>
+                <span
+                    className="font-orbitron rounded px-2 py-1 text-[8px] tracking-widest"
+                    style={{ color: ev.color, border: `1px solid ${ev.color}44` }}
+                >
+                    {ev.club}
+                </span>
+            </div>
+            <h3 className="font-bebas mb-1 text-[22px] tracking-widest text-white">{ev.name}</h3>
+            <p className="font-orbitron mb-3 text-[11px] uppercase tracking-widest" style={{ color: ev.color }}>
+                {ev.subtitle}
+            </p>
+            <p className="mb-4 text-sm leading-relaxed text-white/50">{ev.desc}</p>
+            <div
+                className="flex items-center justify-between border-t pt-4"
+                style={{ borderColor: ev.color + '22' }}
+            >
+                <span className="font-orbitron text-[9px] tracking-widest text-white/40">REGISTRATION FEE</span>
+                <span className="font-bebas text-xl" style={{ color: ev.color, textShadow: `0 0 10px ${ev.color}` }}>
+                    {ev.fee}
+                </span>
+            </div>
+        </div>
+    );
+}
 
 export default function Home() {
-    const [timeLeft, setTimeLeft] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    });
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    const statsRef    = useReveal();
+    const featuredRef = useReveal();
+    const ctaRef      = useReveal();
 
     useEffect(() => {
-        // Target date for Initium 2026
         const targetDate = new Date('2026-05-20T09:00:00').getTime();
-
         const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference > 0) {
+            const diff = targetDate - Date.now();
+            if (diff > 0) {
                 setTimeLeft({
-                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                    minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-                    seconds: Math.floor((difference % (1000 * 60)) / 1000)
+                    days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
+                    hours:   Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                    seconds: Math.floor((diff % (1000 * 60)) / 1000),
                 });
-            } else {
-                clearInterval(interval);
-            }
+            } else clearInterval(interval);
         }, 1000);
-
         return () => clearInterval(interval);
     }, []);
 
@@ -37,121 +153,179 @@ export default function Home() {
         <Layout>
             <Head title="Home | Initium 2026" />
 
-            {/* Hero Section */}
-            <section className="relative h-[80vh] flex items-center justify-center bg-gray-900 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/90 via-black/80 to-purple-900/70"></div>
-                    {/* Placeholder for background image */}
-                    <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30')] bg-cover bg-center"></div>
-                </div>
+            {/* ── Hero ─────────────────────────────────────── */}
+            <section className="relative flex h-screen items-center justify-center overflow-hidden">
+                {/* <video
+                    autoPlay muted loop playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{ zIndex: 0, opacity: 0.55 }}
+                    src="/videos/bg-video.mp4"
+                /> */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        zIndex: 1,
+                        background: 'linear-gradient(to bottom, rgba(11,11,15,0.3) 0%, rgba(11,11,15,0.15) 50%, rgba(11,11,15,0.7) 100%)',
+                    }}
+                />
+                <div className="grid-bg absolute inset-0 opacity-30" style={{ zIndex: 2 }} />
 
-                <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-                    <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 animate-fade-in">
-                        Initium <span className="text-blue-500">2026</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                        Experience the grandest multi-event platform where innovation meets celebration. 
-                        Unleash your potential and redefine boundaries.
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link 
-                            href="/events" 
-                            className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-full transition-all transform hover:scale-105 shadow-xl shadow-blue-600/20"
-                        >
-                            Explore Events
-                        </Link>
-                        <a 
-                            href="#about" 
-                            className="w-full sm:w-auto px-8 py-4 border border-white/30 hover:bg-white/10 text-white text-lg font-bold rounded-full transition-all backdrop-blur-sm"
-                        >
-                            Learn More
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            {/* Countdown Section */}
-            <section className="py-12 bg-white border-b border-gray-100">
-                <div className="max-w-5xl mx-auto px-4">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {[
-                            { label: 'Days', value: timeLeft.days },
-                            { label: 'Hours', value: timeLeft.hours },
-                            { label: 'Minutes', value: timeLeft.minutes },
-                            { label: 'Seconds', value: timeLeft.seconds }
-                        ].map((item, idx) => (
-                            <div key={idx} className="text-center group">
-                                <div className="text-4xl md:text-6xl font-black text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                                    {String(item.value).padStart(2, '0')}
-                                </div>
-                                <div className="text-xs uppercase tracking-widest font-bold text-gray-500">
-                                    {item.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* About Section */}
-            <section id="about" className="py-24 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid md:grid-cols-2 gap-16 items-center">
-                        <div className="order-2 md:order-1">
-                            <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold tracking-widest uppercase mb-6">
-                                The Story
-                            </div>
-                            <h2 className="text-4xl font-black text-gray-900 mb-6 leading-tight">
-                                About Initium
-                            </h2>
-                            <div className="space-y-4 text-lg text-gray-600 leading-relaxed">
-                                <p>
-                                    Initium is more than just a series of events; it's a movement that brings together brilliant minds from across the region. Since its inception, we've focused on creating a platform for individual growth and team collaboration.
-                                </p>
-                                <p>
-                                    Our mission is to foster innovation, celebrate talent, and create lasting memories. Whether you're a coder, an artist, a gamer, or a thinker, there's something for everyone at Initium 2026.
-                                </p>
-                            </div>
-                            <div className="mt-10 grid grid-cols-2 gap-8 border-t border-gray-200 pt-10">
-                                <div>
-                                    <div className="text-3xl font-black text-blue-600 mb-1">20+</div>
-                                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wide">Unique Events</div>
-                                </div>
-                                <div>
-                                    <div className="text-3xl font-black text-blue-600 mb-1">5000+</div>
-                                    <div className="text-sm font-bold text-gray-500 uppercase tracking-wide">Expected Participants</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="order-1 md:order-2">
-                            <div className="relative">
-                                <div className="absolute -top-4 -right-4 w-full h-full bg-blue-100 rounded-3xl -z-10 rotate-3"></div>
-                                <img 
-                                    src="https://images.unsplash.com/photo-1540575861501-7ad05823c95b" 
-                                    alt="Event" 
-                                    className="rounded-3xl shadow-2xl w-full h-96 object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section */}
-            <section className="py-24 bg-blue-600">
-                <div className="max-w-4xl mx-auto px-4 text-center">
-                    <h2 className="text-3xl md:text-5xl font-black text-white mb-8">
-                        Ready to be a part of the legacy?
-                    </h2>
-                    <p className="text-xl text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto">
-                        Registration is now open for all events. Secure your spot today and compete with the best.
-                    </p>
-                    <Link 
-                        href="/events" 
-                        className="inline-block px-10 py-5 bg-white text-blue-600 text-xl font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl shadow-black/10"
+                <div className="relative px-5 text-center" style={{ zIndex: 3 }}>
+                    <p
+                        className="font-orbitron animate-glow-cyan mb-4"
+                        style={{ fontSize: 'clamp(9px,2vw,12px)', letterSpacing: 8, color: '#00F5FF', textTransform: 'uppercase' }}
                     >
-                        View All Events
+                        New Horizon College of Engineering
+                    </p>
+                    <NeonTitle />
+                    <p className="font-orbitron mt-2 text-white/50" style={{ fontSize: 'clamp(11px,2vw,16px)', letterSpacing: 6 }}>
+                        2 0 2 6
+                    </p>
+                    <p
+                        className="font-rajdhani mx-auto mb-3 mt-2 max-w-[500px] font-light text-white/60"
+                        style={{ fontSize: 'clamp(14px,3vw,20px)', letterSpacing: 3 }}
+                    >
+                        INTERCOLLEGIATE LITERARY & CULTURAL FEST
+                    </p>
+                    <p
+                        className="font-bebas mb-9 inline-block text-lg tracking-widest"
+                        style={{ color: '#FFD700', padding: '6px 20px', border: '1px solid rgba(255,215,0,0.3)', textShadow: '0 0 10px #FFD700' }}
+                    >
+                        🎰 LAS VEGAS EDITION 🎰
+                    </p>
+                    <br />
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <Link href="/events" className="btn-neon">EXPLORE EVENTS</Link>
+                        <Link href="/brochure" className="btn-neon btn-neon-cyan">VIEW BROCHURE</Link>
+                    </div>
+                </div>
+
+                <div className="absolute bottom-24 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1" style={{ zIndex: 3 }}>
+                    <div
+                        className="animate-float h-10 w-px"
+                        style={{ background: 'linear-gradient(to bottom, transparent, #00F5FF)', boxShadow: '0 0 8px #00F5FF' }}
+                    />
+                    <span className="font-orbitron text-[8px] tracking-[3px] text-cyan-400/50">SCROLL</span>
+                </div>
+            </section>
+
+            {/* ── Marquee ──────────────────────────────────── */}
+            <div className="marquee-wrap border-y py-3.5" style={{ borderColor: 'rgba(255,0,128,0.2)', background: 'rgba(255,0,128,0.05)' }}>
+                <div className="marquee-track">
+                    {MARQUEE_ITEMS.map((item, i) => (
+                        <span key={i} className="font-bebas mr-16 text-lg tracking-widest" style={{ color: '#FF0080', textShadow: '0 0 8px #FF0080' }}>
+                            ✦ {item}
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            {/* ── Countdown ────────────────────────────────── */}
+            <section
+                className="border-b py-14"
+                style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 70%)' }}
+            >
+                <p className="font-orbitron mb-8 text-center text-[11px] tracking-[6px]" style={{ color: '#7C3AED' }}>
+                    COUNTING DOWN TO MAY 20, 2026
+                </p>
+                <div className="mx-auto flex max-w-2xl justify-center gap-4 px-5 sm:gap-8">
+                    {[
+                        { label: 'DAYS',  value: timeLeft.days    },
+                        { label: 'HOURS', value: timeLeft.hours   },
+                        { label: 'MINS',  value: timeLeft.minutes },
+                        { label: 'SECS',  value: timeLeft.seconds },
+                    ].map(({ label, value }, idx) => {
+                        const colors = ['#FF0080','#00F5FF','#FFD700','#7C3AED'];
+                        const c = colors[idx];
+                        return (
+                            <div key={label} className="flex-1 text-center">
+                                <div className="neon-card rounded-xl py-5" style={{ borderColor: c + '33' }}>
+                                    <div className="font-bebas leading-none" style={{ fontSize: 'clamp(32px,8vw,56px)', color: c, textShadow: `0 0 15px ${c}` }}>
+                                        {String(value).padStart(2, '0')}
+                                    </div>
+                                </div>
+                                <p className="font-orbitron mt-2 text-[8px] tracking-[3px] text-white/40">{label}</p>
+                            </div>
+                        );
+                    })}
+                </div>
+            </section>
+
+            {/* ── Stats ────────────────────────────────────── */}
+            <section className="mx-auto max-w-5xl px-5 py-20">
+                <div ref={statsRef} className="section-reveal grid grid-cols-2 gap-6 md:grid-cols-4">
+                    {STATS.map((s) => (
+                        <div key={s.l} className="neon-card rounded-xl p-8 text-center" style={{ borderColor: s.color + '33' }}>
+                            <div className="font-bebas text-[52px] leading-none" style={{ color: s.color, textShadow: `0 0 20px ${s.color}` }}>
+                                {s.n}
+                            </div>
+                            <div className="font-orbitron mt-1 text-[11px] uppercase tracking-widest text-white/50">{s.l}</div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* ── Featured Events ───────────────────────────── */}
+            <section className="mx-auto max-w-6xl px-5 pb-20">
+                {/* Section title */}
+                <div className="mb-12 text-center">
+                    <p className="font-orbitron mb-2 text-[11px] uppercase tracking-[6px]" style={{ color: '#FF0080', opacity: 0.7 }}>
+                        WHAT'S ON
+                    </p>
+                    <h2 className="font-bebas leading-none tracking-widest text-white" style={{ fontSize: 'clamp(42px,8vw,80px)' }}>
+                        FEATURED <span style={{ color: '#FF0080', textShadow: '0 0 20px #FF0080' }}>EVENTS</span>
+                    </h2>
+                    <p className="mx-auto mt-3 max-w-[500px] text-base text-white/50">
+                        Compete, perform, and shine across disciplines
+                    </p>
+                    <div className="mt-5 flex items-center justify-center gap-3">
+                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to left, #FF0080, transparent)' }} />
+                        <div className="h-2 w-2 rounded-full" style={{ background: '#FF0080', boxShadow: '0 0 12px #FF0080' }} />
+                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to right, #FF0080, transparent)' }} />
+                    </div>
+                </div>
+
+                {/* Event cards grid */}
+                <div
+                    ref={featuredRef}
+                    className="section-reveal mb-10 grid gap-5"
+                    style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}
+                >
+                    {FEATURED_EVENTS.map((ev, i) => (
+                        <Link key={i} href="/events">
+                            <FeaturedEventCard ev={ev} />
+                        </Link>
+                    ))}
+                </div>
+
+                <div className="text-center">
+                    <Link href="/events" className="btn-neon btn-neon-gold">
+                        VIEW ALL 13 EVENTS →
                     </Link>
+                </div>
+            </section>
+
+            {/* ── CTA — Place Your Bets ─────────────────────── */}
+            <section
+                className="mb-8 border-t px-5 py-20 text-center"
+                style={{
+                    background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.2) 0%, transparent 70%)',
+                    borderColor: 'rgba(124,58,237,0.2)',
+                }}
+            >
+                <div ref={ctaRef} className="section-reveal">
+                    <p className="font-orbitron mb-3 text-[11px] tracking-[6px]" style={{ color: '#7C3AED' }}>
+                        DON'T MISS OUT
+                    </p>
+                    <h2 className="font-bebas mb-4 leading-none tracking-widest text-white" style={{ fontSize: 'clamp(36px,7vw,72px)' }}>
+                        PLACE YOUR{' '}
+                        <span style={{ color: '#FFD700', textShadow: '0 0 20px #FFD700' }}>BETS</span>
+                    </h2>
+                    <p className="mb-8 text-lg text-white/50">Register now and stake your claim to glory</p>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <Link href="/events" className="btn-neon">REGISTER NOW</Link>
+                        <Link href="/contact" className="btn-neon btn-neon-cyan">CONTACT US</Link>
+                    </div>
                 </div>
             </section>
         </Layout>

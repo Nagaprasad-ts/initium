@@ -48,22 +48,44 @@ class EventForm
                             ->extraAttributes([
                                 'style' => 'min-height: 300px;',
                             ]),
-                        Grid::make(2)
+                        Grid::make(3)
                             ->schema([
+                                Select::make('category_id')
+                                    ->label('Category')
+                                    ->relationship('category', 'name')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required(),
                                 Select::make('type')
                                     ->options([
                                         'individual' => 'Individual',
+                                        'duo' => 'Duo',
                                         'group' => 'Group',
-                                        'both' => 'Both',
                                     ])
-                                    ->required(),
+                                    ->reactive()
+                                    ->required()
+                                    ->afterStateUpdated(function ($state, callable $set) {
+                                        if ($state === 'duo') {
+                                            $set('min', 2);
+                                            $set('max', 2);
+                                        }
+
+                                        if ($state === 'individual') {
+                                            $set('min', null);
+                                            $set('max', null);
+                                        }
+                                    }),
                                 TextInput::make('venue')
                                     ->required()
                                     ->maxLength(255),
-                                DatePicker::make('event_start_date')
-                                    ->required(),
-                                DatePicker::make('event_end_date'),
-                            ]),
+                                Grid::make(2)
+                                    ->schema([
+                                        DatePicker::make('event_start_date')
+                                            ->required(),
+                                        DatePicker::make('event_end_date'),
+                                    ])
+                                    ->columnSpanFull(),
+                                ]),
                         Grid::make(2)
                             ->schema([
                                 TimePicker::make('start_time')
@@ -84,11 +106,16 @@ class EventForm
 
                                 TextInput::make('min')
                                     ->numeric()
-                                    ->nullable(),
+                                    ->nullable()
+                                    ->required(fn ($get) => $get('type') === 'group')
+                                    ->disabled(fn ($get) => in_array($get('type'), ['duo', 'individual'])),
 
                                 TextInput::make('max')
                                     ->numeric()
-                                    ->nullable(),
+                                    ->nullable()
+                                    ->rule('gte:min')
+                                    ->required(fn ($get) => $get('type') === 'group')
+                                    ->disabled(fn ($get) => in_array($get('type'), ['duo', 'individual'])),
                             ]),
 
                         Grid::make(2)

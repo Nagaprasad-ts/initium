@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Participants\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
 
 use Filament\Tables\Columns\TextColumn;
@@ -32,7 +33,8 @@ class ParticipantsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                ViewAction::make(),
+                // EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

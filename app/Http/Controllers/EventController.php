@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Event;
+use App\Models\Category;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -25,11 +26,15 @@ class EventController extends Controller
     {
         $events = Event::query()
             ->where('is_active', true)
+            ->with('category')
             ->latest()
             ->get();
 
+        $categories = Category::all();
+
         return Inertia::render('Events/Index', [
             'events' => $events,
+            'categories' => $categories,
         ]);
     }
 

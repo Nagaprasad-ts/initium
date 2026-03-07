@@ -68,7 +68,7 @@ class RegistrationController extends Controller
             'event_id' => ['required', 'exists:events,id'],
             'registration_type' => ['required', 'in:individual,group'],
             'college_name' => ['required', 'string', 'max:255'],
-            'contact_email' => ['required', 'email', 'max:255'],
+            'contact_email' => ['required', 'regex:/^[^\s@]+@[^\s@]+\.[^\s@]+$/', 'max:255'],
             'contact_phone' => ['required', 'digits:10'],
             'team_name' => ['nullable', 'required_if:registration_type,group', 'string', 'max:255'],
             // Individual fields
@@ -77,6 +77,9 @@ class RegistrationController extends Controller
             // Group fields
             'participants' => ['nullable', 'required_if:registration_type,group', 'array'],
         ], [
+            'contact_email.required' => 'Email is required.',
+            'contact_email.regex' => 'Invalid email address.',
+            'contact_email.max' => 'Email address is too long.',
             'contact_phone.required' => 'Phone number is required.',
             'contact_phone.digits' => 'Phone number must be exactly 10 digits.',
         ]);
@@ -84,15 +87,22 @@ class RegistrationController extends Controller
         $event = Event::findOrFail($validated['event_id']);
 
         if ($validated['registration_type'] === 'group') {
-            $min = $event->min ?? 2;
-            $max = $event->max ?? 10;
+            $min = $event->min;
+            $max = $event->max;
             
             $request->validate([
                 'participants' => ['required', 'array', "min:$min", "max:$max"],
                 'participants.*.name' => ['required', 'string', 'max:255'],
-                'participants.*.email' => ['required', 'email', 'max:255'],
-                'contact_phone' => ['required', 'digits:10'],
+                'participants.*.email' => ['required', 'regex:/^[^\s@]+@[^\s@]+\.[^\s@]+$/', 'max:255'],
+                'participants.*.phone' => ['required', 'digits:10'],
                 'participants.*.student_id' => ['required', 'string', 'max:255'],
+            ], [
+                'participants.*.email.required' => 'Email is required.',
+                'participants.*.email.regex' => 'Invalid email address.',
+                'participants.*.email.max' => 'Email address is too long.',
+                'participants.*.phone.required' => 'Phone number is required.',
+                'participants.*.phone.digits' => 'Phone number must be exactly 10 digits.',
+
             ]);
             
             // Re-fetch validated data after second validation pass
@@ -144,6 +154,7 @@ class RegistrationController extends Controller
                     'notes' => [
                         'registration_id' => $registration->id,
                         'event_name' => $event->name,
+                        'event' => 'Initium 2026',
                     ]
                 ];
 

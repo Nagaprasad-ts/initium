@@ -13,6 +13,14 @@ class Event extends Model
     protected $guarded = [];
 
     /**
+     * Get the category that owns the event.
+     */
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
      * Get the registrations for the event.
      */
     public function registrations(): \Illuminate\Database\Eloquent\Relations\HasMany
