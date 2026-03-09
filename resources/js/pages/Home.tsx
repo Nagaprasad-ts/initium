@@ -42,6 +42,7 @@ function useReveal() {
     return ref;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function NeonTitle() {
     return (
         <div className="flex justify-center gap-[clamp(4px,1vw,14px)]">
@@ -105,7 +106,7 @@ function FeaturedEventCard({ event, color }: { event: Event; color: string }) {
             />
 
             <div className="mb-3 flex items-start justify-between">
-                {event.banner_image ? (
+                {/* {event.banner_image ? (
                     <img
                         src={`/storage/${event.banner_image}`}
                         alt={event.name}
@@ -113,12 +114,12 @@ function FeaturedEventCard({ event, color }: { event: Event; color: string }) {
                     />
                 ) : (
                     <span className="text-3xl">🎭</span>
-                )}
+                )} */}
                 <span
                     className="font-orbitron rounded px-2 py-1 text-[8px] uppercase tracking-widest"
                     style={{ color, border: `1px solid ${color}44` }}
                 >
-                    {event.category?.name ?? 'Club'}
+                    {event.category?.name}
                 </span>
             </div>
 
@@ -182,7 +183,7 @@ export default function Home({ events, categories }: HomeProps) {
                     autoPlay muted loop playsInline
                     className="absolute inset-0 h-full w-full object-cover"
                     style={{ zIndex: 0, opacity: 0.55 }}
-                    src="/videos/bg-video.mp4"
+                    src="/videos/bg-video-two.mp4"
                 />
                 <div className="absolute inset-0" style={{ zIndex: 1, background: 'linear-gradient(to bottom, rgba(11,11,15,0.3) 0%, rgba(11,11,15,0.15) 50%, rgba(11,11,15,0.7) 100%)' }} />
                 <div className="grid-bg absolute inset-0 opacity-30" style={{ zIndex: 2 }} />
@@ -191,13 +192,16 @@ export default function Home({ events, categories }: HomeProps) {
                     <p className="font-orbitron animate-glow-cyan mb-4" style={{ fontSize: 'clamp(9px,2vw,12px)', letterSpacing: 8, color: '#00F5FF' }}>
                         New Horizon College of Engineering
                     </p>
-                    <NeonTitle />
-                    <p className="font-orbitron mt-2 text-white/50" style={{ fontSize: 'clamp(11px,2vw,16px)', letterSpacing: 6 }}>2 0 2 6</p>
-                    <p className="font-rajdhani mx-auto mb-3 mt-2 max-w-[500px] font-light text-white/60" style={{ fontSize: 'clamp(14px,3vw,20px)', letterSpacing: 3 }}>
+                    {/* <NeonTitle /> */}
+                    <div className='flex justify-center'>
+                        <img src="/images/initium-logo.png" alt='Initium 2026 - Las Vegas' className='w-72 h-48' />
+                    </div>
+                    <p className="font-orbitron mt-2 text-white" style={{ fontSize: 'clamp(11px,2vw,16px)', letterSpacing: 6 }}>2 0 2 6</p>
+                    <p className="font-rajdhani mx-auto mb-3 mt-2 max-w-125 font-light text-white" style={{ fontSize: 'clamp(14px,3vw,20px)', letterSpacing: 3 }}>
                         INTERCOLLEGIATE LITERARY & CULTURAL FEST
                     </p>
-                    <p className="font-bebas mb-9 inline-block text-lg tracking-widest" style={{ color: '#FFD700', padding: '6px 20px', border: '1px solid rgba(255,215,0,0.3)', textShadow: '0 0 10px #FFD700' }}>
-                        🎰 LAS VEGAS EDITION 🎰
+                    <p className="font-bebas mb-9 inline-block text-xl tracking-widest bg-amber-400/20 text-[#FFD700] border border-[rgba(255,215,0,0.3)] px-5 py-1.5 [text-shadow:0_0_10px_#FFD700]">
+                        LAS VEGAS EDITION
                     </p>
                     <br />
                     <div className="flex flex-wrap justify-center gap-4">
@@ -249,6 +253,30 @@ export default function Home({ events, categories }: HomeProps) {
                     })}
                 </div>
             </section>
+
+            {/* ── About ────────────────────────────────────── */}
+            <section className="border-b py-20" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                <div className="mx-auto max-w-3xl px-5 text-center">
+                    <p className="font-orbitron mb-3 text-[11px] uppercase tracking-[6px]" style={{ color: '#00F5FF', opacity: 0.8 }}>
+                        OUR STORY
+                    </p>
+                    <h2 className="font-bebas mb-6 leading-none tracking-widest text-white" style={{ fontSize: 'clamp(36px,6vw,64px)' }}>
+                        WHAT IS <span style={{ color: '#00F5FF', textShadow: '0 0 24px rgba(0,245,255,0.6)' }}>INITIUM</span>
+                    </h2>
+                    <div className="mx-auto mb-8 flex items-center justify-center gap-3">
+                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to left, #00F5FF, transparent)' }} />
+                        <div className="h-2 w-2 rounded-full" style={{ background: '#00F5FF', boxShadow: '0 0 12px #00F5FF' }} />
+                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to right, #00F5FF, transparent)' }} />
+                    </div>
+                    <p className="font-rajdhani text-lg font-medium leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                        Discover the enchanting story surrounding <span className="font-semibold text-white">INITIUM</span>, the intercollegiate
+                        literary extravaganza hosted by the Literary Club in conjunction with Music, Media, Fashion, Dance, and Art Clubs of{' '}
+                        <span className="font-semibold text-white">New Horizon College of Engineering</span>. INITIUM emerged in 2022 from a
+                        unified vision among students seeking a literary celebration.
+                    </p>
+                </div>
+            </section>
+
 
             {/* ── Stats ────────────────────────────────────── */}
             <section className="mx-auto max-w-5xl px-5 py-20">

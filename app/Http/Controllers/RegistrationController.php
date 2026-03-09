@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 use Razorpay\Api\Api;
+use App\Mail\RegistrationConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationController extends Controller
 {
@@ -193,12 +195,56 @@ class RegistrationController extends Controller
     {
         $registration = Registration::with('event')->findOrFail($id);
 
-        if ($registration->payment_status !== 'paid') {
+        if ($registration->payment_status !== 'success') {  // was 'paid'
             return redirect()->route('home');
         }
 
         return Inertia::render('Registration/Success', [
             'registration' => $registration,
+        ]);
+    }
+
+    /**
+     * Verify Razorpay payment and send confirmation email.
+     */
+    public function verify(Request $request)
+    {
+        $validated = $request->validate([
+            'razorpay_order_id'   => ['required', 'string'],
+            'razorpay_payment_id' => ['required', 'string'],
+            'razorpay_signature'  => ['required', 'string'],
+            'registration_id'     => ['required', 'exists:registrations,id'],
+        ]);
+
+        $api = new Api(config('razorpay.key'), config('razorpay.secret'));
+
+        try {
+            $api->utility->verifyPaymentSignature([
+                'razorpay_order_id'   => $validated['razorpay_order_id'],
+                'razorpay_payment_id' => $validated['razorpay_payment_id'],
+                'razorpay_signature'  => $validated['razorpay_signature'],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Payment verification failed.'], 422);
+        }
+
+        $registration = Registration::with(['event', 'participants'])
+            ->findOrFail($validated['registration_id']);
+
+        // Guard against duplicate emails if verify is called more than once
+        if ($registration->payment_status !== 'success') {
+            $registration->update([
+                'payment_status'      => 'success',
+                'razorpay_payment_id' => $validated['razorpay_payment_id'],
+            ]);
+
+            Mail::to($registration->contact_email)
+                ->send(new RegistrationConfirmationMail($registration));
+        }
+
+        return response()->json([
+            'message'         => 'Payment verified successfully.',
+            'registration_id' => $registration->id,
         ]);
     }
 }

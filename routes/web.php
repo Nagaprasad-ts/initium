@@ -19,6 +19,7 @@ Route::get('/brochure', [EventController::class, 'brochure'])->name('brochure');
 Route::get('/registration/individual/{slug}', [RegistrationController::class, 'individual'])->name('registration.individual');
 Route::get('/registration/group/{slug}', [RegistrationController::class, 'group'])->name('registration.group');
 Route::get('/registration/success/{id}', [RegistrationController::class, 'success'])->name('registration.success');
+Route::post('/registration/verify', [RegistrationController::class, 'verify'])->name('registration.verify');
 
 Route::post('/registration/submit', [RegistrationController::class, 'store'])->name('registration.submit');
 Route::post('/razorpay/webhook', [PaymentController::class, 'webhook'])->name('razorpay.webhook');

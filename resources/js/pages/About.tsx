@@ -12,12 +12,12 @@ const TIMELINE = [
 ];
 
 const CLUBS = [
-    { name: 'Literary Club', desc: 'Words that stir the soul — debates, declamations, and dramatic performances.', icon: '📖', color: '#FF0080' },
-    { name: 'Music Club', desc: 'Melodies that echo through the night — from solo spotlights to grand choruses.', icon: '🎵', color: '#00F5FF' },
-    { name: 'Media Club', desc: 'Digital artists and esports warriors — creativity meets competition.', icon: '🎬', color: '#7C3AED' },
-    { name: 'Art Club', desc: 'Where imagination takes physical form — structures that defy expectation.', icon: '🎨', color: '#FFD700' },
-    { name: 'Dance Club', desc: 'Bodies in motion, rhythm in heart — from duets to battle royales.', icon: '💃', color: '#FF0080' },
-    { name: 'Fashion Club', desc: 'Runway royalty under neon lights — style as a form of artistry.', icon: '👗', color: '#00F5FF' },
+    { name: 'Literary Club', desc: 'Words that stir the soul — debates, declamations, and dramatic performances.', icon: '/images/lit-club.png', color: '#FF0080' },
+    { name: 'Music Club', desc: 'Melodies that echo through the night — from solo spotlights to grand choruses.', icon: '/images/music-club.png', color: '#00F5FF' },
+    { name: 'Media Club', desc: 'Digital artists and esports warriors — creativity meets competition.', icon: '/images/media-club.png', color: '#7C3AED' },
+    { name: 'Art Club', desc: 'Where imagination takes physical form — structures that defy expectation.', icon: '/images/art-club.png', color: '#FFD700' },
+    { name: 'Dance Club', desc: 'Bodies in motion, rhythm in heart — from duets to battle royales.', icon: '/images/dance-club.png', color: '#FF0080' },
+    { name: 'Fashion Club', desc: 'Runway royalty under neon lights — style as a form of artistry.', icon: '/images/fashion-club.png', color: '#00F5FF' },
 ];
 
 const STAT_BAR = [
@@ -73,13 +73,35 @@ export default function About() {
                     color="#00F5FF"
                     sub="Four years of artistry, imagination, and student-led excellence"
                 />
-                <p className="mx-auto max-w-2xl text-[17px] leading-[1.9] text-white/65">
-                    INITIUM is the intercollegiate literary extravaganza hosted by the Literary Club in conjunction
-                    with Music, Media, Fashion, Dance, and Art Clubs of{' '}
-                    <span style={{ color: '#00F5FF' }}>New Horizon College of Engineering</span>.
-                    Cultivated exclusively through student-led efforts, it stands as proof of the unlimited
-                    imagination flourishing across our institutional community.
-                </p>
+                <div className="mx-auto max-w-2xl space-y-5 text-[17px] leading-[1.9] text-white/65 text-left md:text-center">
+                    <p>
+                        Discover the enchanting story surrounding{' '}
+                        <span className="font-semibold text-white">INITIUM</span>, the intercollegiate literary
+                        extravaganza hosted by the Literary Club in conjunction with Music, Media, Fashion, Dance,
+                        and Art Clubs of{' '}
+                        <span style={{ color: '#00F5FF' }}>New Horizon College of Engineering</span>. INITIUM
+                        emerged in 2022 from a unified vision among students seeking a literary celebration.
+                    </p>
+                    <p>
+                        From its inception, this creation has been cultivated exclusively through student-led
+                        efforts, resulting in an annual tribute to artistic innovation and imaginative voice.
+                        Established by a passionate leadership ensemble, INITIUM has flourished progressively,
+                        delivering a sophisticated spectrum of literary, music, media, and art experiences.
+                    </p>
+                    <p>
+                        Preceding celebrations have captivated audiences through themes encompassing anime and
+                        contemporary culture, with the wistful charm of retro aesthetics. In 2025, participants
+                        were transported into the enchanting wizarding world, where magic and imagination came
+                        alive.
+                    </p>
+                    <p>
+                        As we merge accomplished milestones with visionary goals, INITIUM stands as proof of the
+                        unlimited imagination and unified teamwork flourishing across our institutional community.{' '}
+                        <span className="font-semibold text-white">
+                            Join us in this adventure of literary discovery and imaginative expression.
+                        </span>
+                    </p>
+                </div>
             </div>
 
             {/* Stats bar */}
@@ -113,7 +135,8 @@ export default function About() {
                 >
                     {CLUBS.map((c, i) => (
                         <div key={i} className="neon-card rounded-xl p-7" style={{ borderColor: c.color + '33' }}>
-                            <div className="mb-3 text-4xl">{c.icon}</div>
+                            {/* <div className="mb-3 text-4xl">{c.icon}</div> */}
+                            <img src={c.icon} alt={c.name} className="mb-3" />
                             <h3 className="font-bebas mb-2 text-[22px] tracking-widest" style={{ color: c.color, textShadow: `0 0 10px ${c.color}` }}>
                                 {c.name}
                             </h3>
