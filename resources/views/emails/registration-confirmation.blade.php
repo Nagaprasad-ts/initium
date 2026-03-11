@@ -13,8 +13,9 @@
         .value { font-size: 18px; color: #fff; margin-bottom: 16px; }
         .event-name { font-size: 22px; color: #FF0080; letter-spacing: 2px; }
         .prize { font-size: 28px; color: #FFD700; }
-        .footer { text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 32px; }
         .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 20px 0; }
+        .footer { text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 32px; }
+        .member { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 6px; }
     </style>
 </head>
 <body>
@@ -26,26 +27,47 @@
 
         <div class="card">
             <p class="label">Registered For</p>
-            <p class="event-name">{{ $participant->event->name }}</p>
+            <p class="event-name">{{ $registration->event->name }}</p>
 
             <hr class="divider">
 
-            <p class="label">Name</p>
-            <p class="value">{{ $participant->name }}</p>
+            @if($registration->registration_type === 'individual')
+                <p class="label">Name</p>
+                <p class="value">{{ $registration->participants->first()->name }}</p>
 
-            <p class="label">Email</p>
-            <p class="value">{{ $participant->email }}</p>
+                <p class="label">Student ID</p>
+                <p class="value">{{ $registration->participants->first()->student_id }}</p>
+            @else
+                <p class="label">Team Name</p>
+                <p class="value">{{ $registration->team_name }}</p>
 
-            <p class="label">Team Type</p>
-            <p class="value">{{ ucfirst($participant->event->type) }}</p>
+                <p class="label">Members</p>
+                @foreach($registration->participants as $member)
+                    <p class="member">{{ $member->name }} — {{ $member->student_id }}</p>
+                @endforeach
+            @endif
 
             <hr class="divider">
+
+            <p class="label">College</p>
+            <p class="value">{{ $registration->college_name }}</p>
+
+            <p class="label">Contact Email</p>
+            <p class="value">{{ $registration->contact_email }}</p>
+
+            <p class="label">Contact Phone</p>
+            <p class="value">{{ $registration->contact_phone }}</p>
+
+            <hr class="divider">
+
+            <p class="label">Event Type</p>
+            <p class="value">{{ ucfirst($registration->event->type) }}</p>
 
             <p class="label">Entry Fee Paid</p>
-            <p class="value">₹{{ number_format($participant->event->price, 0) }}</p>
+            <p class="value">₹{{ number_format($registration->event->price, 0) }}</p>
 
             <p class="label">1st Prize</p>
-            <p class="prize">₹{{ number_format($participant->event->first_price, 0) }}</p>
+            <p class="prize">₹{{ number_format($registration->event->first_price, 0) }}</p>
         </div>
 
         <div class="card">
@@ -57,7 +79,7 @@
         </div>
 
         <div class="footer">
-            <p>Questions? Reply to this email or contact us at websupport@newhorizonindia.edu</p>
+            <p>Questions? Contact us at websupport@newhorizonindia.edu</p>
             <p style="margin-top: 8px;">© 2026 Initium — New Horizon College of Engineering</p>
         </div>
     </div>
