@@ -65,7 +65,7 @@ export default function Layout({ children }: LayoutProps) {
                 <p className="font-bebas mb-1 text-3xl tracking-[6px]" style={{ color: '#FF0080', textShadow: '0 0 15px #FF0080' }}>
                     INITIUM 2026
                 </p>
-                <p className="font-orbitron text-[9px] tracking-[4px] text-white/25">
+                <p className="font-orbitron text-[9px] tracking-[4px] text-white">
                     NEW HORIZON COLLEGE OF ENGINEERING · BENGALURU
                 </p>
             </footer>

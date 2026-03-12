@@ -22,44 +22,44 @@ export default function Success({ registration }: SuccessProps) {
         <Layout>
             <Head title="Registration Successful" />
 
-            <section className="py-24 bg-gray-50 min-h-screen flex items-center justify-center">
+            <section className="py-24 bg-primary min-h-screen flex items-center justify-center">
                 <div className="max-w-2xl w-full px-4 text-center">
-                    <div className="mb-12 inline-flex items-center justify-center w-24 h-24 bg-green-100 text-green-600 rounded-full shadow-xl shadow-green-600/10">
+                    <div className="mb-12 inline-flex items-center justify-center w-24 h-24 bg-green-600 text-green-100 rounded-full shadow-xl shadow-green-600/10">
                         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
                         </svg>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+                    <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
                         Payment Successful!
                     </h1>
                     
-                    <p className="text-xl text-gray-500 mb-12 font-medium">
-                        Thank you for registering. Your spot for <span className="text-gray-900 font-bold">{registration.event.name}</span> is now confirmed.
+                    <p className="text-xl text-gray-200 mb-12 font-medium">
+                        Thank you for registering. Your spot for <span className="text-purple-500 font-bold">{registration.event.name}</span> is now confirmed.
                     </p>
 
-                    <div className="bg-white rounded-3xl p-8 shadow-xl shadow-blue-600/5 border border-gray-100 mb-12 text-left">
+                    <div className="bg-white rounded-3xl p-8 mb-12 text-left">
                         <div className="grid grid-cols-2 gap-y-6">
                             <div>
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Registration ID</p>
+                                <p className="text-xs font-black text-gray-800 uppercase tracking-widest mb-1">Registration ID</p>
                                 <p className="font-bold text-gray-900">#INTM-{registration.id}</p>
                             </div>
                             <div>
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Type</p>
+                                <p className="text-xs font-black text-gray-800 uppercase tracking-widest mb-1">Type</p>
                                 <p className="font-bold text-gray-900 uppercase">{registration.registration_type}</p>
                             </div>
                             {registration.team_name && (
                                 <div>
-                                    <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Team Name</p>
+                                    <p className="text-xs font-black text-gray-800 uppercase tracking-widest mb-1">Team Name</p>
                                     <p className="font-bold text-gray-900">{registration.team_name}</p>
                                 </div>
                             )}
                             <div>
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Amount Paid</p>
+                                <p className="text-xs font-black text-gray-800 uppercase tracking-widest mb-1">Amount Paid</p>
                                 <p className="font-bold text-gray-900">₹{parseFloat(registration.total_amount).toLocaleString()}</p>
                             </div>
                             <div>
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Status</p>
+                                <p className="text-xs font-black text-gray-800 uppercase tracking-widest mb-1">Status</p>
                                 <p className="inline-flex px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-black uppercase tracking-wider">
                                     {registration.payment_status}
                                 </p>
@@ -82,7 +82,7 @@ export default function Success({ registration }: SuccessProps) {
                         </Link>
                     </div>
                     
-                    <p className="mt-12 text-sm text-gray-400 font-medium leading-relaxed">
+                    <p className="mt-12 text-sm text-gray-200 font-medium leading-relaxed">
                         A confirmation email has been sent to your registered address. <br />
                         Please show your Registration ID at the venue on the day of the event.
                     </p>
