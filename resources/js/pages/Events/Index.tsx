@@ -59,7 +59,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
     return (
         <div
             ref={ref}
-            className="rv-in relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] transition-all duration-300"
+            className="rv-in relative flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/3 transition-all duration-300"
             onMouseEnter={e => {
                 const el = e.currentTarget as HTMLDivElement;
                 el.style.transform = 'translateY(-5px)';
@@ -84,7 +84,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             />
 
             {/* ── Image ── */}
-            <div className="relative h-52 flex-shrink-0 overflow-hidden bg-black/50">
+            <div className="relative h-52 shrink-0 overflow-hidden bg-black/50">
                 {event.banner_image_events_page ? (
                     <img
                         src={`/storage/${event.banner_image_events_page}`}
@@ -141,7 +141,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 
                 {/* Meta row 2 */}
                 <div className="font-rajdhani mt-2 flex flex-wrap items-center gap-2 text-sm font-medium text-white/70">
-                    <span className="flex max-w-[200px] items-center gap-1.5 overflow-hidden text-ellipsis whitespace-nowrap">
+                    <span className="flex max-w-50 items-center gap-1.5 overflow-hidden text-ellipsis whitespace-nowrap">
                         <IconPin />{event.venue}
                     </span>
                     {event.max_participants && (
@@ -153,7 +153,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
                 </div>
 
                 {/* Footer */}
-                <div className="mt-auto flex items-center justify-between border-t border-white/[0.08] pt-5">
+                <div className="mt-auto flex items-center justify-between border-t border-white/8 pt-5">
                     <div>
                         <p className="font-orbitron mb-0.5 text-[9px] uppercase tracking-[2px] text-white/40">
                             Entry Fee
@@ -271,7 +271,7 @@ export default function Index({ events, categories }: { events: Event[]; categor
                 </h1>
 
                 {/* Divider */}
-                <div className="mx-auto my-4 flex max-w-[200px] items-center gap-3">
+                <div className="mx-auto my-4 flex max-w-50 items-center gap-3">
                     <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, #FF0080, transparent)' }} />
                     <div className="h-1.5 w-1.5 rounded-full" style={{ background: '#FF0080', boxShadow: '0 0 14px #FF0080' }} />
                     <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, #FF0080, transparent)' }} />
@@ -287,7 +287,7 @@ export default function Index({ events, categories }: { events: Event[]; categor
                 className="sticky top-0 z-50 border-b border-white/[0.07] px-5 py-3.5 backdrop-blur-lg"
                 style={{ background: 'rgba(11,11,15,0.88)' }}
             >
-                <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-center gap-2">
+                <div className="mx-auto flex max-w-310 flex-wrap items-center justify-center gap-2">
                     <FilterTab
                         label="All"
                         count={events.length}
@@ -313,11 +313,11 @@ export default function Index({ events, categories }: { events: Event[]; categor
             </div>
 
             {/* ═══ GRID ═══ */}
-            <main className="mx-auto max-w-[1200px] px-5 pb-24 pt-12">
+            <main className="mx-auto max-w-300 px-5 pb-24 pt-12">
 
                 {/* Context label */}
                 <div className="mb-10 flex items-center gap-4">
-                    <div className="h-px flex-1 bg-white/[0.06]" />
+                    <div className="h-px flex-1 bg-white/6" />
                     <p
                         className="font-orbitron whitespace-nowrap uppercase text-white/40"
                         style={{ fontSize: 11, letterSpacing: 3 }}
@@ -326,7 +326,7 @@ export default function Index({ events, categories }: { events: Event[]; categor
                             ? `All ${filtered.length} events`
                             : `${filtered.length} event${filtered.length !== 1 ? 's' : ''} · ${activeCatName}`}
                     </p>
-                    <div className="h-px flex-1 bg-white/[0.06]" />
+                    <div className="h-px flex-1 bg-white/6" />
                 </div>
 
                 {filtered.length > 0 ? (
@@ -336,11 +336,11 @@ export default function Index({ events, categories }: { events: Event[]; categor
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-dashed border-white/[0.08] px-5 py-20 text-center">
+                    <div className="rounded-2xl border border-dashed border-white/8 px-5 py-20 text-center">
                         <p className="font-bebas text-[36px] tracking-widest text-white/20">
                             NO EVENTS FOUND
                         </p>
-                        <p className="mt-2 font-rajdhani text-[15px] text-white/[0.18]">
+                        <p className="mt-2 font-rajdhani text-[15px] text-white/18">
                             Check back soon — more events coming!
                         </p>
                     </div>

@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Category;
+use Inertia\Inertia;
+use Inertia\Response;
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+
+    public function contact(): Response
+    {
+        $events = Event::with('category')
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        return Inertia::render('Contact', [
+            'events' => $events,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

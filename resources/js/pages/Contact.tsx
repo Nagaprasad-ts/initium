@@ -11,6 +11,7 @@ import {
     CoordinatorCard,
     PhoneContact,
 } from '@/components/ui/PageComponents';
+// import type { Event, Category } from '@/constants';
 import {
     CORE_TEAM,
     EVENT_COORDINATORS,

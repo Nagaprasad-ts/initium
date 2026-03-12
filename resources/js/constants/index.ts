@@ -120,7 +120,7 @@ export const EVENT_COORDINATORS = [
     { event: 'Group Groove',           coords: ['Aakash V: +91 78998 82361', 'Aden Godly: +91 80736 67219'] },
     { event: 'The Silver Spotlight',   coords: ['Sachin Sharan: +91 79750 43982', 'Sreesha Sajesh: +91 62381 41538'] },
     { event: 'Clash of Kings',         coords: ['Jeetesh: 9886420994'] },
-    { event: 'BGMI',                   coords: ['Vilasini: 9606644486'] },
+    { event: 'BGNS',                   coords: ['Vilasini: 9606644486'] },
     { event: 'The Reel Deal',          coords: ['Joshitha: 7619607360'] },
     { event: 'Two of a Kind',          coords: ['Sriharsha: 9845689877', 'Tejashwani: 8123580593'] },
     { event: 'All-in Showdown',        coords: ['Adithya: 9632506561', 'Sneha: 7204025137'] },
