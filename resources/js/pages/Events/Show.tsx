@@ -14,7 +14,8 @@ interface Event {
     start_time: string;
     end_time: string;
     price: string;
-    banner_image: string;
+    banner_image_desktop: string;
+    banner_image_mobile: string;
 }
 
 interface ShowProps {
@@ -57,11 +58,19 @@ export default function Show({ event, has_capacity }: ShowProps) {
             )}
 
             {/* ── Hero Banner ───────────────────────────────── */}
-            <div className="relative h-[55vh] overflow-hidden" style={{ minHeight: 320 }}>
+           <div className="relative overflow-hidden" style={{ minHeight: 320, height: 500 }}>
+                {/* Desktop */}
                 <img
-                    src={event.banner_image}
+                    src={`/storage/${event.banner_image_desktop}`}
                     alt={event.name}
-                    className="h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full hidden md:block object-top"
+                    style={{ opacity: 0.5, filter: 'saturate(1.3) brightness(0.7)' }}
+                />
+                {/* Mobile */}
+                <img
+                    src={`/storage/${event.banner_image_mobile}`}
+                    alt={event.name}
+                    className="absolute inset-0 h-full w-full object-cover block md:hidden object-top"
                     style={{ opacity: 0.5, filter: 'saturate(1.3) brightness(0.7)' }}
                 />
                 {/* gradient overlays */}

@@ -19,7 +19,7 @@ interface Event {
     event_start_date: string;
     price: string;
     first_price: string;
-    banner_image: string | null;
+    banner_image_events_page: string | null;
 }
 
 interface HomeProps {
@@ -80,7 +80,8 @@ const STATS = [
 const NEON_COLORS = ['#FF0080', '#00F5FF', '#FFD700', '#7C3AED'];
 
 function stripHtml(html: string) {
-    return html.replace(/<[^>]*>/g, '').trim();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent ?? '';
 }
 
 function truncate(text: string, max = 100) {
@@ -105,16 +106,19 @@ function FeaturedEventCard({ event, color }: { event: Event; color: string }) {
                 }}
             />
 
-            <div className="mb-3 flex items-start justify-between">
-                {/* {event.banner_image ? (
+            {/* Image — bigger, full width */}
+            {event.banner_image_events_page && (
+                <div className="mb-4 overflow-hidden rounded-lg" style={{ height: 120 }}>
                     <img
-                        src={`/storage/${event.banner_image}`}
+                        src={`/storage/${event.banner_image_events_page}`}
                         alt={event.name}
-                        className="h-9 w-9 rounded object-cover"
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105 object-top"
+                        style={{ filter: 'brightness(0.85) saturate(1.2)' }}
                     />
-                ) : (
-                    <span className="text-3xl">🎭</span>
-                )} */}
+                </div>
+            )}
+
+            <div className="mb-3 flex items-center justify-between">
                 <span
                     className="font-orbitron rounded px-2 py-1 text-[8px] uppercase tracking-widest"
                     style={{ color, border: `1px solid ${color}44` }}
@@ -127,15 +131,17 @@ function FeaturedEventCard({ event, color }: { event: Event; color: string }) {
             <p className="font-orbitron mb-3 text-[11px] uppercase tracking-widest" style={{ color }}>
                 {typeLabel}
             </p>
-            <p className="mb-4 flex-1 text-sm leading-relaxed text-white/50">
-                {truncate(event.description)}
+
+            {/* Truncated description — no dangerouslySetInnerHTML */}
+            <p className="font-rajdhani mb-4 flex-1 text-sm font-medium leading-relaxed text-white/80">
+                {truncate(event.description, 120)}
             </p>
 
             <div
                 className="flex items-center justify-between border-t pt-4"
                 style={{ borderColor: color + '22' }}
             >
-                <span className="font-orbitron text-[9px] tracking-widest text-white/40">REGISTRATION FEE</span>
+                <span className="font-orbitron text-[9px] tracking-widest text-white/80">REGISTRATION FEE</span>
                 <span className="font-bebas text-xl" style={{ color, textShadow: `0 0 10px ${color}` }}>
                     ₹{parseFloat(event.price).toLocaleString()}
                 </span>
@@ -264,9 +270,9 @@ export default function Home({ events, categories }: HomeProps) {
                         WHAT IS <span style={{ color: '#00F5FF', textShadow: '0 0 24px rgba(0,245,255,0.6)' }}>INITIUM</span>
                     </h2>
                     <div className="mx-auto mb-8 flex items-center justify-center gap-3">
-                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to left, #00F5FF, transparent)' }} />
+                        <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to left, #00F5FF, transparent)' }} />
                         <div className="h-2 w-2 rounded-full" style={{ background: '#00F5FF', boxShadow: '0 0 12px #00F5FF' }} />
-                        <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to right, #00F5FF, transparent)' }} />
+                        <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to right, #00F5FF, transparent)' }} />
                     </div>
                     <p className="font-rajdhani text-lg font-medium leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
                         Discover the enchanting story surrounding <span className="font-semibold text-white">INITIUM</span>, the intercollegiate
@@ -298,11 +304,11 @@ export default function Home({ events, categories }: HomeProps) {
                         <h2 className="font-bebas leading-none tracking-widest text-white" style={{ fontSize: 'clamp(42px,8vw,80px)' }}>
                             FEATURED <span style={{ color: '#FF0080', textShadow: '0 0 20px #FF0080' }}>EVENTS</span>
                         </h2>
-                        <p className="mx-auto mt-3 max-w-[500px] text-base text-white/50">Compete, perform, and shine across disciplines</p>
+                        <p className="mx-auto mt-3 max-w-125 text-base text-white/50">Compete, perform, and shine across disciplines</p>
                         <div className="mt-5 flex items-center justify-center gap-3">
-                            <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to left, #FF0080, transparent)' }} />
+                            <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to left, #FF0080, transparent)' }} />
                             <div className="h-2 w-2 rounded-full" style={{ background: '#FF0080', boxShadow: '0 0 12px #FF0080' }} />
-                            <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to right, #FF0080, transparent)' }} />
+                            <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to right, #FF0080, transparent)' }} />
                         </div>
                     </div>
 

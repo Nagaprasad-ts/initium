@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 import Layout from '@/components/Layout';
 import {
@@ -33,12 +33,17 @@ export default function Contact() {
 
     const set = (k: keyof typeof form) => (v: string) => setForm(f => ({ ...f, [k]: v }));
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form.name || !form.email || !form.message) return;
-        setSent(true);
-        setTimeout(() => setSent(false), 3500);
-        setForm({ name: '', email: '', subject: '', message: '' });
+
+        await router.post('/contact', form, {
+            onSuccess: () => {
+                setSent(true);
+                setTimeout(() => setSent(false), 3500);
+                setForm({ name: '', email: '', subject: '', message: '' });
+            },
+        });
     };
 
     return (
@@ -277,7 +282,7 @@ export default function Contact() {
                                 title="New Horizon College of Engineering"
                             />
                         </div>
-                        <div
+                        {/* <div
                             style={{
                                 background: 'rgba(124,58,237,0.06)',
                                 border: '1px solid rgba(124,58,237,0.22)',
@@ -309,7 +314,7 @@ export default function Contact() {
                                 Located on Outer Ring Road, Bengaluru. Nearest metro: Kadugodi / Whitefield.
                                 Accessible via BMTC, cab services, and auto-rickshaws.
                             </p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>

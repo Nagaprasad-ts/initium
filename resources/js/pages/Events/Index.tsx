@@ -85,9 +85,9 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 
             {/* ── Image ── */}
             <div className="relative h-52 flex-shrink-0 overflow-hidden bg-black/50">
-                {event.banner_image ? (
+                {event.banner_image_events_page ? (
                     <img
-                        src={event.banner_image}
+                        src={`/storage/${event.banner_image_events_page}`}
                         alt={event.name}
                         className="h-full w-full object-cover brightness-[0.8] saturate-[1.15] transition-transform duration-700 hover:scale-[1.07]"
                     />

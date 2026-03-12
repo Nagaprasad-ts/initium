@@ -9,7 +9,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema as FilamentSchema;
@@ -95,9 +94,9 @@ class EventForm
                             ]),
                     ])
                     ->columnSpanFull(),
-                Section::make('Pricing & Capacity')
+                Section::make('Pricing, Capacity & Links')
                     ->schema([
-                        Grid::make(3)
+                        Grid::make(2)
                             ->schema([
                                 TextInput::make('price')
                                     ->numeric()
@@ -121,13 +120,20 @@ class EventForm
                                     ->gte('min')
                                     ->required(fn ($get) => $get('type') === 'group')
                                     ->disabled(fn ($get) => in_array($get('type'), ['duo', 'individual'])),
+
+                                TextInput::make('whatsapp_link')
+                                    ->nullable()
+                                    ->url()
+                                    ->required(),
+
+                                TextInput::make('max_participants')
+                                    ->numeric()
+                                    ->nullable(),
                             ]),
 
                         Grid::make(2)
                             ->schema([
-                                TextInput::make('max_participants')
-                                    ->numeric()
-                                    ->nullable(),
+                                
 
                                 Toggle::make('is_active')
                                     ->label('Is Active')
@@ -137,8 +143,19 @@ class EventForm
                     ->columnSpan(1),
                 Section::make('Media')
                     ->schema([
-                        FileUpload::make('banner_image')
+                        FileUpload::make('banner_image_events_page')
                             ->image()
+                            ->label('Image (Events Page)')
+                            ->directory('events')
+                            ->disk('public'),
+                        FileUpload::make('banner_image_desktop')
+                            ->image()
+                            ->label('Event Image (Desktop)')
+                            ->directory('events')
+                            ->disk('public'),
+                        FileUpload::make('banner_image_mobile')
+                            ->image()
+                            ->label('Event Image (Mobile)')
                             ->directory('events')
                             ->disk('public'),
                     ])

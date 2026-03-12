@@ -250,7 +250,9 @@ class EventSeeder extends Seeder
                 array_merge($data, [
                     'slug'         => Str::slug($data['name']),
                     'category_id'  => $categories[$categoryKey],
-                    'banner_image' => null,
+                    'banner_image_events_page' => null,
+                    'banner_image_desktop'    => null,
+                    'banner_image_mobile'     => null,
                     'is_active'    => true,
                 ])
             );

@@ -209,7 +209,7 @@ body {
 
 /* ── Marquee ───────────────────────────────────────────────── */
 .marquee-wrap  { overflow: hidden; white-space: nowrap; }
-.marquee-track { display: inline-block; animation: marquee 18s linear infinite; }
+.marquee-track { display: inline-block; animation: marquee 50s linear infinite; }
 
 /* ── Particle ──────────────────────────────────────────────── */
 .particle {

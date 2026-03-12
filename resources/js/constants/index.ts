@@ -26,7 +26,7 @@ export interface Event {
     max_participants: number;
     min: number | null;
     max: number | null;
-    banner_image: string | null;
+    banner_image_events_page: string | null;
 }
 
 /* ─── Category colors ────────────────────────────────────────── */

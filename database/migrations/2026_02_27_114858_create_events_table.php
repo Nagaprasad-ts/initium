@@ -28,7 +28,10 @@ return new class extends Migration
             $table->integer('min')->nullable();
             $table->integer('max')->nullable();
             $table->integer('max_participants')->nullable();
-            $table->string('banner_image')->nullable();
+            $table->string('whatsapp_link')->nullable();
+            $table->string('banner_image_events_page')->nullable();
+            $table->string('banner_image_desktop')->nullable();
+            $table->string('banner_image_mobile')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
