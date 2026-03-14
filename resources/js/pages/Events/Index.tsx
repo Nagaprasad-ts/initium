@@ -284,10 +284,12 @@ export default function Index({ events, categories }: { events: Event[]; categor
 
             {/* ═══ STICKY FILTER BAR ═══ */}
             <div
-                className="sticky top-0 z-50 border-b border-white/[0.07] px-5 py-3.5 backdrop-blur-lg"
+                className="sticky top-0 z-50 border-b border-white/[0.07] backdrop-blur-lg"
                 style={{ background: 'rgba(11,11,15,0.88)' }}
             >
-                <div className="mx-auto flex max-w-310 flex-wrap items-center justify-center gap-2">
+                <div className="flex items-center gap-2 overflow-x-auto px-4 py-3 md:flex-wrap md:justify-center md:px-5 md:py-3.5"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
                     <FilterTab
                         label="All"
                         count={events.length}

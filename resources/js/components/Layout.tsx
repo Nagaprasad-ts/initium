@@ -39,8 +39,8 @@ function NavBar() {
     const { url } = usePage();
     const isActive = (href: string) => href === '/' ? url === '/' : url.startsWith(href);
     return (
-        <nav className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4">
-            <div className="mx-auto flex max-w-[480px] justify-around rounded-[20px] px-1 py-1.5" style={{
+        <nav className="fixed bottom-0 left-0 right-0 z-50 md:px-4 md:pb-4">
+            <div className="mx-auto flex max-w-120 justify-around rounded-lg md:rounded-[20px] md:px-1 py-1.5" style={{
                 background: 'rgba(11,11,15,0.85)', backdropFilter: 'blur(20px)',
                 border: '1px solid rgba(0,245,255,0.15)',
                 boxShadow: '0 0 30px rgba(0,245,255,0.1), 0 -4px 30px rgba(0,0,0,0.5)',
@@ -48,7 +48,8 @@ function NavBar() {
                 {NAV_ITEMS.map(({ href, label, Icon }) => (
                     <Link key={href} href={href} className={`nav-item ${isActive(href) ? 'active' : ''}`}>
                         <Icon size={20} strokeWidth={1.5} />
-                        <span>{label}</span>
+                        {/* <Icon size={26} strokeWidth={2} className='block md:hidden'/> */}
+                        <span className='text-[6px] md:text-[9px]'>{label}</span>
                     </Link>
                 ))}
             </div>

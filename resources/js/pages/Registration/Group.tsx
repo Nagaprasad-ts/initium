@@ -113,10 +113,19 @@ export default function Group({ event }: GroupProps) {
                 name: 'Initium 2026',
                 description: `Group Registration for ${response.data.event_name}`,
                 order_id: response.data.razorpay_order_id,
-                handler: function (paymentResponse: any) {
-                    router.visit(
-                        `/registration/success/${response.data.registration_id}`,
-                    );
+                handler: async function (paymentResponse: any) {
+                    try {
+                        await axios.post('/registration/verify', {
+                            razorpay_order_id:   response.data.razorpay_order_id,
+                            razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                            razorpay_signature:  paymentResponse.razorpay_signature,
+                            registration_id:     response.data.registration_id,
+                        });
+
+                        router.visit(`/registration/success/${response.data.registration_id}`);
+                    } catch (err) {
+                        alert('Payment verification failed. Please contact support with your payment ID: ' + paymentResponse.razorpay_payment_id);
+                    }
                 },
                 prefill: {
                     name: response.data.contact_name,

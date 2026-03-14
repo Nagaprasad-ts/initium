@@ -120,15 +120,15 @@ function FeaturedEventCard({ event, color }: { event: Event; color: string }) {
 
             <div className="mb-3 flex items-center justify-between">
                 <span
-                    className="font-orbitron rounded px-2 py-1 text-[8px] uppercase tracking-widest"
+                    className="font-orbitron rounded px-2 py-1 text-[10px] uppercase tracking-widest"
                     style={{ color, border: `1px solid ${color}44` }}
                 >
                     {event.category?.name}
                 </span>
             </div>
 
-            <h3 className="font-bebas mb-1 text-[22px] tracking-widest text-white">{event.name}</h3>
-            <p className="font-orbitron mb-3 text-[11px] uppercase tracking-widest" style={{ color }}>
+            <h3 className="font-bebas mb-2 text-[22px] tracking-widest text-white">{event.name}</h3>
+            <p className="font-orbitron mb-3 text-[12px] uppercase tracking-widest" style={{ color }}>
                 {typeLabel}
             </p>
 
@@ -141,7 +141,7 @@ function FeaturedEventCard({ event, color }: { event: Event; color: string }) {
                 className="flex items-center justify-between border-t pt-4"
                 style={{ borderColor: color + '22' }}
             >
-                <span className="font-orbitron text-[9px] tracking-widest text-white/80">REGISTRATION FEE</span>
+                <span className="font-orbitron text-[12px] tracking-widest text-white/80">REGISTRATION FEE</span>
                 <span className="font-bebas text-xl" style={{ color, textShadow: `0 0 10px ${color}` }}>
                     ₹{parseFloat(event.price).toLocaleString()}
                 </span>
@@ -157,7 +157,7 @@ export default function Home({ events, categories }: HomeProps) {
     const ctaRef      = useReveal();
 
     useEffect(() => {
-        const targetDate = new Date('2026-05-20T09:00:00').getTime();
+        const targetDate = new Date('2026-04-26T09:00:00').getTime();
         const interval = setInterval(() => {
             const diff = targetDate - Date.now();
             if (diff > 0) {
@@ -195,7 +195,7 @@ export default function Home({ events, categories }: HomeProps) {
                 <div className="grid-bg absolute inset-0 opacity-30" style={{ zIndex: 2 }} />
 
                 <div className="relative px-5 text-center" style={{ zIndex: 3 }}>
-                    <p className="font-orbitron animate-glow-cyan mb-4" style={{ fontSize: 'clamp(9px,2vw,12px)', letterSpacing: 8, color: '#00F5FF' }}>
+                    <p className="font-orbitron animate-glow-cyan mb-4 text-sm tracking-[9px] text-[#00F5FF]">
                         New Horizon College of Engineering
                     </p>
                     {/* <NeonTitle /> */}
@@ -216,10 +216,10 @@ export default function Home({ events, categories }: HomeProps) {
                     </div>
                 </div>
 
-                <div className="absolute bottom-24 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1" style={{ zIndex: 3 }}>
+                {/* <div className="absolute bottom-24 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1" style={{ zIndex: 3 }}>
                     <div className="animate-float h-10 w-px" style={{ background: 'linear-gradient(to bottom, transparent, #00F5FF)', boxShadow: '0 0 8px #00F5FF' }} />
                     <span className="font-orbitron text-[8px] tracking-[3px] text-cyan-400/50">SCROLL</span>
-                </div>
+                </div> */}
             </section>
 
             {/* ── Marquee ──────────────────────────────────── */}
@@ -235,8 +235,8 @@ export default function Home({ events, categories }: HomeProps) {
 
             {/* ── Countdown ────────────────────────────────── */}
             <section className="border-b py-14" style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 70%)' }}>
-                <p className="font-orbitron mb-8 text-center text-[11px] tracking-[6px]" style={{ color: '#7C3AED' }}>
-                    COUNTING DOWN TO MAY 20, 2026
+                <p className="font-orbitron mb-8 text-center text-[12px] tracking-[4px] md:text-[11px] md:tracking-[6px]" style={{ color: '#7C3AED' }}>
+                    COUNTING DOWN TO APRIL 26, 2026
                 </p>
                 <div className="mx-auto flex max-w-2xl justify-center gap-4 px-5 sm:gap-8">
                     {[
@@ -289,7 +289,7 @@ export default function Home({ events, categories }: HomeProps) {
                 <div ref={statsRef} className="section-reveal grid grid-cols-2 gap-6 md:grid-cols-4">
                     {STATS.map((s) => (
                         <div key={s.l} className="neon-card rounded-xl p-8 text-center" style={{ borderColor: s.color + '33' }}>
-                            <div className="font-bebas text-[52px] leading-none" style={{ color: s.color, textShadow: `0 0 20px ${s.color}` }}>{s.n}</div>
+                            <div className="font-bebas text-[38px] leading-none" style={{ color: s.color, textShadow: `0 0 20px ${s.color}` }}>{s.n}</div>
                             <div className="font-orbitron mt-1 text-[11px] uppercase tracking-widest text-white/50">{s.l}</div>
                         </div>
                     ))}
