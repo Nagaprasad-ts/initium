@@ -99,6 +99,7 @@ class EventForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('price')
+                                    ->label('Registation Fee')
                                     ->numeric()
                                     ->prefix('₹')
                                     ->required(),

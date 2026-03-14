@@ -32,6 +32,7 @@ class EventsTable
                     ->date()
                     ->sortable(),
                 TextColumn::make('price')
+                    ->label('Registation Fee')
                     ->money('INR')
                     ->sortable(),
                 IconColumn::make('is_active')

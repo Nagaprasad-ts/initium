@@ -195,11 +195,12 @@ export default function Home({ events, categories }: HomeProps) {
                 <div className="grid-bg absolute inset-0 opacity-30" style={{ zIndex: 2 }} />
 
                 <div className="relative px-5 text-center" style={{ zIndex: 3 }}>
-                    <p className="font-orbitron animate-glow-cyan mb-4 text-sm tracking-[9px] text-[#00F5FF]">
+                    {/* <p className="font-orbitron animate-glow-cyan mb-4 text-sm tracking-[9px] text-[#00F5FF]">
                         New Horizon College of Engineering
-                    </p>
+                    </p> */}
                     {/* <NeonTitle /> */}
-                    <div className='flex justify-center'>
+                    <div className='flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12'>
+                        <img src="/images/nhce-logo.png" alt='Initium 2026 - Las Vegas' className='w-62 h-34' />
                         <img src="/images/initium-logo.png" alt='Initium 2026 - Las Vegas' className='w-72 h-48' />
                     </div>
                     <p className="font-orbitron mt-2 text-white" style={{ fontSize: 'clamp(11px,2vw,16px)', letterSpacing: 6 }}>2 0 2 6</p>
