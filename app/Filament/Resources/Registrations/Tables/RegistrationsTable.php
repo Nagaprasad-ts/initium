@@ -11,6 +11,11 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 
+use App\Exports\RegistrationsExport;
+use Filament\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+
 class RegistrationsTable
 {
     public static function configure(Table $table): Table
@@ -56,6 +61,18 @@ class RegistrationsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+            ])
+            ->headerActions([
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->action(fn () => Excel::download(
+                        new RegistrationsExport(
+                            Auth::user()?->hasRole('core-team')
+                        ),
+                        'registrations-' . now()->format('d-m-Y') . '.xlsx'
+                    )),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
