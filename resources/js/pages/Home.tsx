@@ -65,6 +65,7 @@ function NeonTitle() {
     );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MARQUEE_ITEMS = [
     'VIVA LA VOICE','IPL AUCTION','SKYFALL','OPEN MIC','BGMI',
     'CLASH ROYALE','GROUP GROOVE','REEL DEAL','SOLO DANCE','RAMP WALK','PAPER TOWER','INSTRUMENTAL',
@@ -157,7 +158,7 @@ export default function Home({ events, categories }: HomeProps) {
     const ctaRef      = useReveal();
 
     useEffect(() => {
-        const targetDate = new Date('2026-04-26T09:00:00').getTime();
+        const targetDate = new Date('2026-04-27T09:00:00').getTime();
         const interval = setInterval(() => {
             const diff = targetDate - Date.now();
             if (diff > 0) {
@@ -226,9 +227,9 @@ export default function Home({ events, categories }: HomeProps) {
             {/* ── Marquee ──────────────────────────────────── */}
             <div className="marquee-wrap border-y py-3.5" style={{ borderColor: 'rgba(255,0,128,0.2)', background: 'rgba(255,0,128,0.05)' }}>
                 <div className="marquee-track">
-                    {MARQUEE_ITEMS.map((item, i) => (
-                        <span key={i} className="font-bebas mr-16 text-lg tracking-widest" style={{ color: '#FF0080', textShadow: '0 0 8px #FF0080' }}>
-                            ✦ {item}
+                    {events.map((event) => (
+                        <span key={event.id} className="font-bebas mr-16 text-lg tracking-widest" style={{ color: '#FF0080', textShadow: '0 0 8px #FF0080' }}>
+                            ✦ {event.name.toUpperCase()}
                         </span>
                     ))}
                 </div>
@@ -237,7 +238,7 @@ export default function Home({ events, categories }: HomeProps) {
             {/* ── Countdown ────────────────────────────────── */}
             <section className="border-b py-14" style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 70%)' }}>
                 <p className="font-orbitron mb-8 text-center text-[12px] tracking-[4px] md:text-[11px] md:tracking-[6px]" style={{ color: '#7C3AED' }}>
-                    COUNTING DOWN TO APRIL 26, 2026
+                    COUNTING DOWN TO APRIL 27, 2026
                 </p>
                 <div className="mx-auto flex max-w-2xl justify-center gap-4 px-5 sm:gap-8">
                     {[

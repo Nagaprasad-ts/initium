@@ -145,10 +145,12 @@ class RegistrationController extends Controller
                     'receipt'  => 'rcpt_' . $registration->id,
                     'amount'   => $registration->total_amount * 100, // paise
                     'currency' => 'INR',
-                    'notes'    => [
+                    'notes' => [
                         'registration_id' => $registration->id,
                         'event_name'      => $event->name,
                         'event'           => 'Initium 2026',
+                        'college'         => $registration->college_name,
+                        'contact_email'   => $registration->contact_email,
                     ],
                 ]);
 
