@@ -75,7 +75,7 @@ const STATS = [
     { n: '70+',     l: 'Events Hosted', color: '#FF0080' },
     { n: '11,753+', l: 'Total Footfall', color: '#00F5FF' },
     { n: '2,058+',  l: 'Participants',   color: '#FFD700' },
-    { n: '2022',    l: 'Est. Year',      color: '#7C3AED' },
+    { n: '2022',    l: 'Since',      color: '#7C3AED' },
 ];
 
 const NEON_COLORS = ['#FF0080', '#00F5FF', '#FFD700', '#7C3AED'];
@@ -204,9 +204,9 @@ export default function Home({ events, categories }: HomeProps) {
                         <img src="/images/nhce-logo.png" alt='Initium 2026 - Las Vegas' className='w-62 h-34' />
                         <img src="/images/initium-logo.png" alt='Initium 2026 - Las Vegas' className='w-72 h-48' />
                     </div>
-                    <p className="font-orbitron mt-2 text-white" style={{ fontSize: 'clamp(11px,2vw,16px)', letterSpacing: 6 }}>2 0 2 6</p>
+                    <p className="font-orbitron mt-2 text-white" style={{ fontSize: 'clamp(11px,2vw,16px)', letterSpacing: 6 }}> 27 April 2026</p>
                     <p className="font-rajdhani mx-auto mb-3 mt-2 max-w-125 font-light text-white" style={{ fontSize: 'clamp(14px,3vw,20px)', letterSpacing: 3 }}>
-                        INTERCOLLEGIATE LITERARY & CULTURAL FEST
+                        INTER-COLLEGIATE LITERARY & CULTURAL FEST
                     </p>
                     <p className="font-bebas mb-9 inline-block text-xl tracking-widest bg-amber-400/20 text-[#FFD700] border border-[rgba(255,215,0,0.3)] px-5 py-1.5 [text-shadow:0_0_10px_#FFD700]">
                         LAS VEGAS EDITION
@@ -269,7 +269,7 @@ export default function Home({ events, categories }: HomeProps) {
                         OUR STORY
                     </p>
                     <h2 className="font-bebas mb-6 leading-none tracking-widest text-white" style={{ fontSize: 'clamp(36px,6vw,64px)' }}>
-                        WHAT IS <span style={{ color: '#00F5FF', textShadow: '0 0 24px rgba(0,245,255,0.6)' }}>INITIUM</span>
+                        THE <span style={{ color: '#00F5FF', textShadow: '0 0 24px rgba(0,245,255,0.6)' }}>INITIUM</span> STORY
                     </h2>
                     <div className="mx-auto mb-8 flex items-center justify-center gap-3">
                         <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to left, #00F5FF, transparent)' }} />
@@ -277,11 +277,16 @@ export default function Home({ events, categories }: HomeProps) {
                         <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to right, #00F5FF, transparent)' }} />
                     </div>
                     <p className="font-rajdhani text-lg font-medium leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
-                        Discover the enchanting story surrounding <span className="font-semibold text-white">INITIUM</span>, the intercollegiate
+                        Here's the enchanting story surrounding <span className="font-semibold text-white">INITIUM</span>, the intercollegiate
                         literary extravaganza hosted by the Literary Club in conjunction with Music, Media, Fashion, Dance, and Art Clubs of{' '}
                         <span className="font-semibold text-white">New Horizon College of Engineering</span>. INITIUM emerged in 2022 from a
                         unified vision among students seeking a literary celebration.
                     </p>
+                    <div className="mt-5 text-center">
+                        <Link href="/about" className="btn-neon btn-neon-gold">
+                            Know More →
+                        </Link>
+                    </div>
                 </div>
             </section>
 

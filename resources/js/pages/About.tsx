@@ -8,7 +8,7 @@ const TIMELINE = [
     { year: '2023', title: 'Anime Universe', desc: 'Captivated audiences through the vibrant world of anime and contemporary pop culture, bringing characters to life on stage.', color: '#00F5FF' },
     { year: '2024', title: 'Retro Echoes', desc: 'Transported participants through wistful retro aesthetics — a nostalgic journey wrapped in modern energy and artistic expression.', color: '#FFD700' },
     { year: '2025', title: 'Wizarding World', desc: 'The enchanting wizarding world came alive as magic and imagination took center stage, creating unforgettable moments of wonder.', color: '#7C3AED' },
-    { year: '2026', title: 'Las Vegas Edition', desc: 'Welcome to Sin City — where neon lights, high stakes, and electrifying performances converge for the most dazzling INITIUM yet.', color: '#FF0080' },
+    { year: '2026', title: 'Las Vegas', desc: 'Welcome to Sin City — where neon lights, high stakes, and electrifying performances converge for the most dazzling INITIUM yet.', color: '#FF0080' },
 ];
 
 const CLUBS = [
@@ -75,7 +75,7 @@ export default function About() {
                 />
                 <div className="mx-auto max-w-2xl space-y-5 text-[17px] leading-[1.9] text-white/65 text-left md:text-center">
                     <p>
-                        Discover the enchanting story surrounding{' '}
+                        Here's the enchanting story surrounding{' '}
                         <span className="font-semibold text-white">INITIUM</span>, the intercollegiate literary
                         extravaganza hosted by the Literary Club in conjunction with Music, Media, Fashion, Dance,
                         and Art Clubs of{' '}

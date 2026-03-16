@@ -138,17 +138,17 @@ export const VENUE_INFO = [
     {
         icon: '📍',
         label: 'VENUE',
-        value: 'New Horizon College of Engineering, Outer Ring Road, Bengaluru — 560103',
+        value: 'New Horizon Knowledge Park, Outer Ring Road, Near Bellandur, Bengaluru 560103',
     },
     {
         icon: '📧',
         label: 'EMAIL',
-        value: 'initium@nhce.edu.in',
+        value: 'initium@',
     },
     {
-        icon: '🎰',
-        label: 'THEME',
-        value: 'Las Vegas Edition 2026',
+        icon: '📞',
+        label: 'PHONE',
+        value: '+91',
     },
 ];
 

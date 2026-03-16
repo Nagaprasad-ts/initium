@@ -212,10 +212,10 @@ class RegistrationController extends Controller
         // Store the payment ID — webhook may have already set status to 'paid'
         // If webhook hasn't fired yet, set it here as a fallback
         $registration->update([
-            'razorpay_payment_id' => $validated['razorpay_payment_id'],
-            'payment_status'      => 'paid',
+            'payment_id'     => $validated['razorpay_payment_id'],
+            'payment_status' => 'paid',
         ]);
-
+        
         return response()->json([
             'message'         => 'Payment verified successfully.',
             'registration_id' => $registration->id,
