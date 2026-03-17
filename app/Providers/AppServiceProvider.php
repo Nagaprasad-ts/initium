@@ -24,11 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Force HTTPS in production (Fix Railway Mixed Content)
-        if (app()->isProduction()) {
-            URL::forceScheme('https');
-        }
-        
+        URL::forceRootUrl(config('app.url'));
+        URL::forceScheme('https'); // keep this
+
         $this->configureDefaults();
     }
 
