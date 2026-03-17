@@ -148,7 +148,14 @@ class EventForm
                             ->image()
                             ->label('Image (Events Page)')
                             ->directory('events')
-                            ->disk('public'),
+                            ->disk('public')
+                            ->afterStateUpdated(function ($state) {
+                                \Illuminate\Support\Facades\Log::info('Upload attempted', [
+                                    'state' => $state,
+                                    'disk'  => 'public',
+                                    'dir'   => 'events',
+                                ]);
+                            }),
                         FileUpload::make('banner_image_desktop')
                             ->image()
                             ->label('Event Image (Desktop)')
