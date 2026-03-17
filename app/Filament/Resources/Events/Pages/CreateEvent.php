@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Events\Pages;
 use App\Filament\Resources\Events\EventResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Log;
 
 class CreateEvent extends CreateRecord
 {
@@ -13,9 +14,14 @@ class CreateEvent extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (request()->hasFile('banner_image_events_page')) {
-            $data['banner_image_events_page'] =
-                request()->file('banner_image_events_page')->store('events', 'public');
+            $path = request()->file('banner_image_events_page')->store('events', 'public');
+
+            Log::info('Saved path:', ['path' => $path]);
+
+            $data['banner_image_events_page'] = $path;
         }
+
+        Log::info('Final data:', $data);
 
         return $data;
     }
