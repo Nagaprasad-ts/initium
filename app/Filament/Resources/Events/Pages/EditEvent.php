@@ -9,6 +9,14 @@ use Filament\Resources\Pages\EditRecord;
 class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
+    
+    protected function getFormAttributes(): array
+    {
+        return [
+            'enctype' => 'multipart/form-data',
+        ];
+    }
+
 
     protected function getHeaderActions(): array
     {

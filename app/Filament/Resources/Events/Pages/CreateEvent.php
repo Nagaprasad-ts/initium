@@ -11,6 +11,13 @@ class CreateEvent extends CreateRecord
 {
     protected static string $resource = EventResource::class;
 
+    protected function getFormAttributes(): array
+    {
+        return [
+            'enctype' => 'multipart/form-data',
+        ];
+    }
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (request()->hasFile('banner_image_events_page')) {
