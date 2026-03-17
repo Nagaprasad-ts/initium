@@ -16,4 +16,14 @@ class EditEvent extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (request()->hasFile('banner_image_events_page')) {
+            $data['banner_image_events_page'] =
+                request()->file('banner_image_events_page')->store('events', 'public');
+        }
+
+        return $data;
+    }
 }
