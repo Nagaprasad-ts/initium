@@ -69,10 +69,10 @@ class Event extends Model
         return $paidParticipantsCount < $this->max_participants;
     }
 
-    public function getBannerImageEventsPageUrlAttribute()
+    public function getBannerImageUrlAttribute()
     {
-        return $this->banner_image_events_page
-            ? asset('storage/' . $this->banner_image_events_page)
+        return $this->banner_image
+            ? asset('storage/' . $this->banner_image)
             : null;
     }
 

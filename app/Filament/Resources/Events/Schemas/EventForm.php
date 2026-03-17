@@ -15,7 +15,6 @@ use Filament\Schemas\Schema as FilamentSchema;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\RichEditor;
 use Filament\Schemas\Components\Utilities\Set;
-use Filament\Schemas\Components\View;
 
 class EventForm
 {
@@ -145,7 +144,11 @@ class EventForm
                     ->columnSpan(1),
                 Section::make('Media')
                     ->schema([
-                        View::make('components.file-upload'),
+                        FileUpload::make('banner_image_events_page')
+                            ->image()
+                            ->label('Image (Events Page)')
+                            ->directory('events')
+                            ->disk('public'),
                         FileUpload::make('banner_image_desktop')
                             ->image()
                             ->label('Event Image (Desktop)')
