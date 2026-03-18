@@ -7,7 +7,7 @@ interface Event {
     name: string;
     slug: string;
     description: string;
-    type: 'individual' | 'group' | 'both';
+    type: 'individual' | 'group' | 'both' | 'duo';
     venue: string;
     event_start_date: string;
     event_end_date?: string | undefined;
@@ -206,12 +206,12 @@ export default function Show({ event, has_capacity }: ShowProps) {
                                         )}
 
                                         {/* Group Registration */}
-                                        {(event.type === 'group' || event.type === 'both') && has_capacity && (
+                                        {(event.type === 'group' || event.type === 'duo' || event.type === 'both') && has_capacity && (
                                             <Link
                                                 href={`/registration/group/${event.slug}`}
                                                 className="btn-neon btn-neon-purple block w-full text-center"
                                             >
-                                                GROUP REGISTRATION
+                                                {event.type === 'duo' ? 'DUO' : 'GROUP'} REGISTRATION
                                             </Link>
                                         )}
                                     </div>

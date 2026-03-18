@@ -66,21 +66,25 @@
                                 @if($registration->registration_type === 'individual')
                                     <table width="100%" cellpadding="0" cellspacing="0">
                                         <tr>
-                                            <td width="50%" style="padding-bottom:16px;vertical-align:top;">
+                                            <td width="100%" style="padding-bottom:16px;vertical-align:top;">
                                                 <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Name</p>
                                                 <p style="margin:0;font-size:17px;color:#fff;font-weight:700;">{{ $registration->participants->first()->name }}</p>
                                             </td>
-                                            <td width="50%" style="padding-bottom:16px;vertical-align:top;">
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" style="padding-bottom:16px;vertical-align:top;">
                                                 <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Student ID</p>
                                                 <p style="margin:0;font-size:17px;color:#fff;font-weight:700;">{{ $registration->participants->first()->student_id }}</p>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%" style="vertical-align:top;">
+                                            <td width="100%" style="vertical-align:top;">
                                                 <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Email</p>
                                                 <p style="margin:0;font-size:14px;color:#00F5FF;">{{ $registration->participants->first()->email }}</p>
                                             </td>
-                                            <td width="50%" style="vertical-align:top;">
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" style="vertical-align:top;">
                                                 <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Phone</p>
                                                 <p style="margin:0;font-size:15px;color:#fff;font-weight:600;">{{ $registration->participants->first()->phone }}</p>
                                             </td>
@@ -103,11 +107,13 @@
                                                 <p style="margin:0 0 2px;font-size:16px;color:#fff;font-weight:700;">{{ $member->name }}</p>
                                                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:6px;">
                                                     <tr>
-                                                        <td width="50%" style="vertical-align:top;">
+                                                        <td width="100%" style="vertical-align:top;">
                                                             <p style="margin:0 0 2px;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Student ID</p>
                                                             <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.7);">{{ $member->student_id }}</p>
                                                         </td>
-                                                        <td width="50%" style="vertical-align:top;">
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="100%" style="vertical-align:top;">
                                                             <p style="margin:0 0 2px;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Phone</p>
                                                             <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.7);">{{ $member->phone }}</p>
                                                         </td>
@@ -144,21 +150,25 @@
                             <div style="padding:24px 28px;">
                                 <table width="100%" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td width="50%" style="padding-bottom:16px;vertical-align:top;">
+                                        <td width="100%" style="padding-bottom:16px;vertical-align:top;">
                                             <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">College</p>
                                             <p style="margin:0;font-size:15px;color:#fff;font-weight:600;">{{ $registration->college_name }}</p>
                                         </td>
-                                        <td width="50%" style="padding-bottom:16px;vertical-align:top;">
+                                    </tr>
+                                    <tr>
+                                        <td width="100%" style="padding-bottom:16px;vertical-align:top;">
                                             <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Registration Type</p>
                                             <p style="margin:0;font-size:15px;color:#fff;font-weight:600;">{{ ucfirst($registration->registration_type) }}</p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="50%" style="vertical-align:top;">
+                                        <td width="100%" style="vertical-align:top;">
                                             <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Contact Email</p>
                                             <p style="margin:0;font-size:14px;color:#00F5FF;">{{ $registration->contact_email }}</p>
                                         </td>
-                                        <td width="50%" style="vertical-align:top;">
+                                    </tr>
+                                    <tr>
+                                        <td width="100%" style="vertical-align:top;">
                                             <p style="margin:0 0 4px;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;">Contact Phone</p>
                                             <p style="margin:0;font-size:15px;color:#fff;font-weight:600;">{{ $registration->contact_phone }}</p>
                                         </td>

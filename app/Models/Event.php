@@ -41,7 +41,7 @@ class Event extends Model
      */
     public function isGroupSupported(): bool
     {
-        return in_array($this->type, ['group', 'both']);
+        return in_array($this->type, ['group', 'both', 'duo']);
     }
 
     /**
