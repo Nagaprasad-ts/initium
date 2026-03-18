@@ -244,7 +244,7 @@ export default function Individual({ event }: IndividualProps) {
                                     <input
                                         type="text"
                                         className="neon-input"
-                                        placeholder="1BM22CS001"
+                                        placeholder="1NHXXXXXX"
                                         value={data.student_id}
                                         onChange={e => setData('student_id', e.target.value)}
                                         required

@@ -374,7 +374,7 @@ export default function Group({ event }: GroupProps) {
                                                     <input
                                                         type="text"
                                                         className="neon-input"
-                                                        placeholder="1BM22CS001"
+                                                        placeholder="1NHXXXXXX"
                                                         value={participant.student_id}
                                                         onChange={(e) => updateParticipant(index, 'student_id', e.target.value)}
                                                         required

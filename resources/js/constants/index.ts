@@ -143,12 +143,12 @@ export const VENUE_INFO = [
     {
         icon: '📧',
         label: 'EMAIL',
-        value: 'initium@',
+        value: 'initium@newhorizonindia.edu',
     },
     {
         icon: '📞',
         label: 'PHONE',
-        value: '+91',
+        value: '+91 99024 14459 | +91 81478 30510',
     },
 ];
 
