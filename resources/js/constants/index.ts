@@ -31,9 +31,9 @@ export interface Event {
 
 /* ─── Category colors ────────────────────────────────────────── */
 export const CATEGORY_COLORS: Record<string, string> = {
-    LITCLUB:     '#FF0080',
+    LITCLUB:     '#00F5FF',
     ARTCLUB:     '#FFD700',
-    MUSICCLUB:   '#00F5FF',
+    MUSICCLUB:   '#FF0080',
     MEDIACLUB:   '#7C3AED',
     FASHIONCLUB: '#FF6B35',
     DANCECLUB:   '#00FF88',
@@ -43,12 +43,12 @@ export const DEFAULT_COLOR = '#FF0080';
 
 /* Neon palette used for coordinator cards */
 export const NEON_PALETTE: string[] = [
-    '#FF0080',
     '#00F5FF',
     '#FFD700',
+    '#FF0080',
     '#7C3AED',
-    '#00FF88',
     '#FF6B35',
+    '#00FF88',
 ];
 
 /* ─── Display helpers ────────────────────────────────────────── */
@@ -136,6 +136,11 @@ export const STALL_CONTACTS = [
 
 export const VENUE_INFO = [
     {
+        icon: '📞',
+        label: 'PHONE',
+        value: '+91 91132 36142 | +91 98929 15699',
+    },
+    {
         icon: '📍',
         label: 'VENUE',
         value: 'New Horizon Knowledge Park, Outer Ring Road, Near Bellandur, Bengaluru 560103',
@@ -144,11 +149,6 @@ export const VENUE_INFO = [
         icon: '📧',
         label: 'EMAIL',
         value: 'initium@newhorizonindia.edu',
-    },
-    {
-        icon: '📞',
-        label: 'PHONE',
-        value: '+91 99024 14459 | +91 81478 30510',
     },
 ];
 

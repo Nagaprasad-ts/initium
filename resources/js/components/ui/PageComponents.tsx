@@ -211,39 +211,14 @@ export function InfoCard({
     value: string;
 }) {
     return (
-        <div
-            style={{
-                display: 'flex',
-                gap: 16,
-                alignItems: 'flex-start',
-                background: 'rgba(124,58,237,0.05)',
-                border: '1px solid rgba(124,58,237,0.2)',
-                borderRadius: 14,
-                padding: '20px 22px',
-            }}
-        >
+        <div className='flex items-start border border-purple-900 rounded-xl p-5 gap-4 bg-[#7c3aed0d]'>
             <span style={{ fontSize: 24, marginTop: 2 }}>{icon}</span>
             <div>
-                <p
-                    style={{
-                        fontFamily: "'Orbitron', sans-serif",
-                        fontSize: 10,
-                        letterSpacing: 3,
-                        color: '#7C3AED',
-                        marginBottom: 6,
-                        textTransform: 'uppercase',
-                    }}
-                >
+                <p className='font-orbitron text-[14px] md:text-xs font-semibold text-[#7C3AED] mb-2 uppercase tracking-widest'>
                     {label}
                 </p>
                 <p
-                    style={{
-                        fontSize: 15,
-                        color: 'rgba(255,255,255,0.75)',
-                        lineHeight: 1.6,
-                        fontFamily: "'Rajdhani', sans-serif",
-                        fontWeight: 500,
-                    }}
+                    className='font-rajdhani text-[16px]/6 md:text-[15px] mb-2 font-medium text-white/80'
                 >
                     {value}
                 </p>

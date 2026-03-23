@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
+import { NEON_PALETTE } from '@/constants';
 
 interface Category {
     id: number;
@@ -39,7 +40,7 @@ function useReveal() {
     return ref;
 }
 
-const NEON_COLORS = ['#FF0080', '#00F5FF', '#FFD700', '#7C3AED'];
+// const NEON_COLORS = ['#FF0080', '#00F5FF', '#FFD700', '#7C3AED'];
 
 function typeLabel(event: Event): string {
     if (event.type === 'individual') return 'Solo';
@@ -69,7 +70,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
     const eventsByCategory = categories.map(cat => ({
         category: cat,
         events: events.filter(e => e.category_id === cat.id),
-        color: NEON_COLORS[categories.indexOf(cat) % NEON_COLORS.length],
+        color: NEON_PALETTE[categories.indexOf(cat) % NEON_PALETTE.length],
     })).filter(g => g.events.length > 0);
 
     return (
@@ -202,12 +203,12 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     className="rounded-2xl p-7 text-center"
                     style={{ background: 'linear-gradient(135deg, rgba(255,0,128,0.08), rgba(0,245,255,0.04))', border: '1px solid rgba(255,0,128,0.2)' }}
                 >
-                    <p className="font-orbitron mb-2 tracking-[4px] text-white/50" style={{ fontSize: 11 }}>VENUE</p>
+                    <p className="font-orbitron mb-2 tracking-[4px] text-white/80" style={{ fontSize: 11 }}>VENUE</p>
                     <p className="font-bebas tracking-[3px] text-white" style={{ fontSize: 28 }}>
-                        NEW HORIZON COLLEGE OF ENGINEERING
+                        NEW HORIZON KNOWLEDGE PARK
                     </p>
-                    <p className="font-rajdhani font-medium text-white/60" style={{ fontSize: 16, marginTop: 4 }}>
-                        Outer Ring Road, Bengaluru — 560103
+                    <p className="font-rajdhani font-medium text-white/80" style={{ fontSize: 16, marginTop: 4 }}>
+                        Outer Ring Road, Near Bellandur, Bengaluru 560103
                     </p>
                 </div>
 

@@ -136,7 +136,7 @@ export default function About() {
                     {CLUBS.map((c, i) => (
                         <div key={i} className="neon-card rounded-xl p-7" style={{ borderColor: c.color + '33' }}>
                             {/* <div className="mb-3 text-4xl">{c.icon}</div> */}
-                            <img src={c.icon} alt={c.name} className="mb-3" />
+                            <img src={c.icon} alt={c.name} className="mb-3 rounded-full" />
                             <h3 className="font-bebas mb-2 text-[22px] tracking-widest" style={{ color: c.color, textShadow: `0 0 10px ${c.color}` }}>
                                 {c.name}
                             </h3>

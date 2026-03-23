@@ -178,7 +178,7 @@ export default function Individual({ event }: IndividualProps) {
 
                                 {/* Full Name */}
                                 <div className="space-y-2">
-                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                         Full Name
                                     </label>
                                     <input
@@ -198,7 +198,7 @@ export default function Individual({ event }: IndividualProps) {
 
                                 {/* Email */}
                                 <div className="space-y-2">
-                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                         Email Address
                                     </label>
                                     <input
@@ -218,7 +218,7 @@ export default function Individual({ event }: IndividualProps) {
 
                                 {/* Phone */}
                                 <div className="space-y-2">
-                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                         Phone Number
                                     </label>
                                     <input
@@ -238,7 +238,7 @@ export default function Individual({ event }: IndividualProps) {
 
                                 {/* Student ID */}
                                 <div className="space-y-2">
-                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                         Student ID / USN
                                     </label>
                                     <input
@@ -259,7 +259,7 @@ export default function Individual({ event }: IndividualProps) {
 
                             {/* College Name */}
                             <div className="space-y-2">
-                                <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                     College Name
                                 </label>
                                 <input
@@ -279,11 +279,11 @@ export default function Individual({ event }: IndividualProps) {
 
                             {/* ── Pay row ──────────────────────── */}
                             <div
-                                className="flex flex-col items-center justify-between gap-6 border-t pt-8 md:flex-row"
+                                className="flex flex-col md:flex-row items-center justify-between gap-6 border-t pt-8"
                                 style={{ borderColor: 'rgba(255,0,128,0.15)' }}
                             >
-                                <div>
-                                    <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/35">
+                                <div className='flex flex-col justify-center items-center md:items-start'>
+                                    <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/85">
                                         Payable Amount
                                     </p>
                                     <div

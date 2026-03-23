@@ -167,7 +167,7 @@ export default function Group({ event }: GroupProps) {
         <Layout>
             <Head title={`Group Registration for ${event.name} | Initium 2026`} />
 
-            <section className="min-h-screen px-5 py-14">
+            <section className="min-h-screen px-3 py-14">
                 <div className="mx-auto max-w-3xl">
 
                     {/* ── Back link ─────────────────────────── */}
@@ -211,7 +211,7 @@ export default function Group({ event }: GroupProps) {
 
                     {/* ── Form card ────────────────────────── */}
                     <div
-                        className="neon-card rounded-2xl p-8 md:p-10"
+                        className="neon-card rounded-2xl p-5 md:p-10"
                         style={{ borderColor: 'rgba(124,58,237,0.25)' }}
                     >
                         {/* Top accent line */}
@@ -224,14 +224,14 @@ export default function Group({ event }: GroupProps) {
 
                             {/* ── Team Basic Info ───────────── */}
                             <div>
-                                <p className="font-orbitron mb-5 text-[9px] uppercase tracking-[4px]" style={{ color: '#7C3AED' }}>
+                                <p className="font-orbitron mb-5 text-xs uppercase tracking-[4px]" style={{ color: '#7C3AED' }}>
                                     Team Details
                                 </p>
                                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
 
                                     {/* Team Name */}
                                     <div className="space-y-2">
-                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                        <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                             Team Name
                                         </label>
                                         <input
@@ -251,7 +251,7 @@ export default function Group({ event }: GroupProps) {
 
                                     {/* College Name */}
                                     <div className="space-y-2">
-                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                        <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                             College Name
                                         </label>
                                         <input
@@ -271,7 +271,7 @@ export default function Group({ event }: GroupProps) {
 
                                     {/* Contact Email */}
                                     <div className="space-y-2">
-                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                        <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                             Contact Email
                                         </label>
                                         <input
@@ -291,7 +291,7 @@ export default function Group({ event }: GroupProps) {
 
                                     {/* Contact Phone */}
                                     <div className="space-y-2">
-                                        <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/50">
+                                        <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">
                                             Contact Phone
                                         </label>
                                         <input
@@ -317,7 +317,7 @@ export default function Group({ event }: GroupProps) {
                             {/* ── Participant List ──────────── */}
                             <div className="border-t pt-8" style={{ borderColor: 'rgba(124,58,237,0.15)' }}>
                                 <div className="mb-6 flex items-center justify-between">
-                                    <p className="font-orbitron text-[9px] uppercase tracking-[4px]" style={{ color: '#7C3AED' }}>
+                                    <p className="font-orbitron text-[10px] md:text-xs uppercase tracking-[4px]" style={{ color: '#7C3AED' }}>
                                         Team Members ({data.participants.length}/{maxParticipants || '∞'})
                                     </p>
                                     <button
@@ -342,7 +342,7 @@ export default function Group({ event }: GroupProps) {
                                             }}
                                         >
                                             <p
-                                                className="font-orbitron mb-4 text-[9px] uppercase tracking-widest"
+                                                className="font-orbitron mb-4 text-xs uppercase tracking-widest"
                                                 style={{ color: '#7C3AED' }}
                                             >
                                                 Member {index + 1}
@@ -352,7 +352,7 @@ export default function Group({ event }: GroupProps) {
 
                                                 {/* Name */}
                                                 <div className="space-y-2">
-                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">Name</label>
+                                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">Name</label>
                                                     <input
                                                         type="text"
                                                         className="neon-input"
@@ -370,7 +370,7 @@ export default function Group({ event }: GroupProps) {
 
                                                 {/* ID/USN */}
                                                 <div className="space-y-2">
-                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">ID / USN</label>
+                                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">ID / USN</label>
                                                     <input
                                                         type="text"
                                                         className="neon-input"
@@ -388,7 +388,7 @@ export default function Group({ event }: GroupProps) {
 
                                                 {/* Email */}
                                                 <div className="space-y-2">
-                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">Email</label>
+                                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">Email</label>
                                                     <input
                                                         type="email"
                                                         className="neon-input"
@@ -406,7 +406,7 @@ export default function Group({ event }: GroupProps) {
 
                                                 {/* Phone */}
                                                 <div className="space-y-2">
-                                                    <label className="font-orbitron block text-[9px] uppercase tracking-widest text-white/40">Phone</label>
+                                                    <label className="font-orbitron block text-xs uppercase tracking-widest text-white/80">Phone</label>
                                                     <input
                                                         type="tel"
                                                         inputMode="numeric"
@@ -450,11 +450,11 @@ export default function Group({ event }: GroupProps) {
 
                             {/* ── Pay row ──────────────────────── */}
                             <div
-                                className="flex flex-col items-center justify-between gap-6 border-t pt-8 md:flex-row"
+                                className="flex flex-col md:flex-row items-center justify-between gap-6 border-t pt-8"
                                 style={{ borderColor: 'rgba(124,58,237,0.15)' }}
                             >
-                                <div>
-                                    <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/35">
+                                <div className='flex flex-col justify-center items-center md:items-start'>
+                                    <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/85">
                                         Payable Amount
                                     </p>
                                     <div

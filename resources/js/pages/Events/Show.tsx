@@ -64,18 +64,17 @@ export default function Show({ event, has_capacity }: ShowProps) {
                     src={`/storage/${event.banner_image_desktop}`}
                     alt={event.name}
                     className="absolute inset-0 h-full w-full hidden md:block object-top"
-                    style={{ opacity: 0.5, filter: 'saturate(1.3) brightness(0.7)' }}
+                    // style={{ opacity: 0.5, filter: 'saturate(1.3) brightness(0.7)' }}
                 />
                 {/* Mobile */}
                 <img
                     src={`/storage/${event.banner_image_mobile}`}
                     alt={event.name}
                     className="absolute inset-0 h-full w-full object-cover block md:hidden object-top"
-                    style={{ opacity: 0.5, filter: 'saturate(1.3) brightness(0.7)' }}
+                    // style={{ opacity: 0.5, filter: 'saturate(1.3) brightness(0.7)' }}
                 />
                 {/* gradient overlays */}
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #0B0B0F 0%, rgba(11,11,15,0.5) 50%, transparent 100%)' }} />
-                <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${typeColor}18, transparent 60%)` }} />
 
                 {/* Badges */}
                 <div className="absolute left-5 top-6 flex gap-3">
