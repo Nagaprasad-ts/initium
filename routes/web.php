@@ -25,3 +25,5 @@ Route::post('/registration/verify', [RegistrationController::class, 'verify'])->
 
 Route::post('/registration/submit', [RegistrationController::class, 'store'])->name('registration.submit');
 Route::post('/razorpay/webhook', [PaymentController::class, 'webhook'])->name('razorpay.webhook');
+
+Route::get('/test', [EventController::class, 'test'])->name('test');

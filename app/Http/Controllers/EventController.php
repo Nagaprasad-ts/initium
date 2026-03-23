@@ -30,6 +30,22 @@ class EventController extends Controller
         ]);
     }
 
+    public function test(): Response
+    {
+        $events = Event::query()
+            ->where('is_active', true)
+            ->with('category')
+            ->latest()
+            ->get();
+
+        $categories = Category::all();
+
+        return Inertia::render('WhatsApp', [
+            'events' => $events,
+            'categories' => $categories,
+        ]);
+    }
+
     /**
      * Display the brochure page.
      */
