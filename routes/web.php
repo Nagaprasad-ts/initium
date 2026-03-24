@@ -24,6 +24,10 @@ Route::get('/registration/success/{id}', [RegistrationController::class, 'succes
 Route::post('/registration/verify', [RegistrationController::class, 'verify'])->name('registration.verify');
 
 Route::post('/registration/submit', [RegistrationController::class, 'store'])->name('registration.submit');
-Route::post('/razorpay/webhook', [PaymentController::class, 'webhook'])->name('razorpay.webhook');
+// Route::post('/razorpay/webhook', [PaymentController::class, 'webhook'])->name('razorpay.webhook');
 
 Route::get('/test', [EventController::class, 'test'])->name('test');
+
+Route::post('/test', function () {
+    return response()->json(['ok' => true]);
+});
