@@ -16,6 +16,8 @@ use Filament\Actions\Action;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
+use Filament\Actions\ActionGroup;
+
 class RegistrationsTable
 {
     public static function configure(Table $table): Table
@@ -27,8 +29,6 @@ class RegistrationsTable
                     ->sortable(),
                 TextColumn::make('registration_type')
                     ->badge(),
-                TextColumn::make('team_name')
-                    ->searchable(),
                 TextColumn::make('college_name')
                     ->searchable(),
                 TextColumn::make('contact_email')
@@ -59,8 +59,13 @@ class RegistrationsTable
                     ]),
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->hiddenLabel(),
+                    EditAction::make()
+                        ->hiddenLabel(),
+                ])
+                ->buttonGroup(),
             ])
             ->headerActions([
                 Action::make('export')
@@ -75,9 +80,9 @@ class RegistrationsTable
                     )),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 }

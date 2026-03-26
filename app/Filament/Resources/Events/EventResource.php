@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema as FilamentSchema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use App\Filament\Resources\Events\Schemas\EventInfolist;
 
 class EventResource extends Resource
 {
@@ -24,6 +25,11 @@ class EventResource extends Resource
     public static function form(FilamentSchema $schema): FilamentSchema
     {
         return EventForm::configure($schema);
+    }
+
+    public static function infolist(FilamentSchema $schema): FilamentSchema
+    {
+        return EventInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table

@@ -21,6 +21,7 @@ interface Event {
 interface ShowProps {
     event: Event;
     has_capacity: boolean;
+    registration_open: boolean;
 }
 
 const formatDate = (date?: string) => {
@@ -32,7 +33,7 @@ const formatDate = (date?: string) => {
     return `${day}-${month}-${year}`;
 };
 
-export default function Show({ event, has_capacity }: ShowProps) {
+export default function Show({ event, has_capacity, registration_open }: ShowProps) {
     const { flash } = usePage<{ flash: { error?: string } }>().props;
 
     const typeColor = event.type === 'group' ? '#7C3AED' : event.type === 'both' ? '#FFD700' : '#FF0080';
@@ -88,10 +89,18 @@ export default function Show({ event, has_capacity }: ShowProps) {
                     >
                         {event.type === 'both' ? 'Individual & Group' : event.type} Registration
                     </span>
-                    {!has_capacity && (
+                    {!registration_open && (
                         <span
                             className="font-orbitron rounded px-3 py-1.5 text-[9px] uppercase tracking-widest"
-                            style={{ background: 'rgba(255,0,0,0.8)', color: '#fff', animation: 'pulse 2s infinite' }}
+                            style={{ background: 'rgba(255,0,0,0.8)', color: '#fff' }}
+                        >
+                            REGISTRATIONS CLOSED
+                        </span>
+                    )}
+                    {!has_capacity && registration_open && (
+                        <span
+                            className="font-orbitron rounded px-3 py-1.5 text-[9px] uppercase tracking-widest"
+                            style={{ background: 'rgba(255,0,0,0.8)', color: '#fff' }}
                         >
                             EVENT FULL
                         </span>
@@ -169,53 +178,53 @@ export default function Show({ event, has_capacity }: ShowProps) {
                                         </div>
                                     </div>
 
-                                    {!has_capacity && (
-                                        <div
-                                            className="mb-5 rounded-lg p-3 text-center text-sm font-bold"
-                                            style={{
-                                                background: 'rgba(255,0,0,0.08)',
-                                                border: '1px solid rgba(255,0,0,0.3)',
-                                                color: '#ff6b6b',
-                                            }}
-                                        >
-                                            Registration closed — capacity reached.
-                                        </div>
-                                    )}
-
                                     <div className="space-y-3 border-t pt-6" style={{ borderColor: typeColor + '22' }}>
-                                        {/* Individual Registration */}
-                                        {(event.type === 'individual' || event.type === 'both') && (
-                                            has_capacity ? (
-                                                <Link
-                                                    href={`/registration/individual/${event.slug}`}
-                                                    className="btn-neon block w-full text-center"
-                                                    style={{ borderColor: '#FF0080', color: '#FF0080' }}
-                                                >
-                                                    INDIVIDUAL REGISTRATION
-                                                </Link>
-                                            ) : (
-                                                <button
-                                                    disabled
-                                                    className="w-full rounded cursor-not-allowed py-3 font-bold uppercase tracking-widest text-white/30"
-                                                    style={{ border: '1px solid rgba(255,255,255,0.1)', fontSize: 12 }}
-                                                >
-                                                    REGISTRATION FULL
-                                                </button>
-                                            )
-                                        )}
-
-                                        {/* Group Registration */}
-                                        {(event.type === 'group' || event.type === 'duo' || event.type === 'both') && has_capacity && (
-                                            <Link
-                                                href={`/registration/group/${event.slug}`}
-                                                className="btn-neon btn-neon-purple block w-full text-center"
+                                        {!registration_open ? (
+                                            <div
+                                                className="rounded-lg p-3 text-center text-sm font-bold"
+                                                style={{
+                                                    background: 'rgba(255,0,0,0.08)',
+                                                    border: '1px solid rgba(255,0,0,0.3)',
+                                                    color: '#ff6b6b',
+                                                }}
                                             >
-                                                {event.type === 'duo' ? 'DUO' : 'GROUP'} REGISTRATION
-                                            </Link>
+                                                Registrations are closed for this event.
+                                            </div>
+                                        ) : !has_capacity ? (
+                                            <div
+                                                className="rounded-lg p-3 text-center text-sm font-bold"
+                                                style={{
+                                                    background: 'rgba(255,0,0,0.08)',
+                                                    border: '1px solid rgba(255,0,0,0.3)',
+                                                    color: '#ff6b6b',
+                                                }}
+                                            >
+                                                Registration closed — capacity reached.
+                                            </div>
+                                        ) : (
+                                            <>
+                                                {(event.type === 'individual' || event.type === 'both') && (
+                                                    <Link
+                                                        href={`/registration/individual/${event.slug}`}
+                                                        className="btn-neon block w-full text-center"
+                                                        style={{ borderColor: '#FF0080', color: '#FF0080' }}
+                                                    >
+                                                        INDIVIDUAL REGISTRATION
+                                                    </Link>
+                                                )}
+                                                {(event.type === 'group' || event.type === 'duo' || event.type === 'both') && (
+                                                    <Link
+                                                        href={`/registration/group/${event.slug}`}
+                                                        className="btn-neon btn-neon-purple block w-full text-center"
+                                                    >
+                                                        {event.type === 'duo' ? 'DUO' : 'GROUP'} REGISTRATION
+                                                    </Link>
+                                                )}
+                                            </>
                                         )}
                                     </div>
 
-                                    {has_capacity && (
+                                    {registration_open && has_capacity && (
                                         <p className="font-orbitron mt-5 text-center text-[8px] uppercase tracking-widest text-white/25">
                                             Limited spots available
                                         </p>

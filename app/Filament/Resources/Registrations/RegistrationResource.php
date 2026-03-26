@@ -9,6 +9,7 @@ use App\Filament\Resources\Registrations\Pages\ListRegistrations;
 use App\Filament\Resources\Registrations\Pages\ViewRegistration;
 use App\Filament\Resources\Registrations\RelationManagers\ParticipantsRelationManager;
 use App\Filament\Resources\Registrations\Schemas\RegistrationForm;
+use App\Filament\Resources\Registrations\Schemas\RegistrationInfolist;
 use App\Filament\Resources\Registrations\Tables\RegistrationsTable;
 use App\Models\Registration;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,11 @@ class RegistrationResource extends Resource
     public static function table(Table $table): Table
     {
         return RegistrationsTable::configure($table);
+    }
+
+    public static function infolist(FilamentSchema $schema): FilamentSchema
+    {
+        return RegistrationInfolist::configure($schema);
     }
 
     public static function getRelations(): array

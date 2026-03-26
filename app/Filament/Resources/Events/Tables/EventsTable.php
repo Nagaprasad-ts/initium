@@ -9,8 +9,9 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
 
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+
+use Filament\Actions\ActionGroup;
 
 class EventsTable
 {
@@ -18,17 +19,12 @@ class EventsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('banner_image')
-                    ->circular(),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('type')
                     ->badge(),
                 TextColumn::make('event_start_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('event_end_date')
                     ->date()
                     ->sortable(),
                 TextColumn::make('price')
@@ -42,13 +38,18 @@ class EventsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()
+                        ->hiddenLabel(),
+                    EditAction::make()
+                        ->hiddenLabel(),
+                ])
+                ->buttonGroup(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 }

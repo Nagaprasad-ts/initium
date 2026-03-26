@@ -235,27 +235,16 @@ function EventCard({ event, index }: { event: Event; index: number }) {
                                 {formatPrice(event.price)}
                             </p>
                         </div>
-                        <Link
-                            href={`/events/${event.slug}`}
+                        <div
                             className="font-orbitron rounded-lg px-5 py-3 text-[11px] tracking-widest uppercase transition-all duration-200 hover:-translate-y-px"
                             style={{
                                 border: `1px solid ${color}A5`,
                                 color,
                                 background: `${color}1A`,
                             }}
-                            onMouseEnter={(e) => {
-                                const el = e.currentTarget as HTMLAnchorElement;
-                                el.style.background = `${color}38`;
-                                el.style.boxShadow = `0 0 20px ${color}60`;
-                            }}
-                            onMouseLeave={(e) => {
-                                const el = e.currentTarget as HTMLAnchorElement;
-                                el.style.background = `${color}1A`;
-                                el.style.boxShadow = 'none';
-                            }}
                         >
                             Register →
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </Link>
@@ -280,7 +269,7 @@ function FilterTab({
     return (
         <button
             onClick={onClick}
-            className="font-orbitron inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[11px] tracking-widest whitespace-nowrap uppercase transition-all duration-200"
+            className="font-orbitron hover:cursor-pointer inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[11px] tracking-widest whitespace-nowrap uppercase transition-all duration-200"
             style={{
                 border: active
                     ? `1px solid ${color}`
@@ -292,8 +281,8 @@ function FilterTab({
             onMouseEnter={(e) => {
                 if (active) return;
                 const el = e.currentTarget as HTMLButtonElement;
-                el.style.borderColor = 'rgba(255,255,255,0.28)';
-                el.style.color = 'rgba(255,255,255,0.85)';
+                el.style.borderColor = `${color}`;
+                el.style.color = `${color}`;
             }}
             onMouseLeave={(e) => {
                 if (active) return;

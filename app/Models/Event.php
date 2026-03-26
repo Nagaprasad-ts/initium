@@ -76,6 +76,11 @@ class Event extends Model
             : null;
     }
 
+    public function isRegistrationOpen(): bool
+    {
+        return now()->lt($this->event_start_date->copy()->subDay()->endOfDay());
+    }
+
     /**
      * Get the attributes that should be cast.
      *

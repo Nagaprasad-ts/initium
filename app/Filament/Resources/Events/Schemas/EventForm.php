@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Events\Schemas;
 
-use App\Models\Event;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -12,9 +11,8 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema as FilamentSchema;
-use Illuminate\Support\Str;
 use Filament\Forms\Components\RichEditor;
-use Filament\Schemas\Components\Utilities\Set;
+use Illuminate\Support\Facades\Auth;
 
 class EventForm
 {
@@ -29,14 +27,10 @@ class EventForm
                             ->schema([
                                 TextInput::make('name')
                                     ->required()
-                                    ->maxLength(255)
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(function (Set $set, ?string $state) {
-                                        $set('slug', Str::slug($state));
-                                    }),
+                                    ->maxLength(255),
                                 TextInput::make('slug')
-                                    ->disabled()
-                                    ->dehydrated() // required in v5 if disabled
+                                    ->disabled(fn () => ! Auth::user()?->hasRole('super_admin'))
+                                    ->dehydrated()
                                     ->required()
                                     ->maxLength(255)
                                     ->unique(ignoreRecord: true),
@@ -102,12 +96,16 @@ class EventForm
                                     ->label('Registation Fee')
                                     ->numeric()
                                     ->prefix('₹')
-                                    ->required(),
+                                    ->required()
+                                    ->disabled(fn () => ! Auth::user()?->hasRole('super_admin'))
+                                    ->dehydrated(),
                                 
                                 TextInput::make('first_price')
                                     ->numeric()
                                     ->prefix('₹')
-                                    ->required(),
+                                    ->required()
+                                    ->disabled(fn () => ! Auth::user()?->hasRole('super_admin'))
+                                    ->dehydrated(),
 
                                 TextInput::make('min')
                                     ->numeric()
@@ -132,13 +130,14 @@ class EventForm
                                     ->nullable(),
                             ]),
 
-                        Grid::make(2)
+                            
+                            Grid::make(1)
                             ->schema([
-                                
-
                                 Toggle::make('is_active')
                                     ->label('Is Active')
-                                    ->default(false),
+                                    ->default(false)
+                                    ->disabled(fn () => ! Auth::user()?->hasRole('super_admin'))
+                                    ->dehydrated(),
                             ]),
                     ])
                     ->columnSpan(1),

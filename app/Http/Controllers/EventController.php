@@ -96,11 +96,9 @@ class EventController extends Controller
             ->firstOrFail();
 
         return Inertia::render('Events/Show', [
-            'event' => [
-                ...$event->toArray(),
-                'banner_image' => $event->banner_image_url,
-            ],
-            'has_capacity' => $event->hasCapacity(),
+            'event'             => [...$event->toArray(), 'banner_image' => $event->banner_image_url],
+            'has_capacity'      => $event->hasCapacity(),
+            'registration_open' => $event->isRegistrationOpen(),
         ]);
     }
 }
