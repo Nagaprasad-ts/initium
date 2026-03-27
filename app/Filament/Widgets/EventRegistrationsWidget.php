@@ -17,6 +17,11 @@ class EventRegistrationsWidget extends BaseWidget
     protected static ?int $sort = 3;
     protected int | string | array $columnSpan = 'full';
 
+    public static function canView(): bool
+    {
+        return Auth::user()?->hasAnyRole(['super_admin', 'core-team']);
+    }
+
     public function table(Table $table): Table
     {
         $isCoreteam = Auth::user()?->hasRole('core-team');

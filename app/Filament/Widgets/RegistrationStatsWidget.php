@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistrationStatsWidget extends BaseWidget
 {
+    public static function canView(): bool
+    {
+        return Auth::user()?->hasAnyRole(['super_admin', 'core-team']);
+    }
+
     protected function getStats(): array
     {
         $isCoreteam = Auth::user()?->hasRole('core-team');
