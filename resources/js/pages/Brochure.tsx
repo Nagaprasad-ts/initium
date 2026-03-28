@@ -65,7 +65,7 @@ const CLUB_ICON: Record<string, string> = {
 export default function Brochure({ events, categories }: BrochureProps) {
     const r1 = useReveal();
 
-    const totalPrize = events.reduce((sum, e) => sum + parseFloat(e.first_price || '0'), 0);
+    // const totalPrize = events.reduce((sum, e) => sum + parseFloat(e.first_price || '0'), 0);
 
     const eventsByCategory = categories.map(cat => ({
         category: cat,
@@ -125,7 +125,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     style={{ background: 'rgba(255,215,0,0.04)', border: '1px solid rgba(255,215,0,0.15)' }}
                 >
                     {[
-                        { n: `${formatPrice(totalPrize)}+`,     l: 'TOTAL PRIZE POOL', color: '#FFD700' },
+                        { n: `${formatPrice('100000')}+`,     l: 'TOTAL PRIZE POOL', color: '#FFD700' },
                         { n: String(events.length),              l: 'TOTAL EVENTS',     color: '#FF0080' },
                         { n: String(categories.length),          l: 'CLUBS',            color: '#00F5FF' },
                     ].map(({ n, l, color }) => (
