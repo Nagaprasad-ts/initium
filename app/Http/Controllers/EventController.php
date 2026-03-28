@@ -30,21 +30,21 @@ class EventController extends Controller
         ]);
     }
 
-    public function test(): Response
-    {
-        $events = Event::query()
-            ->where('is_active', true)
-            ->with('category')
-            ->latest()
-            ->get();
+    // public function test(): Response
+    // {
+    //     $events = Event::query()
+    //         ->where('is_active', true)
+    //         ->with('category')
+    //         ->latest()
+    //         ->get();
 
-        $categories = Category::all();
+    //     $categories = Category::all();
 
-        return Inertia::render('WhatsApp', [
-            'events' => $events,
-            'categories' => $categories,
-        ]);
-    }
+    //     return Inertia::render('WhatsApp', [
+    //         'events' => $events,
+    //         'categories' => $categories,
+    //     ]);
+    // }
 
     /**
      * Display the brochure page.
@@ -63,6 +63,18 @@ class EventController extends Controller
             'events' => $events,
             'categories' => $categories,
         ]);
+    }
+
+    public function downloadBrochure()
+    {
+        $path = public_path('brochure/initium-2026.pdf');
+        return response()->download($path, 'Initium-2026-Brochure.pdf');
+    }
+
+    public function viewBrochure()
+    {
+        $path = public_path('brochure/initium-2026.pdf');
+        return response()->file($path, ['Content-Type' => 'application/pdf']);
     }
 
 
@@ -93,10 +105,12 @@ class EventController extends Controller
         $event = Event::query()
             ->where('slug', $slug)
             ->where('is_active', true)
+            ->with('category')
             ->firstOrFail();
 
         return Inertia::render('Events/Show', [
             'event'             => [...$event->toArray(), 'banner_image' => $event->banner_image_url],
+            'category' => $event->category,
             'has_capacity'      => $event->hasCapacity(),
             'registration_open' => $event->isRegistrationOpen(),
         ]);

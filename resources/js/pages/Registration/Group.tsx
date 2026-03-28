@@ -15,11 +15,19 @@ interface Event {
     max: number;
 }
 
-interface GroupProps {
-    event: Event;
+interface Category {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
 }
 
-export default function Group({ event }: GroupProps) {
+interface GroupProps {
+    event: Event;
+    category: Category;
+}
+
+export default function Group({ event, category }: GroupProps) {
     const minParticipants = event.min;
     const maxParticipants = event.max;
 
@@ -37,6 +45,13 @@ export default function Group({ event }: GroupProps) {
             student_id: '',
         })),
     });
+
+    const isStandupComedy = category?.name === 'STANDUP COMEDY';
+    console.log(category.name);
+
+    const totalPrice = isStandupComedy
+        ? data.participants.length * parseFloat(event.price || '0')
+        : parseFloat(event.price || '0');
 
     // ── Razorpay SDK load (unchanged) ─────────────────────────
     useEffect(() => {
@@ -461,7 +476,7 @@ export default function Group({ event }: GroupProps) {
                                         className="font-bebas text-4xl"
                                         style={{ color: '#7C3AED', textShadow: '0 0 15px #7C3AED' }}
                                     >
-                                        ₹{parseFloat(event.price).toLocaleString()}
+                                        ₹{totalPrice.toLocaleString()}
                                     </div>
                                 </div>
                                 <button

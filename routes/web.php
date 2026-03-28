@@ -17,6 +17,8 @@ Route::get('/events/{slug}', [EventController::class, 'show'])->name('events.sho
 Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/brochure', [EventController::class, 'brochure'])->name('brochure');
+Route::get('/brochure/download', [EventController::class, 'downloadBrochure'])->name('brochure.download');
+Route::get('/brochure/view', [EventController::class, 'viewBrochure'])->name('brochure.view');
 
 Route::get('/registration/individual/{slug}', [RegistrationController::class, 'individual'])->name('registration.individual');
 Route::get('/registration/group/{slug}', [RegistrationController::class, 'group'])->name('registration.group');
@@ -26,8 +28,8 @@ Route::post('/registration/verify', [RegistrationController::class, 'verify'])->
 Route::post('/registration/submit', [RegistrationController::class, 'store'])->name('registration.submit');
 // Route::post('/razorpay/webhook', [PaymentController::class, 'webhook'])->name('razorpay.webhook');
 
-Route::get('/test', [EventController::class, 'test'])->name('test');
+// Route::get('/test', [EventController::class, 'test'])->name('test');
 
-Route::post('/test', function () {
-    return response()->json(['ok' => true]);
-});
+// Route::post('/test', function () {
+//     return response()->json(['ok' => true]);
+// });

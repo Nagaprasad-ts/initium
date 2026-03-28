@@ -1,6 +1,8 @@
 import { Link, Head } from '@inertiajs/react';
 import React, { useState, useEffect, useRef } from 'react';
 import Layout from '@/components/Layout';
+import {formatDate, formatTime, formatPrice} from '@/constants';
+
 
 interface Category {
     id: number;
@@ -17,6 +19,7 @@ interface Event {
     type: 'individual' | 'group' | 'duo';
     venue: string;
     event_start_date: string;
+    start_time: string;
     price: string;
     first_price: string;
     banner_image_events_page: string | null;
@@ -156,6 +159,7 @@ export default function Home({ events, categories }: HomeProps) {
     const statsRef    = useReveal();
     const featuredRef = useReveal();
     const ctaRef      = useReveal();
+    const standupRef = useReveal();
 
     useEffect(() => {
         const targetDate = new Date('2026-04-27T09:00:00').getTime();
@@ -173,7 +177,7 @@ export default function Home({ events, categories }: HomeProps) {
         return () => clearInterval(interval);
     }, []);
 
-    const featured = events.slice(0, 6);
+    const featured = events.filter(e => e.category?.name !== 'STANDUP COMEDY').slice(0, 6);
 
     const eventColor = (event: Event) => {
         const catIdx = categories.findIndex(c => c.id === event.category_id);
@@ -261,6 +265,87 @@ export default function Home({ events, categories }: HomeProps) {
                     })}
                 </div>
             </section>
+
+            {/* Standup Comedy */}
+            {(() => {
+                const standupEvent = events.find(e => e.category?.name === 'STANDUP COMEDY');
+                if (!standupEvent) return null;
+                return (
+                    <section className="border-b py-10 md:py-20" style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'radial-gradient(ellipse at 30% 50%, rgba(255,0,128,0.07) 0%, transparent 60%)' }}>
+                        <div ref={standupRef} className="section-reveal mx-auto max-w-5xl px-5">
+                            <div className="grid items-center gap-12 md:grid-cols-2">
+
+                                {/* Image */}
+                                <div className="neon-card overflow-hidden rounded-2xl" style={{ borderColor: '#FF008044' }}>
+                                    {standupEvent.banner_image_events_page ? (
+                                        <img
+                                            src={`/storage/${standupEvent.banner_image_events_page}`}
+                                            alt={standupEvent.name}
+                                            className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105 min-h-80 md:min-h-87.5"
+                                        />
+                                    ) : (
+                                        <div
+                                            className="flex h-72 items-center justify-center text-6xl opacity-20"
+                                            style={{ background: 'rgba(255,0,128,0.08)' }}
+                                        >
+                                            🎤
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Content */}
+                                <div>
+                                    <p className="font-orbitron mb-3 text-base md:text-sm font-semibold uppercase tracking-[6px]" style={{ color: '#FF0080', opacity: 0.8 }}>
+                                        {standupEvent.category?.name}
+                                    </p>
+                                    <h2 className="font-bebas mb-2 leading-none tracking-widest text-white" style={{ fontSize: 'clamp(42px,7vw,80px)', textShadow: '0 0 40px rgba(255,0,128,0.3)' }}>
+                                        {standupEvent.name}
+                                    </h2>
+
+                                    {/* Divider */}
+                                    <div className="mb-5 flex items-center gap-3">
+                                        <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to right, #FF0080, transparent)' }} />
+                                    </div>
+
+                                    {/* Meta */}
+                                    <div className="font-rajdhani mb-2 flex flex-wrap gap-4 text-md font-medium text-white/80">
+                                        <span>📍 {standupEvent.venue}</span>
+                                        <span>📅 {formatDate(standupEvent.event_start_date)}</span>
+                                        <span>⏱ {formatTime(standupEvent.start_time)}</span>
+                                    </div>
+
+                                    {/* Description */}
+                                    {/* <p className="font-rajdhani mb-6 text-[15px] font-medium leading-relaxed text-white/65">
+                                        {truncate(standupEvent.description, 180)}
+                                    </p> */}
+
+                                    {/* Price + CTA */}
+                                    <div
+                                        className="flex items-center justify-between border-t pt-6"
+                                        style={{ borderColor: '#FF008022' }}
+                                    >
+                                        <div>
+                                            <p className="font-orbitron mb-0.5 text-[9px] uppercase tracking-[2px] text-white/80">
+                                                Entry Fee
+                                            </p>
+                                            <p className="font-bebas text-[38px] leading-none" style={{ color: '#FF0080', textShadow: '0 0 20px #FF0080' }}>
+                                                {formatPrice(standupEvent.price)}
+                                            </p>
+                                        </div>
+                                        <Link
+                                            href={`/events/${standupEvent.slug}`}
+                                            className="btn-neon"
+                                        >
+                                            Register Now →
+                                        </Link>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                );
+            })()}
 
             {/* ── About ────────────────────────────────────── */}
             <section className="border-b py-20" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>

@@ -43,6 +43,7 @@ class RegistrationController extends Controller
         $event = Event::query()
             ->where('slug', $slug)
             ->where('is_active', true)
+            ->with('category')
             ->firstOrFail();
 
         if (! $event->hasCapacity()) {
@@ -55,6 +56,7 @@ class RegistrationController extends Controller
 
         return Inertia::render('Registration/Group', [
             'event' => $event,
+            'category' => $event->category,
         ]);
     }
 
@@ -109,6 +111,13 @@ class RegistrationController extends Controller
         }
 
         return DB::transaction(function () use ($validated, $event) {
+            // Calculate total amount
+            $totalAmount = $event->price;
+
+            if ($event->category->name === 'STANDUP COMEDY' && $validated['registration_type'] === 'group') {
+                $participantCount = count($validated['participants']);
+                $totalAmount = $event->price * $participantCount;
+            }
             $registration = Registration::create([
                 'event_id'          => $event->id,
                 'registration_type' => $validated['registration_type'],
@@ -116,7 +125,7 @@ class RegistrationController extends Controller
                 'college_name'      => $validated['college_name'],
                 'contact_email'     => $validated['contact_email'],
                 'contact_phone'     => $validated['contact_phone'],
-                'total_amount'      => $event->price,
+                'total_amount'      => $totalAmount,
                 'payment_status'    => 'pending',
             ]);
 

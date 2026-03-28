@@ -122,8 +122,7 @@ class EventForm
 
                                 TextInput::make('whatsapp_link')
                                     ->nullable()
-                                    ->url()
-                                    ->required(),
+                                    ->url(),
 
                                 TextInput::make('max_participants')
                                     ->numeric()

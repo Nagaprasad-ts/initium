@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { useRef, useEffect } from 'react';
 import Layout from '@/components/Layout';
-import { NEON_PALETTE } from '@/constants';
+import { NEON_PALETTE, formatPrice } from '@/constants';
 
 interface Category {
     id: number;
@@ -86,9 +86,9 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     EVENT <span style={{ color: '#FFD700', textShadow: '0 0 28px rgba(255,215,0,0.6)' }}>BROCHURE</span>
                 </h1>
                 <div className="mx-auto mb-5 flex items-center justify-center gap-3">
-                    <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to left, #FFD700, transparent)' }} />
+                    <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to left, #FFD700, transparent)' }} />
                     <div className="h-2 w-2 rounded-full" style={{ background: '#FFD700', boxShadow: '0 0 12px #FFD700' }} />
-                    <div className="h-px max-w-[80px] flex-1" style={{ background: 'linear-gradient(to right, #FFD700, transparent)' }} />
+                    <div className="h-px max-w-20 flex-1" style={{ background: 'linear-gradient(to right, #FFD700, transparent)' }} />
                 </div>
                 <p className="font-rajdhani font-medium text-white/65" style={{ fontSize: 17 }}>
                     Complete guide to INITIUM 2026 — Las Vegas Edition
@@ -125,7 +125,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     style={{ background: 'rgba(255,215,0,0.04)', border: '1px solid rgba(255,215,0,0.15)' }}
                 >
                     {[
-                        { n: `₹${totalPrize.toLocaleString()}+`, l: 'TOTAL PRIZE POOL', color: '#FFD700' },
+                        { n: `₹${formatPrice(totalPrize)}+`,     l: 'TOTAL PRIZE POOL', color: '#FFD700' },
                         { n: String(events.length),              l: 'TOTAL EVENTS',     color: '#FF0080' },
                         { n: String(categories.length),          l: 'CLUBS',            color: '#00F5FF' },
                     ].map(({ n, l, color }) => (
@@ -172,26 +172,26 @@ export default function Brochure({ events, categories }: BrochureProps) {
                                             {ev.name}
                                         </p>
                                         <p className="font-rajdhani font-semibold" style={{ fontSize: 15, color, marginTop: 4 }}>
-                                            {typeLabel(ev)}
-                                            <span style={{ color: 'rgba(255,255,255,0.45)', margin: '0 7px' }}>·</span>
+                                            {ev.first_price === '0.00' ? '' : typeLabel(ev)}
+                                            {ev.first_price === '0.00' ? '' : <span style={{ color: 'rgba(255,255,255,0.45)', margin: '0 7px' }}>·</span>}
                                             <span style={{ color: 'rgba(255,255,255,0.72)' }}>
                                                 Fee:{' '}
                                                 <strong style={{ color: '#fff', fontWeight: 700 }}>
-                                                    ₹{parseFloat(ev.price).toLocaleString()}
+                                                    ₹{formatPrice(ev.price)} <span className='text-xs ml-1'>{ev.first_price === '0.00' ? 'Per Person' : ''}</span>
                                                 </strong>
                                             </span>
                                         </p>
                                     </div>
 
                                     {/* Right */}
-                                    <div className="text-right">
+                                    {ev.first_price === '0.00' ? null : <div className="text-right">
                                         <p className="font-bebas" style={{ fontSize: 28, color: '#FFD700', textShadow: '0 0 14px rgba(255,215,0,0.45)', lineHeight: 1 }}>
                                             ₹{parseFloat(ev.first_price).toLocaleString()}
                                         </p>
                                         <p className="font-orbitron tracking-widest" style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>
                                             1ST PRIZE
                                         </p>
-                                    </div>
+                                    </div>}
                                 </div>
                             ))}
                         </div>

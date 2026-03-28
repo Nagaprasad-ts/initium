@@ -1,6 +1,7 @@
 import { Link, Head, usePage } from '@inertiajs/react';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { formatTime } from '@/constants';
 
 interface Event {
     id: number;
@@ -18,8 +19,16 @@ interface Event {
     banner_image_mobile: string;
 }
 
+interface Category {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+}
+
 interface ShowProps {
     event: Event;
+    category: Category;
     has_capacity: boolean;
     registration_open: boolean;
 }
@@ -33,10 +42,9 @@ const formatDate = (date?: string) => {
     return `${day}-${month}-${year}`;
 };
 
-export default function Show({ event, has_capacity, registration_open }: ShowProps) {
+export default function Show({ event, category, has_capacity, registration_open }: ShowProps) {
     const { flash } = usePage<{ flash: { error?: string } }>().props;
-
-    const typeColor = event.type === 'group' ? '#7C3AED' : event.type === 'both' ? '#FFD700' : '#FF0080';
+    const typeColor = event.type === 'group' ? '#00F5FF' : event.type === 'both' ? '#FFD700' : '#FF0080';
 
     return (
         <Layout>
@@ -79,7 +87,7 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
 
                 {/* Badges */}
                 <div className="absolute left-5 top-6 flex gap-3">
-                    <span
+                    {category.name === "STANDUP COMEDY" ? "" : <span
                         className="font-orbitron rounded px-3 py-1.5 text-[9px] uppercase tracking-widest"
                         style={{
                             background: typeColor,
@@ -87,8 +95,8 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
                             boxShadow: `0 0 15px ${typeColor}`,
                         }}
                     >
-                        {event.type === 'both' ? 'Individual & Group' : event.type} Registration
-                    </span>
+                         {event.type === 'both' ? 'Individual & Group' : event.type} Registration
+                    </span>}
                     {!registration_open && (
                         <span
                             className="font-orbitron rounded px-3 py-1.5 text-[9px] uppercase tracking-widest"
@@ -110,23 +118,24 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
                 {/* Event title at bottom */}
                 <div className="absolute bottom-0 left-0 w-full px-5 pb-8 md:px-10">
                     <div className="mx-auto max-w-5xl">
+                        <span className='text-xl tracking-[5px] font-orbitron' style={{ color: typeColor }} >{category.name}</span>
                         <h1
                             className="font-bebas mb-4 text-[clamp(36px,8vw,80px)] leading-none tracking-widest text-white"
                             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
                         >
                             {event.name}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-sm font-medium text-white/60">
+                        <div className="flex flex-wrap items-center gap-6 text-sm md:text-base font-medium text-white/80">
                             <div className="flex items-center gap-2">
-                                <Clock size={15} style={{ color: typeColor }} />
-                                <span>{event.start_time} – {event.end_time}</span>
+                                <Clock size={20} style={{ color: typeColor }} />
+                                <span>{formatTime(event.start_time)} – {formatTime(event.end_time)}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <MapPin size={15} style={{ color: typeColor }} />
+                                <MapPin size={20} style={{ color: typeColor }} />
                                 <span>{event.venue}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <Calendar size={15} style={{ color: typeColor }} />
+                                <Calendar size={20} style={{ color: typeColor }} />
                                 <span>
                                     {formatDate(event.event_start_date)}
                                     {event.event_end_date && <> &amp; {formatDate(event.event_end_date)}</>}
@@ -167,7 +176,7 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
 
                                 <div className="p-7">
                                     <div className="mb-6">
-                                        <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/40">
+                                        <p className="font-orbitron mb-1 text-[9px] uppercase tracking-widest text-white/80">
                                             Registration Fee
                                         </p>
                                         <div
@@ -176,6 +185,7 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
                                         >
                                             ₹{parseFloat(event.price).toLocaleString()}
                                         </div>
+                                        <p className="font-orbitron mt-3 text-[9px] uppercase tracking-widest text-white/80">{category.name === 'STANDUP COMEDY' && event.type === 'group' && 'Per Person'}</p>
                                     </div>
 
                                     <div className="space-y-3 border-t pt-6" style={{ borderColor: typeColor + '22' }}>
@@ -207,7 +217,7 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
                                                     <Link
                                                         href={`/registration/individual/${event.slug}`}
                                                         className="btn-neon block w-full text-center"
-                                                        style={{ borderColor: '#FF0080', color: '#FF0080' }}
+                                                        style={{ borderColor: '#FF0080', color: typeColor }}
                                                     >
                                                         INDIVIDUAL REGISTRATION
                                                     </Link>
@@ -215,9 +225,12 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
                                                 {(event.type === 'group' || event.type === 'duo' || event.type === 'both') && (
                                                     <Link
                                                         href={`/registration/group/${event.slug}`}
-                                                        className="btn-neon btn-neon-purple block w-full text-center"
+                                                        className="btn-neon block w-full text-center"
+                                                        style={{ borderColor: '#00F5FF', color: typeColor }}
                                                     >
-                                                        {event.type === 'duo' ? 'DUO' : 'GROUP'} REGISTRATION
+                                                        {category.name === 'STANDUP COMEDY' && event.type === 'group'
+                                                        ? 'REGISTRATION'
+                                                        : (event.type === 'duo' ? 'DUO' : 'GROUP') + ' REGISTRATION'}
                                                     </Link>
                                                 )}
                                             </>
@@ -243,12 +256,12 @@ export default function Show({ event, has_capacity, registration_open }: ShowPro
                                 <div className="space-y-3 text-sm">
                                     {[
                                         { label: 'Date', value: `${formatDate(event.event_start_date)}${event.event_end_date ? ` & ${formatDate(event.event_end_date)}` : ''}` },
-                                        { label: 'Time', value: `${event.start_time} – ${event.end_time}` },
+                                        { label: 'Time', value: `${formatTime(event.start_time)} – ${formatTime(event.end_time)}` },
                                         { label: 'Venue', value: event.venue },
                                     ].map(({ label, value }) => (
                                         <div key={label} className="flex justify-between gap-4">
-                                            <span className="font-orbitron text-[9px] uppercase tracking-wider text-white/35">{label}</span>
-                                            <span className="text-right text-white/70">{value}</span>
+                                            <span className="font-orbitron text-[10px] uppercase tracking-wider text-white/80">{label}</span>
+                                            <span className="text-right text-xs text-white/80">{value}</span>
                                         </div>
                                     ))}
                                 </div>

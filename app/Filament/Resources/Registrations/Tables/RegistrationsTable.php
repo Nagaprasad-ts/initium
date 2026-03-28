@@ -43,6 +43,11 @@ class RegistrationsTable
                         'pending' => 'warning',
                         'failed' => 'danger',
                     }),
+                TextColumn::make('payment_id')
+                    ->label('Payment ID')
+                    ->searchable()
+                    ->copyable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

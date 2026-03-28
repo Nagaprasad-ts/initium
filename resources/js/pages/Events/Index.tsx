@@ -165,7 +165,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
                         {TYPE_LABELS[event.type] ?? event.type}
                     </span>
                     {/* Prize badge */}
-                    <span
+                    {event.first_price === '0.00' ? null : <span
                         className="font-bebas absolute right-3 bottom-3 rounded-md px-3 py-1 text-sm tracking-wide backdrop-blur-md"
                         style={{
                             background: 'rgba(0,0,0,0.75)',
@@ -174,7 +174,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
                         }}
                     >
                         🏆 {formatPrice(event.first_price)}
-                    </span>
+                    </span>}
                 </div>
 
                 {/* ── Body ── */}
