@@ -125,7 +125,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     style={{ background: 'rgba(255,215,0,0.04)', border: '1px solid rgba(255,215,0,0.15)' }}
                 >
                     {[
-                        { n: `₹${formatPrice(totalPrize)}+`,     l: 'TOTAL PRIZE POOL', color: '#FFD700' },
+                        { n: `${formatPrice(totalPrize)}+`,     l: 'TOTAL PRIZE POOL', color: '#FFD700' },
                         { n: String(events.length),              l: 'TOTAL EVENTS',     color: '#FF0080' },
                         { n: String(categories.length),          l: 'CLUBS',            color: '#00F5FF' },
                     ].map(({ n, l, color }) => (
@@ -177,7 +177,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
                                             <span style={{ color: 'rgba(255,255,255,0.72)' }}>
                                                 Fee:{' '}
                                                 <strong style={{ color: '#fff', fontWeight: 700 }}>
-                                                    ₹{formatPrice(ev.price)} <span className='text-xs ml-1'>{ev.first_price === '0.00' ? 'Per Person' : ''}</span>
+                                                    {formatPrice(ev.price)} <span className='text-xs ml-1'>{ev.first_price === '0.00' ? 'Per Person' : ''}</span>
                                                 </strong>
                                             </span>
                                         </p>
