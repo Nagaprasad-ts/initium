@@ -67,13 +67,13 @@ class EventController extends Controller
 
     public function downloadBrochure()
     {
-        $path = public_path('brochure/initium-2026.pdf');
+        $path = public_path('brochure-file/initium-2026.pdf');
         return response()->download($path, 'Initium-2026-Brochure.pdf');
     }
 
     public function viewBrochure()
     {
-        $path = public_path('brochure/initium-2026.pdf');
+        $path = public_path('brochure-file/initium-2026.pdf');
         return response()->file($path, ['Content-Type' => 'application/pdf']);
     }
 
