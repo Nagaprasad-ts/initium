@@ -75,7 +75,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
 
     return (
         <Layout>
-            <Head title="Brochure | Initium 2026" />
+            <Head title="Brochure" />
 
             {/* ── Header ───────────────────────────────────── */}
             <div className="px-5 pb-16 pt-20 text-center" style={{ background: 'radial-gradient(ellipse at 60% 0%, rgba(255,215,0,0.1) 0%, transparent 60%)' }}>

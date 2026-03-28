@@ -180,7 +180,7 @@ export default function Group({ event, category }: GroupProps) {
 
     return (
         <Layout>
-            <Head title={`Group Registration for ${event.name} | Initium 2026`} />
+            <Head title={`Group Registration for ${event.name}`} />
 
             <section className="min-h-screen px-3 py-14">
                 <div className="mx-auto max-w-3xl">

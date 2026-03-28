@@ -48,7 +48,7 @@ export default function Show({ event, category, has_capacity, registration_open 
 
     return (
         <Layout>
-            <Head title={`${event.name} | Initium 2026`} />
+            <Head title={event.name} />
 
             {/* Flash error */}
             {flash?.error && (

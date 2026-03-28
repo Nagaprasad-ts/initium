@@ -186,7 +186,7 @@ export default function Home({ events, categories }: HomeProps) {
 
     return (
         <Layout>
-            <Head title="Home | Initium 2026" />
+            <Head title="" />
 
             {/* ── Hero ─────────────────────────────────────── */}
             <section className="relative flex h-screen items-center justify-center overflow-hidden">

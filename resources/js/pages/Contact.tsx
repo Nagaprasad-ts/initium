@@ -49,7 +49,7 @@ export default function Contact() {
 
     return (
         <Layout>
-            <Head title="Contact | Initium 2026" />
+            <Head title="Contact" />
 
             <style>{`
                 /* Reveal */

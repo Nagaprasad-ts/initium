@@ -118,7 +118,7 @@ export default function Individual({ event }: IndividualProps) {
 
     return (
         <Layout>
-            <Head title={`Register for ${event.name} | Initium 2026`} />
+            <Head title={`Induvidual Registration for ${event.name}`} />
 
             <section className="min-h-screen px-5 py-14">
                 <div className="mx-auto max-w-2xl">

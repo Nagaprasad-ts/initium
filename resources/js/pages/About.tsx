@@ -56,7 +56,7 @@ export default function About() {
 
     return (
         <Layout>
-            <Head title="About — INITIUM 2026" />
+            <Head title="About" />
 
             {/* Hero */}
             <div

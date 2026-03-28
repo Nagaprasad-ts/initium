@@ -14,12 +14,14 @@ class Participant extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (Participant $participant) {
-            do {
-                $uid = 'NHI-' . str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
-            } while (static::where('uid', $uid)->exists()); // ensure uniqueness
+        static::created(function (Participant $participant) {
 
-            $participant->uid = $uid;
+            if ($participant->registration?->event?->category?->name === 'STANDUP COMEDY') {
+
+                $participant->updateQuietly([
+                    'uid' => 'NHI-' . str_pad($participant->id, 8, '0', STR_PAD_LEFT)
+                ]);
+            }
         });
     }
 

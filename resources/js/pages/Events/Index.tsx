@@ -330,7 +330,7 @@ export default function Index({
 
     return (
         <Layout>
-            <Head title="Events | Initium 2026" />
+            <Head title="Events" />
 
             {/* ═══ HERO ═══ */}
             <section
