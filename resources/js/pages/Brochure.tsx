@@ -104,7 +104,7 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     style={{ borderColor: 'rgba(255,215,0,0.2)', background: 'linear-gradient(135deg, rgba(255,215,0,0.05), rgba(0,0,0,0.3))' }}
                 >
                     <div className="animate-float mb-4 text-7xl">📄</div>
-                    <h2 className="font-bebas mb-2 tracking-widest" style={{ fontSize: 44, color: '#FFD700', textShadow: '0 0 20px #FFD700' }}>
+                    <h2 className="font-bebas mb-2 tracking-widest text-[gold] glow-gold text-5xl">
                         INITIUM 2026
                     </h2>
                     <p className="font-orbitron mb-2 tracking-[3px] text-white/70" style={{ fontSize: 12 }}>
@@ -114,8 +114,9 @@ export default function Brochure({ events, categories }: BrochureProps) {
                         New Horizon College of Engineering, Bengaluru
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <a href="/brochure/download" className="btn-neon btn-neon-gold">⬇ DOWNLOAD PDF</a>
-                        <a href="/brochure/view" target="_blank" rel="noreferrer" className="btn-neon btn-neon-cyan">👁 VIEW ONLINE</a>
+                        {/* <a href="/brochure/download" className="btn-neon btn-neon-gold">⬇ DOWNLOAD PDF</a>
+                        <a href="/brochure/view" target="_blank" rel="noreferrer" className="btn-neon btn-neon-cyan">👁 VIEW ONLINE</a> */}
+                        <p className='uppercase text-3xl text-[gold] glow-gold font-bold'>Updated Soon</p>
                     </div>
                 </div>
 

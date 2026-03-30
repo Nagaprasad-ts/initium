@@ -33,3 +33,5 @@ Route::post('/registration/submit', [RegistrationController::class, 'store'])->n
 // Route::post('/test', function () {
 //     return response()->json(['ok' => true]);
 // });
+
+Route::view('/mail', 'emails.registration-confirmation',)->name('mail.registration-confirmation');

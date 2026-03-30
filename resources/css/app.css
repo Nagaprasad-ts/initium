@@ -34,6 +34,10 @@ body {
     color: #fff;
 }
 
+.glow-gold {
+    text-shadow: 0 0 20px #FFD700;
+}
+
 /* ── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #0b0b0f; }

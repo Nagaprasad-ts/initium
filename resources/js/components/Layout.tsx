@@ -40,9 +40,8 @@ function NavBar() {
     const isActive = (href: string) => href === '/' ? url === '/' : url.startsWith(href);
     return (
         <nav className="fixed bottom-0 left-0 right-0 z-50 md:px-4 md:pb-4">
-            <div className="mx-auto flex max-w-120 justify-around rounded-lg md:rounded-[20px] md:px-1 py-1.5" style={{
+            <div className="mx-auto flex max-w-120 justify-around rounded-t-lg md:rounded-[20px] md:px-1 py-1.5 border border-[#00f5ff]/40" style={{
                 background: 'rgba(11,11,15,0.85)', backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(0,245,255,0.15)',
                 boxShadow: '0 0 30px rgba(0,245,255,0.1), 0 -4px 30px rgba(0,0,0,0.5)',
             }}>
                 {NAV_ITEMS.map(({ href, label, Icon }) => (
@@ -63,7 +62,7 @@ export default function Layout({ children }: LayoutProps) {
             <Particles />
             <main className="relative z-10">{children}</main>
             <footer className="relative z-10 mb-24 border-t py-8 text-center" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                <p className="font-bebas mb-1 text-3xl tracking-[6px]" style={{ color: '#FF0080', textShadow: '0 0 15px #FF0080' }}>
+                <p className="font-bebas mb-1 text-3xl tracking-[6px] text-[#FF0080]" style={{ textShadow: '0 0 15px #FF0080' }}>
                     INITIUM 2026
                 </p>
                 <p className="font-orbitron text-[9px] tracking-[4px] text-white">

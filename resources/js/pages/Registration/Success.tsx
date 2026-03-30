@@ -83,8 +83,7 @@ export default function Success({ registration }: SuccessProps) {
                     </div>
                     
                     <p className="mt-12 text-sm text-gray-200 font-medium leading-relaxed">
-                        A confirmation email has been sent to your registered address. <br />
-                        Please show your Registration ID at the venue on the day of the event.
+                        A confirmation email has been sent to your registered address.
                     </p>
                 </div>
             </section>

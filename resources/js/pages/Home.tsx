@@ -212,7 +212,7 @@ export default function Home({ events, categories }: HomeProps) {
                     <p className="font-rajdhani mx-auto mb-3 mt-2 max-w-125 text-white text-lg font-semibold" style={{ letterSpacing: 3 }}>
                         INTER-COLLEGIATE LITERARY & CULTURAL FEST
                     </p>
-                    <p className="font-bebas mb-9 inline-block text-xl tracking-widest bg-amber-400/20 text-[#FFD700] border border-[rgba(255,215,0,0.3)] px-5 py-1.5 [text-shadow:0_0_10px_#FFD700]">
+                    <p className="font-bebas mb-9 inline-block text-2xl tracking-widest text-[#FFD700] px-5 py-1.5 [text-shadow:0_0_10px_#FFD700]">
                         LAS VEGAS EDITION
                     </p>
                     <br />
@@ -367,8 +367,8 @@ export default function Home({ events, categories }: HomeProps) {
                         <span className="font-semibold text-white">New Horizon College of Engineering</span>. INITIUM emerged in 2022 from a
                         unified vision among students seeking a literary celebration.
                     </p>
-                    <div className="mt-5 text-center">
-                        <Link href="/about" className="btn-neon btn-neon-gold">
+                    <div className="flex flex-wrap justify-center mt-5">
+                        <Link href="/about" className="btn-neon btn-neon-cyan">
                             Know More →
                         </Link>
                     </div>
@@ -412,10 +412,8 @@ export default function Home({ events, categories }: HomeProps) {
                         ))}
                     </div>
 
-                    <div className="text-center">
-                        <Link href="/events" className="btn-neon btn-neon-gold">
-                            VIEW ALL EVENTS →
-                        </Link>
+                    <div className="flex flex-wrap justify-center">
+                        <Link href="/events" className="btn-neon btn-neon-gold">VIEW ALL EVENTS →</Link>
                     </div>
                 </section>
             )}
