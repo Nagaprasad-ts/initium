@@ -116,19 +116,19 @@ export default function Brochure({ events, categories }: BrochureProps) {
                     <div className="flex flex-wrap justify-center gap-4">
                         {/* <a href="/brochure/download" className="btn-neon btn-neon-gold">⬇ DOWNLOAD PDF</a>
                         <a href="/brochure/view" target="_blank" rel="noreferrer" className="btn-neon btn-neon-cyan">👁 VIEW ONLINE</a> */}
-                        <p className='uppercase text-3xl text-[gold] glow-gold font-bold'>Updated Soon</p>
+                        <p className='uppercase text-2xl md:text-3xl text-[gold] glow-gold font-bold'>Stay tuned for updates</p>
                     </div>
                 </div>
 
                 {/* ── Prize summary ─────────────────────────── */}
                 <div
-                    className="mb-10 flex flex-wrap justify-around gap-4 rounded-2xl p-7 text-center"
+                    className="mb-10 flex flex-wrap justify-around gap-5 rounded-2xl p-7 text-center"
                     style={{ background: 'rgba(255,215,0,0.04)', border: '1px solid rgba(255,215,0,0.15)' }}
                 >
                     {[
                         { n: `${formatPrice('100000')}+`,     l: 'TOTAL PRIZE POOL', color: '#FFD700' },
                         { n: String(events.length),              l: 'TOTAL EVENTS',     color: '#FF0080' },
-                        { n: String(categories.length),          l: 'CLUBS',            color: '#00F5FF' },
+                        { n: String(categories.length - 1),          l: 'CLUBS',            color: '#00F5FF' },
                     ].map(({ n, l, color }) => (
                         <div key={l}>
                             <p className="font-bebas" style={{ fontSize: 52, color, textShadow: `0 0 20px ${color}`, lineHeight: 1 }}>
