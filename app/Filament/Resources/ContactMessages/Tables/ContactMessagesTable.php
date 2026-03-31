@@ -33,9 +33,11 @@ class ContactMessagesTable
 
                 TextColumn::make('message')
                     ->limit(60)
-                    ->wrap(),
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
+                    ->badge()
                     ->colors([
                         'danger'  => 'unread',
                         'warning' => 'read',
@@ -82,7 +84,7 @@ class ContactMessagesTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    // DeleteBulkAction::make(),
                 ]),
             ]);
     }

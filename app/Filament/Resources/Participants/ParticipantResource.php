@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Participants;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\Participants\Pages\CreateParticipant;
 use App\Filament\Resources\Participants\Pages\EditParticipant;
 use App\Filament\Resources\Participants\Pages\ListParticipants;
@@ -10,6 +11,7 @@ use App\Filament\Resources\Participants\Schemas\ParticipantForm;
 use App\Filament\Resources\Participants\Tables\ParticipantsTable;
 use App\Models\Participant;
 use BackedEnum;
+use Illuminate\Support\Facades\Auth;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema as FilamentSchema;
 use Filament\Support\Icons\Heroicon;
@@ -51,5 +53,32 @@ class ParticipantResource extends Resource
             'view' => ViewParticipant::route('/{record}'),
             'edit' => EditParticipant::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (Auth::user()?->hasRole('core-team')) {
+            return (string) static::getModel()::whereHas('registration', 
+                fn ($q) => $q->where('payment_status', 'paid')
+            )->count();
+        }
+
+        return (string) static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'success';
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (Auth::user()?->hasRole('core-team')) {
+            $query->whereHas('registration', fn ($q) => $q->where('payment_status', 'paid'));
+        }
+
+        return $query;
     }
 }

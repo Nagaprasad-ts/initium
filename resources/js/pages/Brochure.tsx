@@ -114,9 +114,9 @@ export default function Brochure({ events, categories }: BrochureProps) {
                         New Horizon College of Engineering, Bengaluru
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        {/* <a href="/brochure/download" className="btn-neon btn-neon-gold">⬇ DOWNLOAD PDF</a>
-                        <a href="/brochure/view" target="_blank" rel="noreferrer" className="btn-neon btn-neon-cyan">👁 VIEW ONLINE</a> */}
-                        <p className='uppercase text-2xl md:text-3xl text-[gold] glow-gold font-bold'>Stay tuned for updates</p>
+                        <a href="/brochure/download" className="btn-neon btn-neon-gold">⬇ DOWNLOAD PDF</a>
+                        <a href="/brochure/view" target="_blank" rel="noreferrer" className="btn-neon btn-neon-cyan">👁 VIEW ONLINE</a>
+                        {/* <p className='uppercase text-2xl md:text-3xl text-[gold] glow-gold font-bold'>Stay tuned for updates</p> */}
                     </div>
                 </div>
 
