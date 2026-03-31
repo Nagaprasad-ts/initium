@@ -154,16 +154,18 @@ function EventCard({ event, index }: { event: Event; index: number }) {
                     {/* Gradient overlay */}
                     <div className="pointer-events-none absolute inset-0" />
                     {/* Type badge */}
-                    <span
-                        className="font-orbitron absolute top-3 left-3 rounded-md px-3 py-1.5 text-[10px] tracking-widest uppercase backdrop-blur-md"
-                        style={{
-                            background: 'rgba(0,0,0,0.7)',
-                            border: `1px solid ${color}8C`,
-                            color,
-                        }}
-                    >
-                        {TYPE_LABELS[event.type] ?? event.type}
-                    </span>
+                    {event.category?.name !== 'STANDUP COMEDY' && (
+                        <span
+                            className="font-orbitron absolute top-3 left-3 rounded-md px-3 py-1.5 text-[10px] tracking-widest uppercase backdrop-blur-md"
+                            style={{
+                                background: 'rgba(0,0,0,0.7)',
+                                border: `1px solid ${color}8C`,
+                                color,
+                            }}
+                        >
+                            {TYPE_LABELS[event.type] ?? event.type}
+                        </span>
+                    )}
                     {/* Prize badge */}
                     {event.first_price === '0.00' ? null : <span
                         className="font-bebas absolute right-3 bottom-3 rounded-md px-3 py-1 text-sm tracking-wide backdrop-blur-md"
