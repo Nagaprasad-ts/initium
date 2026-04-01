@@ -44,7 +44,7 @@ const formatDate = (date?: string) => {
 
 export default function Show({ event, category, has_capacity, registration_open }: ShowProps) {
     const { flash } = usePage<{ flash: { error?: string } }>().props;
-    const typeColor = event.type === 'group' ? '#00F5FF' : event.type === 'both' ? '#FFD700' : '#FF0080';
+    const typeColor = event.type === 'group' ? '#00F5FF' : event.type === 'both' ? '#00F5FF' : '#FF0080';
 
     return (
         <Layout>
@@ -217,7 +217,7 @@ export default function Show({ event, category, has_capacity, registration_open 
                                                     <Link
                                                         href={`/registration/individual/${event.slug}`}
                                                         className="btn-neon block w-full text-center"
-                                                        style={{ borderColor: '#FF0080', color: typeColor }}
+                                                        style={{ borderColor: '#FF0080', color: '#FF0080' }}
                                                     >
                                                         INDIVIDUAL REGISTRATION
                                                     </Link>
@@ -225,8 +225,8 @@ export default function Show({ event, category, has_capacity, registration_open 
                                                 {(event.type === 'group' || event.type === 'duo' || event.type === 'both') && (
                                                     <Link
                                                         href={`/registration/group/${event.slug}`}
-                                                        className="btn-neon block w-full text-center"
-                                                        style={{ borderColor: '#00F5FF', color: typeColor }}
+                                                        className="btn-neon btn-neon-cyan block w-full text-center"
+                                                        style={{ borderColor: typeColor, color: typeColor }}
                                                     >
                                                         {category.name === 'STANDUP COMEDY' && event.type === 'group'
                                                         ? 'REGISTRATION'

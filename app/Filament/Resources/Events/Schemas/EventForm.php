@@ -54,6 +54,7 @@ class EventForm
                                         'individual' => 'Individual',
                                         'duo' => 'Duo',
                                         'group' => 'Group',
+                                        'both' => 'Both',
                                     ])
                                     ->reactive()
                                     ->required()
