@@ -77,6 +77,7 @@ class RegistrationsTable
                         ->hiddenLabel()
                         ->icon('heroicon-o-envelope')
                         ->color('info')
+                        ->visible(fn () => Auth::user()?->hasRole('super_admin'))
                         ->requiresConfirmation()
                         ->modalHeading('Resend Confirmation Email')
                         ->modalDescription(fn ($record) => "Resend confirmation email to {$record->contact_email}?")
