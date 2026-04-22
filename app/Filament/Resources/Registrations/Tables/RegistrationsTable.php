@@ -16,6 +16,10 @@ use Filament\Actions\Action;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationConfirmationMail;
+use Filament\Notifications\Notification;
+
 use Filament\Actions\ActionGroup;
 
 class RegistrationsTable
@@ -69,6 +73,31 @@ class RegistrationsTable
                         ->hiddenLabel(),
                     EditAction::make()
                         ->hiddenLabel(),
+                    Action::make('resend_email')
+                        ->hiddenLabel()
+                        ->icon('heroicon-o-envelope')
+                        ->color('info')
+                        ->requiresConfirmation()
+                        ->modalHeading('Resend Confirmation Email')
+                        ->modalDescription(fn ($record) => "Resend confirmation email to {$record->contact_email}?")
+                        ->action(function ($record) {
+                            try {
+                                $registration = $record->load(['event', 'participants']);
+                                Mail::to($registration->contact_email)
+                                    ->send(new RegistrationConfirmationMail($registration));
+
+                                Notification::make()
+                                    ->title('Email sent successfully')
+                                    ->success()
+                                    ->send();
+                            } catch (\Exception $e) {
+                                Notification::make()
+                                    ->title('Failed to send email')
+                                    ->body($e->getMessage())
+                                    ->danger()
+                                    ->send();
+                            }
+                        }),
                 ])
                 ->buttonGroup(),
             ])
