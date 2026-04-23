@@ -397,7 +397,7 @@ export default function Index({
                     className="font-rajdhani font-medium text-white/50"
                     style={{ fontSize: 15, letterSpacing: 2 }}
                 >
-                    {events.length} events across {categories.length} clubs
+                    {events.length} events across {categories.length - 1} clubs
                 </p>
             </section>
 

@@ -34,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('Initium 2026')
             ->sidebarCollapsibleOnDesktop()
+            // ->topNavigation()
             ->colors([
                 'primary' => Color::Amber,
             ])

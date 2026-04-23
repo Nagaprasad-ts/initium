@@ -16,12 +16,15 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema as FilamentSchema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ParticipantResource extends Resource
 {
     protected static ?string $model = Participant::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Registration Mangaement';
 
     public static function canCreate(): bool
     {

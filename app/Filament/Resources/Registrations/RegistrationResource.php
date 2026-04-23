@@ -18,12 +18,15 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema as FilamentSchema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class RegistrationResource extends Resource
 {
     protected static ?string $model = Registration::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTicket;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Registration Mangaement';
 
     public static function form(FilamentSchema $schema): FilamentSchema
     {
