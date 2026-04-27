@@ -78,13 +78,15 @@ class Event extends Model
 
     public function isRegistrationOpen(): bool
     {
-        $alwaysOpenSlugs = ['the-silver-spotlight'];
+        // $alwaysOpenSlugs = ['the-silver-spotlight'];
 
-        if (in_array($this->slug, $alwaysOpenSlugs)) {
-            return true;
-        }
+        // if (in_array($this->slug, $alwaysOpenSlugs)) {
+        //     return true;
+        // }
 
-        return now()->lt($this->event_start_date->copy()->subDay()->endOfDay());
+        // return now()->lt($this->event_start_date->copy()->subDay()->endOfDay());
+
+        return true;
     }
 
     /**
