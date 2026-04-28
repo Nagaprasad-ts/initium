@@ -79,7 +79,7 @@ class Event extends Model
     public function isRegistrationOpen(): bool
     {
         // $alwaysOpenSlugs = ['skyfall', 'the-late-night-special', 'the-silver-spotlight', 'bgns', 'all-in-showdown'];
-        $alwaysOpenSlugs = ['shamik-chakrabarti', 'two-of-a-kind', 'sin-city-silhouettes', 'clash-of-kings', 'stack-your-luck', 'ipl-auction', 'all-in-showdown'];
+        $alwaysOpenSlugs = ['shamik-chakrabarti', 'two-of-a-kind', 'sin-city-silhouettes', 'clash-of-kings', 'stack-your-luck', 'ipl-auction'];
 
         if (in_array($this->slug, $alwaysOpenSlugs)) {
             return true;
