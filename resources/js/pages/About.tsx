@@ -12,12 +12,12 @@ const TIMELINE = [
 ];
 
 const CLUBS = [
-    { name: 'Literary Club', desc: 'Words that stir the soul — debates, declamations, and dramatic performances.', icon: '/images/lit-club.png', color: '#FF0080' },
-    { name: 'Music Club', desc: 'Melodies that echo through the night — from solo spotlights to grand choruses.', icon: '/images/music-club.png', color: '#00F5FF' },
-    { name: 'Media Club', desc: 'Digital artists and esports warriors — creativity meets competition.', icon: '/images/media-club.png', color: '#7C3AED' },
-    { name: 'Art Club', desc: 'Where imagination takes physical form — structures that defy expectation.', icon: '/images/art-club.png', color: '#FFD700' },
-    { name: 'Dance Club', desc: 'Bodies in motion, rhythm in heart — from duets to battle royales.', icon: '/images/dance-club.png', color: '#FF0080' },
-    { name: 'Fashion Club', desc: 'Runway royalty under neon lights — style as a form of artistry.', icon: '/images/fashion-club.png', color: '#00F5FF' },
+    { name: 'Literary Club', desc: 'Words that stir the soul — debates, declamations, and dramatic performances.', icon: '/images/lit-club.webp', color: '#FF0080' },
+    { name: 'Music Club', desc: 'Melodies that echo through the night — from solo spotlights to grand choruses.', icon: '/images/music-club.webp', color: '#00F5FF' },
+    { name: 'Media Club', desc: 'Digital artists and esports warriors — creativity meets competition.', icon: '/images/media-club.webp', color: '#7C3AED' },
+    { name: 'Art Club', desc: 'Where imagination takes physical form — structures that defy expectation.', icon: '/images/art-club.webp', color: '#FFD700' },
+    { name: 'Dance Club', desc: 'Bodies in motion, rhythm in heart — from duets to battle royales.', icon: '/images/dance-club.webp', color: '#FF0080' },
+    { name: 'Fashion Club', desc: 'Runway royalty under neon lights — style as a form of artistry.', icon: '/images/fashion-club.webp', color: '#00F5FF' },
 ];
 
 const STAT_BAR = [

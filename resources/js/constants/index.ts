@@ -153,10 +153,10 @@ export const VENUE_INFO = [
 ];
 
 export const CATEGORY_IMAGES: Record<string, string> = {
-    LITCLUB:     '/images/lit-club.png',
-    ARTCLUB:     '/images/art-club.png',
-    MUSICCLUB:   '/images/music-club.png',
-    MEDIACLUB:   '/images/media-club.png',
-    FASHIONCLUB: '/images/fashion-club.png',
-    DANCECLUB:   '/images/dance-club.png',
+    LITCLUB:     '/images/lit-club.webp',
+    ARTCLUB:     '/images/art-club.webp',
+    MUSICCLUB:   '/images/music-club.webp',
+    MEDIACLUB:   '/images/media-club.webp',
+    FASHIONCLUB: '/images/fashion-club.webp',
+    DANCECLUB:   '/images/dance-club.webp',
 };

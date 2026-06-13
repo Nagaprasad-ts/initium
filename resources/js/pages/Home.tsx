@@ -205,8 +205,8 @@ export default function Home({ events, categories }: HomeProps) {
                     </p> */}
                     {/* <NeonTitle /> */}
                     <div className='flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12'>
-                        <img src="/images/nhce-logo.png" alt='Initium 2026 - Las Vegas' className='w-52 h-26 md:w-62 md:h-34' />
-                        <img src="/images/initium-logo.png" alt='Initium 2026 - Las Vegas' className='w-82 h-56 md:w-72 md:h-48' />
+                        <img src="/images/nhce-logo.webp" alt='Initium 2026 - Las Vegas' className='w-52 h-26 md:w-62 md:h-34' />
+                        <img src="/images/initium-logo.webp" alt='Initium 2026 - Las Vegas' className='w-82 h-56 md:w-72 md:h-48' />
                     </div>
                     <p className="font-orbitron mt-2 text-white font-semibold text-md" style={{ letterSpacing: 6 }}> 27 April 2026</p>
                     <p className="font-rajdhani mx-auto mb-3 mt-2 max-w-125 text-white text-lg font-semibold" style={{ letterSpacing: 3 }}>
