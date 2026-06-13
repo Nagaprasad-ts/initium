@@ -190,12 +190,12 @@ export default function Home({ events, categories }: HomeProps) {
 
             {/* ── Hero ─────────────────────────────────────── */}
             <section className="relative flex h-screen items-center justify-center overflow-hidden">
-                {/* <video
+                <video
                     autoPlay muted loop playsInline
                     className="absolute inset-0 h-full w-full object-cover"
                     style={{ zIndex: 0, opacity: 0.55 }}
                     src="/videos/bg-video-two.mp4"
-                /> */}
+                />
                 <div className="absolute inset-0" style={{ zIndex: 1, background: 'linear-gradient(to bottom, rgba(11,11,15,0.3) 0%, rgba(11,11,15,0.15) 50%, rgba(11,11,15,0.7) 100%)' }} />
                 <div className="grid-bg absolute inset-0 opacity-30" style={{ zIndex: 2 }} />
 
